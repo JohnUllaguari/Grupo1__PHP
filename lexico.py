@@ -1,3 +1,76 @@
 import ply.lex
 import ply.yacc
 print("PLY instalado correctamente")
+
+# ----------------------
+#  (Joseph Miranda)
+# ----------------------
+
+# ----------------------
+#  (Steveen Gomez)
+# ----------------------
+
+
+# ----------------------
+# Expresiones Regulares en funciones(JOHN ULLAGUARI)
+# ----------------------
+
+# Cadenas (comillas simples o dobles)
+def t_STRING(t):
+    r'(\"([^\\\n]|(\\.))*?\")|(\'([^\\\n]|(\\.))*?\')'
+    return t
+
+# Flotantes (número con punto decimal)
+def t_FLOAT(t):
+    r'\d+\.\d+'
+    t.value = float(t.value)
+    return t
+
+# Enteros
+def t_NUMBER(t):
+    r'(0x[0-9A-Fa-f]+)|(0[0-7]*)|([1-9]\d*)'
+    if t.value.startswith("0x") or t.value.startswith("0X"):
+        t.value = int(t.value, 16)
+    elif t.value.startswith("0") and len(t.value) > 1:
+        t.value = int(t.value, 8)
+    else:
+        t.value = int(t.value)
+    return t
+
+# Variables: comienzan con $
+def t_ID(t):
+    r'\$[a-zA-Z_][a-zA-Z0-9_]*'
+    # Quitamos el símbolo $ para verificar si es palabra reservada
+    nombre = t.value[1:]
+    if nombre in reserved:
+        t.type = reserved[nombre]
+    return t
+
+# Comentarios de una línea
+def t_COMMENT(t):
+    r'(//.*)|(#.*)'
+    pass  # Los comentarios se ignoran
+
+# ----------------------
+# Ignorar espacios y tabs
+# ----------------------
+t_ignore = ' \t'
+
+# ----------------------
+# Contador de líneas
+# ----------------------
+def t_newline(t):
+    r'\n+'
+    t.lexer.lineno += len(t.value)
+
+# ----------------------
+# Manejo de errores
+# ----------------------
+def t_error(t):
+    print(f"[ERROR LÉXICO] Caracter no válido '{t.value[0]}' en la línea {t.lineno}")
+    t.lexer.skip(1)
+
+# ----------------------
+# Crear el analizador léxico
+# ----------------------
+lexer = lex.lex()
