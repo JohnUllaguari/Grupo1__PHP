@@ -1,18 +1,23 @@
+//Clases, atributos, métodos
+#Comentarios de prueba tambien
+
 <?php
-function obtenerPromedio($notas) {
-    $total = 0;
-    foreach ($notas as $nota) {
-        $total += $nota;
+class Persona {
+    private $nombre;
+    private $edad;
+
+    function __construct($nombre, $edad) {
+        $this->nombre = $nombre;
+        $this->edad = $edad;
     }
-    return $total / count($notas);
+
+    public function saludar() {
+        echo "Hola, soy " . $this->nombre . " y tengo " . $this->edad . " años.";
+    }
 }
 
-$notas = array(8, 7.5, 9);
-$promedio = obtenerPromedio($notas);
+$alumno = new Persona("Luis", 20);
+$alumno->saludar();
+edad = 20;
 
-if ($promedio >= 7) {
-    echo "Aprobado";
-} else {
-    echo "Reprobado";
-}
 ?>
