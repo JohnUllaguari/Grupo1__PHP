@@ -3,8 +3,74 @@ import ply.yacc
 print("PLY instalado correctamente")
 
 # ----------------------
-#  (Joseph Miranda)
+#  (Joseph Miranda) Palabras reservadas y Operadores
 # ----------------------
+reserved = {
+    'if': 'IF',
+    'else': 'ELSE',
+    'elseif': 'ELSEIF',
+    'while': 'WHILE',
+    'for': 'FOR',
+    'foreach': 'FOREACH',
+    'echo': 'ECHO',
+    'function': 'FUNCTION',
+    'return': 'RETURN',
+    'class': 'CLASS',
+    'extends': 'EXTENDS',
+    'implements': 'IMPLEMENTS',
+    'interface': 'INTERFACE',
+    'public': 'PUBLIC',
+    'protected': 'PROTECTED',
+    'private': 'PRIVATE',
+    'static': 'STATIC',
+    'try': 'TRY',
+    'catch': 'CATCH',
+    'finally': 'FINALLY',
+    'throw': 'THROW',
+    'new': 'NEW',
+    'null': 'NULL',
+    'true': 'TRUE',
+    'false': 'FALSE',
+    'and': 'AND',
+    'or': 'OR',
+}
+
+# OPERADORES
+# Operadores aritméticos
+t_PLUS = r'\+'
+t_MINUS = r'-'
+t_TIMES = r'\*'
+t_DIVIDE = r'/'
+t_MOD = r'%'
+
+# Operadores de asignación
+t_ASSIGN = r'='
+t_PLUSEQ = r'\+='
+t_MINUSEQ = r'-='
+t_TIMESEQ = r'\*='
+t_DIVEQ = r'/='
+t_MODEQ = r'%='
+
+# Operadores de comparación
+t_EQ = r'=='
+t_EEQ = r'==='
+t_NEQ = r'!='
+t_NNEQ = r'!=='
+t_LT = r'<'
+t_GT = r'>'
+t_LE = r'<='
+t_GE = r'>='
+
+# Operadores lógicos
+t_ANDAND = r'&&'
+t_OROR = r'\|\|'
+t_NOT = r'!'
+
+# Incremento y decremento
+t_INCR = r'\+\+'
+t_DECR = r'--'
+
+
 
 # ----------------------
 #  (Steveen Gomez)
