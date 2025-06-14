@@ -105,17 +105,19 @@ def t_NUMBER(t):
 
 # Variables: comienzan con $
 def t_ID(t):
-    r'\$[a-zA-Z_][a-zA-Z0-9_]*'
-    # Quitamos el símbolo $ para verificar si es palabra reservada
-    nombre = t.value[1:]
+    r'(\$?[a-zA-Z_][a-zA-Z0-9_]*)'
+    nombre = t.value.lstrip('$')
     if nombre in reserved:
         t.type = reserved[nombre]
     return t
 
-# Comentarios de una línea
-def t_COMMENT(t):
-    r'(//.*)|(#.*)'
-    pass  # Los comentarios se ignoran
+def t_PHP_OPEN(t):
+    r'<\?php'
+    pass
+
+def t_PHP_CLOSE(t):
+    r'\?>'
+    pass
 
 # ----------------------
 # Ignorar espacios y tabs
