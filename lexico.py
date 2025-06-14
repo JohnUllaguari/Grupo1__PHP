@@ -1,5 +1,8 @@
-import ply.lex
+import ply.lex as lex
 import ply.yacc
+import os
+import subprocess
+from datetime import datetime
 print("PLY instalado correctamente")
 
 # ----------------------
