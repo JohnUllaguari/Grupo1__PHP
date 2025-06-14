@@ -5,8 +5,8 @@ import os
 # ----------------------------
 # CONFIGURACIÓN
 # ----------------------------
-usuario_git = "rasaraguro"  # Lo vamos a ir cambiando conforme quien haga las pruebas
-archivo_php = "ejemplos/ejemplo1.php"  # Lo vamos cambiando segun el algoritmo probado
+usuario_git = "JohnUllaguari"  # Lo vamos a ir cambiando conforme quien haga las pruebas
+archivo_php = "ejemplos/algoritmo1.php"  # Lo vamos cambiando segun el algoritmo probado
 carpeta_logs = "logs"
 
 # ----------------------------
