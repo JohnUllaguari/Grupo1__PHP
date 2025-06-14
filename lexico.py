@@ -142,3 +142,32 @@ def t_error(t):
 # Crear el analizador léxico
 # ----------------------
 lexer = lex.lex()
+
+# Prueba de los diferentes ejemplos por intengrante
+# Se cambiara el usuario acorde al algoritmo
+nombre_archivo = "algoritmo2.php"
+usuario = "JosephMiranda87"
+
+ruta_archivo = os.path.join("algoritmos", nombre_archivo)
+carpeta_logs = "logs"
+os.makedirs(carpeta_logs, exist_ok=True)
+
+fecha_hora = datetime.now().strftime("%d-%m-%Y-%Hh%M")
+nombre_log = f"lexico-{usuario}-{fecha_hora}.txt"
+ruta_log = os.path.join(carpeta_logs, nombre_log)
+
+# ========== Análisis léxico ==========
+with open(ruta_archivo, 'r', encoding='utf-8') as archivo:
+    data = archivo.read()
+    lexer.input(data)
+
+    with open(ruta_log, 'w', encoding='utf-8') as log:
+        log.write(f"Tokens de {nombre_archivo} (usuario: {usuario}):\n\n")
+        try:
+            for tok in lexer:
+                log.write(f"{tok.type} ({tok.value}) - línea {tok.lineno}\n")
+        except Exception as e:
+            log.write(f"[LEX ERROR]: {e}\n")
+
+print(f"Análisis léxico completado. Log guardado en: {ruta_log}")
+
