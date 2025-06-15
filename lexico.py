@@ -74,10 +74,44 @@ t_INCR = r'\+\+'
 t_DECR = r'--'
 
 
+# ----------------------
+#  (Steveen Gomez) Delimitadores
+# ----------------------
+t_PUNTOYCOMA = r';'
+t_LLAVEIZQ = r'\{'
+t_LLAVEDER = r'\}'
+t_PARENIZQ = r'\('
+t_PARENDER = r'\)'
+t_CORCHETEIZQ = r'\['
+t_CORCHETEDER = r'\]'
+t_COMA = r','
+t_DOSPUNTOS = r':'
 
-# ----------------------
-#  (Steveen Gomez)
-# ----------------------
+# Lista de tokens incluyendo los delimitadores y palabras reservadas
+tokens = [
+    # Operadores aritméticos
+    'PLUS', 'MINUS', 'TIMES', 'DIVIDE', 'MOD',
+
+    # Operadores de asignación
+    'ASSIGN', 'PLUSEQ', 'MINUSEQ', 'TIMESEQ', 'DIVEQ', 'MODEQ',
+
+    # Operadores de comparación
+    'EQ', 'EEQ', 'NEQ', 'NNEQ', 'LT', 'GT', 'LE', 'GE',
+
+    # Operadores lógicos
+    'ANDAND', 'OROR', 'NOT',
+
+    # Incremento/decremento
+    'INCR', 'DECR',
+
+    # Delimitadores
+    'PUNTOYCOMA', 'LLAVEIZQ', 'LLAVEDER', 'PARENIZQ', 'PARENDER',
+    'CORCHETEIZQ', 'CORCHETEDER', 'COMA', 'DOSPUNTOS',
+
+    # Literales y otros
+    'ID', 'NUMBER', 'FLOAT', 'STRING',
+    'PHP_OPEN', 'PHP_CLOSE'
+] + list(reserved.values())
 
 
 # ----------------------
@@ -122,6 +156,16 @@ def t_PHP_CLOSE(t):
     r'\?>'
     pass
 
+# Comentarios (opcional)
+def t_COMMENT(t):
+    r'(//.*|\#.*)'
+    pass
+
+# Punto (concatenación en PHP)
+t_CONCAT = r'\.'
+tokens.append('CONCAT')
+
+
 # ----------------------
 # Ignorar espacios y tabs
 # ----------------------
@@ -148,8 +192,8 @@ lexer = lex.lex()
 
 # Prueba de los diferentes ejemplos por intengrante
 # Se cambiara el usuario acorde al algoritmo
-nombre_archivo = "algoritmo2.php"
-usuario = "JosephMiranda87"
+nombre_archivo = "algoritmo3.php"
+usuario = "SteevenGD"
 
 ruta_archivo = os.path.join("algoritmos", nombre_archivo)
 carpeta_logs = "logs"
@@ -158,7 +202,6 @@ os.makedirs(carpeta_logs, exist_ok=True)
 fecha_hora = datetime.now().strftime("%d-%m-%Y-%Hh%M")
 nombre_log = f"lexico-{usuario}-{fecha_hora}.txt"
 ruta_log = os.path.join(carpeta_logs, nombre_log)
-
 # ========== Análisis léxico ==========
 with open(ruta_archivo, 'r', encoding='utf-8') as archivo:
     data = archivo.read()
