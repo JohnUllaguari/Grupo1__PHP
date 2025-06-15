@@ -1,0 +1,7 @@
+Tokens de algoritmo1.php (usuario: JohnUllaguari):
+
+CLASS (class) - línea 5
+ID (Persona) - línea 5
+LLAVEIZQ ({) - línea 5
+PRIVATE (private) - línea 6
+[LEX ERROR]: /workspaces/Grupo1__PHP/lexico.py:144: Rule 't_VARIABLE' returned an unknown token type 'VARIABLE'
