@@ -51,7 +51,37 @@ def p_parameter_list(p):
     else:
         p[0] = p[1] + [p[3]]
 
+#-----------------------------------------------------------------------------------------------#
+# --- Estructura de datos: array() largo asociativo (John Ullaguari)
+def p_array_long(p):
+    'expression : ID LPAREN array_pairs RPAREN'
+    p[0] = ('array_assoc', p[1], p[3])
 
+def p_array_pairs(p):
+    '''array_pairs : STRING DOUBLEARROW expression
+                   | array_pairs COMMA STRING DOUBLEARROW expression'''
+    if len(p) == 4:
+        p[0] = [(p[1], p[3])]
+    else:
+        p[0] = p[1] + [(p[3], p[5])]
+
+# --- Estructura de control: foreach (John Ullaguari)
+def p_foreach_loop(p):
+    'statement : FOREACH LPAREN VARIABLE AS VARIABLE RPAREN block'
+    p[0] = ('foreach', p[3], p[5], p[7])
+
+# --- Tipo de función: método estático dentro de clase (John Ullaguari)
+def p_class_static_method(p):
+    'class_statement : STATIC FUNCTION ID LPAREN RPAREN block'
+    p[0] = ('static_method', p[3], p[6])
+
+# --- Ingreso de datos por teclado con readline() (Young_Lopez XD)
+def p_input_read(p):
+    'expression : ID LPAREN STRING RPAREN'
+    if p[1] == "readline":
+        p[0] = ('input_readline', p[3])
+    else:
+        p[0] = ('func_call', p[1], [p[3]])
 
 
 
@@ -136,8 +166,8 @@ parser = yacc.yacc()
 
 
 # Pruebas
-nombre_archivo = "algoritmo2.php"  # archivo PHP a analizar
-usuario = "JosephMiranda87"          # cambia por tu usuario Git
+nombre_archivo = "algoritmo2_1.php"  # archivo PHP a analizar
+usuario = "JohnUllaguari"          # cambia por tu usuario Git
 ruta_archivo = os.path.join("algoritmos", nombre_archivo)
 
 # Crear carpeta logs si no existe

@@ -13,7 +13,7 @@ reserved = {
     'private': 'PRIVATE', 'static': 'STATIC', 'try': 'TRY', 'catch': 'CATCH',
     'finally': 'FINALLY', 'throw': 'THROW', 'new': 'NEW', 'null': 'NULL',
     'true': 'TRUE', 'false': 'FALSE', 'and': 'AND', 'or': 'OR', 
-    'define': 'DEFINE', 'variable': 'VARIABLE'
+    'define': 'DEFINE', 'variable': 'VARIABLE', 'as':'AS'
 }
 
 # Operadores
@@ -38,6 +38,7 @@ t_LT    = r'<'
 t_GT    = r'>'
 t_LE    = r'<='
 t_GE    = r'>='
+t_DOUBLEARROW = r'=>'
 
 t_ANDAND = r'&&'
 t_OROR   = r'\|\|'
@@ -68,7 +69,7 @@ tokens = [
     'SEMICOLON', 'LBRACE', 'RBRACE', 'LPAREN', 'RPAREN',
     'LBRACKET', 'RBRACKET', 'COMMA', 'COLON',
     'ID', 'NUMBER', 'FLOAT', 'STRING',
-    'PHP_OPEN', 'PHP_CLOSE', 'CONCAT'
+    'PHP_OPEN', 'PHP_CLOSE', 'CONCAT', 'DOUBLEARROW','AS'
 ] + list(reserved.values())
 
 # ----------------------
