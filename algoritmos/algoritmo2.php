@@ -18,5 +18,4 @@ $_valor2 = 5;
 $_resultadoFinal = miFuncion($valor1, $valor2);
 echo $_resultadoFinal; // Imprimirá 15
 
-saludar("Joseph");
 ?>
