@@ -12,7 +12,8 @@ reserved = {
     'interface': 'INTERFACE', 'public': 'PUBLIC', 'protected': 'PROTECTED',
     'private': 'PRIVATE', 'static': 'STATIC', 'try': 'TRY', 'catch': 'CATCH',
     'finally': 'FINALLY', 'throw': 'THROW', 'new': 'NEW', 'null': 'NULL',
-    'true': 'TRUE', 'false': 'FALSE', 'and': 'AND', 'or': 'OR',
+    'true': 'TRUE', 'false': 'FALSE', 'and': 'AND', 'or': 'OR', 
+    'define': 'DEFINE', 'variable': 'VARIABLE'
 }
 
 # Operadores
@@ -46,15 +47,16 @@ t_INCR = r'\+\+'
 t_DECR = r'--'
 
 # Delimitadores
-t_PUNTOYCOMA    = r';'
-t_LLAVEIZQ      = r'\{'
-t_LLAVEDER      = r'\}'
-t_PARENIZQ      = r'\('
-t_PARENDER      = r'\)'
-t_CORCHETEIZQ   = r'\['
-t_CORCHETEDER   = r'\]'
-t_COMA          = r','
-t_DOSPUNTOS     = r':'
+t_SEMICOLON  = r';'
+t_LBRACE     = r'\{'
+t_RBRACE     = r'\}'
+t_LPAREN     = r'\('
+t_RPAREN     = r'\)'
+t_LBRACKET   = r'\['
+t_RBRACKET   = r'\]'
+t_COMMA      = r','
+t_COLON     = r':'
+t_CONCAT = r'\.'
 
 # Lista completa de tokens
 tokens = [
@@ -63,8 +65,8 @@ tokens = [
     'EQ', 'EEQ', 'NEQ', 'NNEQ', 'LT', 'GT', 'LE', 'GE',
     'ANDAND', 'OROR', 'NOT',
     'INCR', 'DECR',
-    'PUNTOYCOMA', 'LLAVEIZQ', 'LLAVEDER', 'PARENIZQ', 'PARENDER',
-    'CORCHETEIZQ', 'CORCHETEDER', 'COMA', 'DOSPUNTOS',
+    'SEMICOLON', 'LBRACE', 'RBRACE', 'LPAREN', 'RPAREN',
+    'LBRACKET', 'RBRACKET', 'COMMA', 'COLON',
     'VARIABLE', 'ID', 'NUMBER', 'FLOAT', 'STRING',
     'PHP_OPEN', 'PHP_CLOSE', 'CONCAT'
 ] + list(reserved.values())
@@ -105,17 +107,16 @@ def t_ID(t):
 
 def t_PHP_OPEN(t):
     r'<\?php'
-    pass
+    return t
 
 def t_PHP_CLOSE(t):
     r'\?>'
-    pass
+    return t
 
 def t_COMMENT(t):
     r'(//.*|\#.*)'
     pass
 
-t_CONCAT = r'\.'
 
 # Ignorar espacios y tabulaciones
 t_ignore = ' \t'
