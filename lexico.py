@@ -67,7 +67,7 @@ tokens = [
     'INCR', 'DECR',
     'SEMICOLON', 'LBRACE', 'RBRACE', 'LPAREN', 'RPAREN',
     'LBRACKET', 'RBRACKET', 'COMMA', 'COLON',
-    'VARIABLE', 'ID', 'NUMBER', 'FLOAT', 'STRING',
+    'ID', 'NUMBER', 'FLOAT', 'STRING',
     'PHP_OPEN', 'PHP_CLOSE', 'CONCAT'
 ] + list(reserved.values())
 
