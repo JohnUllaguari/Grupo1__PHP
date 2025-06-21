@@ -16,4 +16,3 @@ $nombre = readline("Ingrese su nombre: ");
 echo $nombre;
 
 ?>
-

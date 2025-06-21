@@ -54,7 +54,7 @@ def p_parameter_list(p):
 #-----------------------------------------------------------------------------------------------#
 # --- Estructura de datos: array() largo asociativo (John Ullaguari)
 def p_array_long(p):
-    'expression : ID LPAREN array_pairs RPAREN'
+    '''expression : ID LPAREN array_pairs RPAREN'''
     p[0] = ('array_assoc', p[1], p[3])
 
 def p_array_pairs(p):
@@ -72,8 +72,38 @@ def p_foreach_loop(p):
 
 # --- Tipo de función: método estático dentro de clase (John Ullaguari)
 def p_class_static_method(p):
-    'class_statement : STATIC FUNCTION ID LPAREN RPAREN block'
+    'class_static_method : STATIC FUNCTION ID LPAREN RPAREN block'
     p[0] = ('static_method', p[3], p[6])
+
+# --- Conector de métodos estáticos o sentencias normales dentro de la clase (John Ullaguari)
+def p_class_statement(p):
+    '''class_statement : class_static_method
+                       | statement'''
+    p[0] = p[1]
+
+# --- Lista de sentencias dentro del cuerpo de la clase (John Ullaguari)
+def p_class_body(p):
+    '''class_body : class_statement
+                  | class_body class_statement'''
+    if len(p) == 2:
+        p[0] = [p[1]]
+    else:
+        p[0] = p[1] + [p[2]]
+
+# --- Definición de clase como statement principal (John Ullaguari)
+def p_class_def(p):
+    'statement : CLASS ID LBRACE class_body RBRACE'
+    p[0] = ('class_def', p[2], p[4])
+
+# --- Echo como statement (John Ullaguari)
+def p_statement_echo(p):
+    'statement : ECHO expression SEMICOLON'
+    p[0] = ('echo', p[2])
+
+# --- Funciones de expresión como statement (readline, etc.) (John Ullaguari)
+def p_statement_expression(p):
+    'statement : expression SEMICOLON'
+    p[0] = ('stmt_expr', p[1])
 
 # --- Ingreso de datos por teclado con readline() (Young_Lopez XD)
 def p_input_read(p):
@@ -82,12 +112,6 @@ def p_input_read(p):
         p[0] = ('input_readline', p[3])
     else:
         p[0] = ('func_call', p[1], [p[3]])
-
-
-
-
-
-
 
 
 # EXTRAS PARA FUNCIONALIDADES DE LAS DEFINICIONES - Joseph Miranda
@@ -102,8 +126,8 @@ def p_expression_arithmetic(p):
                   | NUMBER
                   | FLOAT
                   | STRING
-                  | function_call
-                  | array_access'''
+                  | ID LPAREN expression_list RPAREN
+                  | VARIABLE LBRACKET expression RBRACKET'''
     p[0] = ('expression',) + tuple(p[1:])
 
 def p_assignment(p):
@@ -125,7 +149,6 @@ def p_return_statement(p):
 def p_array_function(p):
     'expression : ID LPAREN RPAREN'
     p[0] = ('array_call', p[1])
-
 
 def p_expression_incr(p):
     'expression : expression INCR'
@@ -159,14 +182,12 @@ def p_error(p):
         print("[SYNTACTIC ERROR] Unexpected end of input")
 
 
-
-
-#Crear parser
+# Crear parser
 parser = yacc.yacc()
 
 
 # Pruebas
-nombre_archivo = "algoritmo2_1.php"  # archivo PHP a analizar
+nombre_archivo = "algoritmos2_1.php"  # archivo PHP a analizar
 usuario = "JohnUllaguari"          # cambia por tu usuario Git
 ruta_archivo = os.path.join("algoritmos", nombre_archivo)
 
@@ -194,6 +215,3 @@ with open(ruta_archivo, 'r', encoding='utf-8') as archivo:
             log.write(f"[SYNTACTIC ERROR]: {e}\n")
 
 print(f"Análisis sintáctico completado. Log guardado en: {ruta_log}")
-
-
-

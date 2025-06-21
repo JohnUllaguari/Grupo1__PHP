@@ -1,0 +1,3104 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    AND
+    CATCH
+    COLON
+    DECR
+    DEFINE
+    DIVEQ
+    EEQ
+    ELSEIF
+    EXTENDS
+    FALSE
+    FINALLY
+    FOR
+    IMPLEMENTS
+    INTERFACE
+    MINUSEQ
+    MODEQ
+    NEW
+    NNEQ
+    NOT
+    NULL
+    OR
+    PLUSEQ
+    PRIVATE
+    PROTECTED
+    PUBLIC
+    THROW
+    TIMESEQ
+    TRUE
+    TRY
+    WHILE
+
+Grammar
+
+Rule 0     S' -> program
+Rule 1     expression_list -> expression
+Rule 2     expression_list -> expression_list COMMA expression
+Rule 3     expression -> LBRACKET expression_list RBRACKET
+Rule 4     condition -> expression ANDAND expression
+Rule 5     condition -> expression OROR expression
+Rule 6     condition -> expression EQ expression
+Rule 7     condition -> expression NEQ expression
+Rule 8     condition -> expression LT expression
+Rule 9     condition -> expression GT expression
+Rule 10    condition -> expression LE expression
+Rule 11    condition -> expression GE expression
+Rule 12    statement -> IF LPAREN condition RPAREN block ELSE block
+Rule 13    statement -> FUNCTION ID LPAREN parameter_list RPAREN block
+Rule 14    parameter_list -> VARIABLE
+Rule 15    parameter_list -> parameter_list COMMA VARIABLE
+Rule 16    parameter_list -> empty
+Rule 17    expression -> ID LPAREN array_pairs RPAREN
+Rule 18    array_pairs -> STRING DOUBLEARROW expression
+Rule 19    array_pairs -> array_pairs COMMA STRING DOUBLEARROW expression
+Rule 20    statement -> FOREACH LPAREN VARIABLE AS VARIABLE RPAREN block
+Rule 21    class_static_method -> STATIC FUNCTION ID LPAREN RPAREN block
+Rule 22    class_statement -> class_static_method
+Rule 23    class_statement -> statement
+Rule 24    class_body -> class_statement
+Rule 25    class_body -> class_body class_statement
+Rule 26    statement -> CLASS ID LBRACE class_body RBRACE
+Rule 27    statement -> ECHO expression SEMICOLON
+Rule 28    statement -> expression SEMICOLON
+Rule 29    expression -> ID LPAREN STRING RPAREN
+Rule 30    expression -> expression PLUS expression
+Rule 31    expression -> expression MINUS expression
+Rule 32    expression -> expression TIMES expression
+Rule 33    expression -> expression DIVIDE expression
+Rule 34    expression -> expression MOD expression
+Rule 35    expression -> expression CONCAT expression
+Rule 36    expression -> VARIABLE
+Rule 37    expression -> NUMBER
+Rule 38    expression -> FLOAT
+Rule 39    expression -> STRING
+Rule 40    expression -> ID LPAREN expression_list RPAREN
+Rule 41    expression -> VARIABLE LBRACKET expression RBRACKET
+Rule 42    assignment -> VARIABLE ASSIGN expression
+Rule 43    assignment -> VARIABLE LBRACKET RBRACKET ASSIGN expression
+Rule 44    statement -> assignment SEMICOLON
+Rule 45    statement -> RETURN expression SEMICOLON
+Rule 46    expression -> ID LPAREN RPAREN
+Rule 47    expression -> expression INCR
+Rule 48    block -> LBRACE statement_list RBRACE
+Rule 49    statement_list -> statement
+Rule 50    statement_list -> statement_list statement
+Rule 51    empty -> <empty>
+Rule 52    program -> PHP_OPEN statement_list PHP_CLOSE
+Rule 53    program -> statement_list
+
+Terminals, with rules where they appear
+
+AND                  : 
+ANDAND               : 4
+AS                   : 20
+ASSIGN               : 42 43
+CATCH                : 
+CLASS                : 26
+COLON                : 
+COMMA                : 2 15 19
+CONCAT               : 35
+DECR                 : 
+DEFINE               : 
+DIVEQ                : 
+DIVIDE               : 33
+DOUBLEARROW          : 18 19
+ECHO                 : 27
+EEQ                  : 
+ELSE                 : 12
+ELSEIF               : 
+EQ                   : 6
+EXTENDS              : 
+FALSE                : 
+FINALLY              : 
+FLOAT                : 38
+FOR                  : 
+FOREACH              : 20
+FUNCTION             : 13 21
+GE                   : 11
+GT                   : 9
+ID                   : 13 17 21 26 29 40 46
+IF                   : 12
+IMPLEMENTS           : 
+INCR                 : 47
+INTERFACE            : 
+LBRACE               : 26 48
+LBRACKET             : 3 41 43
+LE                   : 10
+LPAREN               : 12 13 17 20 21 29 40 46
+LT                   : 8
+MINUS                : 31
+MINUSEQ              : 
+MOD                  : 34
+MODEQ                : 
+NEQ                  : 7
+NEW                  : 
+NNEQ                 : 
+NOT                  : 
+NULL                 : 
+NUMBER               : 37
+OR                   : 
+OROR                 : 5
+PHP_CLOSE            : 52
+PHP_OPEN             : 52
+PLUS                 : 30
+PLUSEQ               : 
+PRIVATE              : 
+PROTECTED            : 
+PUBLIC               : 
+RBRACE               : 26 48
+RBRACKET             : 3 41 43
+RETURN               : 45
+RPAREN               : 12 13 17 20 21 29 40 46
+SEMICOLON            : 27 28 44 45
+STATIC               : 21
+STRING               : 18 19 29 39
+THROW                : 
+TIMES                : 32
+TIMESEQ              : 
+TRUE                 : 
+TRY                  : 
+VARIABLE             : 14 15 20 20 36 41 42 43
+WHILE                : 
+error                : 
+
+Nonterminals, with rules where they appear
+
+array_pairs          : 17 19
+assignment           : 44
+block                : 12 12 13 20 21
+class_body           : 25 26
+class_statement      : 24 25
+class_static_method  : 22
+condition            : 12
+empty                : 16
+expression           : 1 2 4 4 5 5 6 6 7 7 8 8 9 9 10 10 11 11 18 19 27 28 30 30 31 31 32 32 33 33 34 34 35 35 41 42 43 45 47
+expression_list      : 2 3 40
+parameter_list       : 13 15
+program              : 0
+statement            : 23 49 50
+statement_list       : 48 50 52 53
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . program
+    (52) program -> . PHP_OPEN statement_list PHP_CLOSE
+    (53) program -> . statement_list
+    (49) statement_list -> . statement
+    (50) statement_list -> . statement_list statement
+    (12) statement -> . IF LPAREN condition RPAREN block ELSE block
+    (13) statement -> . FUNCTION ID LPAREN parameter_list RPAREN block
+    (20) statement -> . FOREACH LPAREN VARIABLE AS VARIABLE RPAREN block
+    (26) statement -> . CLASS ID LBRACE class_body RBRACE
+    (27) statement -> . ECHO expression SEMICOLON
+    (28) statement -> . expression SEMICOLON
+    (44) statement -> . assignment SEMICOLON
+    (45) statement -> . RETURN expression SEMICOLON
+    (3) expression -> . LBRACKET expression_list RBRACKET
+    (17) expression -> . ID LPAREN array_pairs RPAREN
+    (29) expression -> . ID LPAREN STRING RPAREN
+    (30) expression -> . expression PLUS expression
+    (31) expression -> . expression MINUS expression
+    (32) expression -> . expression TIMES expression
+    (33) expression -> . expression DIVIDE expression
+    (34) expression -> . expression MOD expression
+    (35) expression -> . expression CONCAT expression
+    (36) expression -> . VARIABLE
+    (37) expression -> . NUMBER
+    (38) expression -> . FLOAT
+    (39) expression -> . STRING
+    (40) expression -> . ID LPAREN expression_list RPAREN
+    (41) expression -> . VARIABLE LBRACKET expression RBRACKET
+    (46) expression -> . ID LPAREN RPAREN
+    (47) expression -> . expression INCR
+    (42) assignment -> . VARIABLE ASSIGN expression
+    (43) assignment -> . VARIABLE LBRACKET RBRACKET ASSIGN expression
+
+    PHP_OPEN        shift and go to state 2
+    IF              shift and go to state 5
+    FUNCTION        shift and go to state 6
+    FOREACH         shift and go to state 8
+    CLASS           shift and go to state 10
+    ECHO            shift and go to state 11
+    RETURN          shift and go to state 14
+    LBRACKET        shift and go to state 15
+    ID              shift and go to state 7
+    VARIABLE        shift and go to state 9
+    NUMBER          shift and go to state 17
+    FLOAT           shift and go to state 18
+    STRING          shift and go to state 16
+
+    program                        shift and go to state 1
+    statement_list                 shift and go to state 3
+    statement                      shift and go to state 4
+    expression                     shift and go to state 12
+    assignment                     shift and go to state 13
+
+state 1
+
+    (0) S' -> program .
+
+
+
+state 2
+
+    (52) program -> PHP_OPEN . statement_list PHP_CLOSE
+    (49) statement_list -> . statement
+    (50) statement_list -> . statement_list statement
+    (12) statement -> . IF LPAREN condition RPAREN block ELSE block
+    (13) statement -> . FUNCTION ID LPAREN parameter_list RPAREN block
+    (20) statement -> . FOREACH LPAREN VARIABLE AS VARIABLE RPAREN block
+    (26) statement -> . CLASS ID LBRACE class_body RBRACE
+    (27) statement -> . ECHO expression SEMICOLON
+    (28) statement -> . expression SEMICOLON
+    (44) statement -> . assignment SEMICOLON
+    (45) statement -> . RETURN expression SEMICOLON
+    (3) expression -> . LBRACKET expression_list RBRACKET
+    (17) expression -> . ID LPAREN array_pairs RPAREN
+    (29) expression -> . ID LPAREN STRING RPAREN
+    (30) expression -> . expression PLUS expression
+    (31) expression -> . expression MINUS expression
+    (32) expression -> . expression TIMES expression
+    (33) expression -> . expression DIVIDE expression
+    (34) expression -> . expression MOD expression
+    (35) expression -> . expression CONCAT expression
+    (36) expression -> . VARIABLE
+    (37) expression -> . NUMBER
+    (38) expression -> . FLOAT
+    (39) expression -> . STRING
+    (40) expression -> . ID LPAREN expression_list RPAREN
+    (41) expression -> . VARIABLE LBRACKET expression RBRACKET
+    (46) expression -> . ID LPAREN RPAREN
+    (47) expression -> . expression INCR
+    (42) assignment -> . VARIABLE ASSIGN expression
+    (43) assignment -> . VARIABLE LBRACKET RBRACKET ASSIGN expression
+
+    IF              shift and go to state 5
+    FUNCTION        shift and go to state 6
+    FOREACH         shift and go to state 8
+    CLASS           shift and go to state 10
+    ECHO            shift and go to state 11
+    RETURN          shift and go to state 14
+    LBRACKET        shift and go to state 15
+    ID              shift and go to state 7
+    VARIABLE        shift and go to state 9
+    NUMBER          shift and go to state 17
+    FLOAT           shift and go to state 18
+    STRING          shift and go to state 16
+
+    statement_list                 shift and go to state 19
+    statement                      shift and go to state 4
+    expression                     shift and go to state 12
+    assignment                     shift and go to state 13
+
+state 3
+
+    (53) program -> statement_list .
+    (50) statement_list -> statement_list . statement
+    (12) statement -> . IF LPAREN condition RPAREN block ELSE block
+    (13) statement -> . FUNCTION ID LPAREN parameter_list RPAREN block
+    (20) statement -> . FOREACH LPAREN VARIABLE AS VARIABLE RPAREN block
+    (26) statement -> . CLASS ID LBRACE class_body RBRACE
+    (27) statement -> . ECHO expression SEMICOLON
+    (28) statement -> . expression SEMICOLON
+    (44) statement -> . assignment SEMICOLON
+    (45) statement -> . RETURN expression SEMICOLON
+    (3) expression -> . LBRACKET expression_list RBRACKET
+    (17) expression -> . ID LPAREN array_pairs RPAREN
+    (29) expression -> . ID LPAREN STRING RPAREN
+    (30) expression -> . expression PLUS expression
+    (31) expression -> . expression MINUS expression
+    (32) expression -> . expression TIMES expression
+    (33) expression -> . expression DIVIDE expression
+    (34) expression -> . expression MOD expression
+    (35) expression -> . expression CONCAT expression
+    (36) expression -> . VARIABLE
+    (37) expression -> . NUMBER
+    (38) expression -> . FLOAT
+    (39) expression -> . STRING
+    (40) expression -> . ID LPAREN expression_list RPAREN
+    (41) expression -> . VARIABLE LBRACKET expression RBRACKET
+    (46) expression -> . ID LPAREN RPAREN
+    (47) expression -> . expression INCR
+    (42) assignment -> . VARIABLE ASSIGN expression
+    (43) assignment -> . VARIABLE LBRACKET RBRACKET ASSIGN expression
+
+    $end            reduce using rule 53 (program -> statement_list .)
+    IF              shift and go to state 5
+    FUNCTION        shift and go to state 6
+    FOREACH         shift and go to state 8
+    CLASS           shift and go to state 10
+    ECHO            shift and go to state 11
+    RETURN          shift and go to state 14
+    LBRACKET        shift and go to state 15
+    ID              shift and go to state 7
+    VARIABLE        shift and go to state 9
+    NUMBER          shift and go to state 17
+    FLOAT           shift and go to state 18
+    STRING          shift and go to state 16
+
+    statement                      shift and go to state 20
+    expression                     shift and go to state 12
+    assignment                     shift and go to state 13
+
+state 4
+
+    (49) statement_list -> statement .
+
+    IF              reduce using rule 49 (statement_list -> statement .)
+    FUNCTION        reduce using rule 49 (statement_list -> statement .)
+    FOREACH         reduce using rule 49 (statement_list -> statement .)
+    CLASS           reduce using rule 49 (statement_list -> statement .)
+    ECHO            reduce using rule 49 (statement_list -> statement .)
+    RETURN          reduce using rule 49 (statement_list -> statement .)
+    LBRACKET        reduce using rule 49 (statement_list -> statement .)
+    ID              reduce using rule 49 (statement_list -> statement .)
+    VARIABLE        reduce using rule 49 (statement_list -> statement .)
+    NUMBER          reduce using rule 49 (statement_list -> statement .)
+    FLOAT           reduce using rule 49 (statement_list -> statement .)
+    STRING          reduce using rule 49 (statement_list -> statement .)
+    $end            reduce using rule 49 (statement_list -> statement .)
+    PHP_CLOSE       reduce using rule 49 (statement_list -> statement .)
+    RBRACE          reduce using rule 49 (statement_list -> statement .)
+
+
+state 5
+
+    (12) statement -> IF . LPAREN condition RPAREN block ELSE block
+
+    LPAREN          shift and go to state 21
+
+
+state 6
+
+    (13) statement -> FUNCTION . ID LPAREN parameter_list RPAREN block
+
+    ID              shift and go to state 22
+
+
+state 7
+
+    (17) expression -> ID . LPAREN array_pairs RPAREN
+    (29) expression -> ID . LPAREN STRING RPAREN
+    (40) expression -> ID . LPAREN expression_list RPAREN
+    (46) expression -> ID . LPAREN RPAREN
+
+    LPAREN          shift and go to state 23
+
+
+state 8
+
+    (20) statement -> FOREACH . LPAREN VARIABLE AS VARIABLE RPAREN block
+
+    LPAREN          shift and go to state 24
+
+
+state 9
+
+    (36) expression -> VARIABLE .
+    (41) expression -> VARIABLE . LBRACKET expression RBRACKET
+    (42) assignment -> VARIABLE . ASSIGN expression
+    (43) assignment -> VARIABLE . LBRACKET RBRACKET ASSIGN expression
+
+    SEMICOLON       reduce using rule 36 (expression -> VARIABLE .)
+    PLUS            reduce using rule 36 (expression -> VARIABLE .)
+    MINUS           reduce using rule 36 (expression -> VARIABLE .)
+    TIMES           reduce using rule 36 (expression -> VARIABLE .)
+    DIVIDE          reduce using rule 36 (expression -> VARIABLE .)
+    MOD             reduce using rule 36 (expression -> VARIABLE .)
+    CONCAT          reduce using rule 36 (expression -> VARIABLE .)
+    INCR            reduce using rule 36 (expression -> VARIABLE .)
+    LBRACKET        shift and go to state 25
+    ASSIGN          shift and go to state 26
+
+
+state 10
+
+    (26) statement -> CLASS . ID LBRACE class_body RBRACE
+
+    ID              shift and go to state 27
+
+
+state 11
+
+    (27) statement -> ECHO . expression SEMICOLON
+    (3) expression -> . LBRACKET expression_list RBRACKET
+    (17) expression -> . ID LPAREN array_pairs RPAREN
+    (29) expression -> . ID LPAREN STRING RPAREN
+    (30) expression -> . expression PLUS expression
+    (31) expression -> . expression MINUS expression
+    (32) expression -> . expression TIMES expression
+    (33) expression -> . expression DIVIDE expression
+    (34) expression -> . expression MOD expression
+    (35) expression -> . expression CONCAT expression
+    (36) expression -> . VARIABLE
+    (37) expression -> . NUMBER
+    (38) expression -> . FLOAT
+    (39) expression -> . STRING
+    (40) expression -> . ID LPAREN expression_list RPAREN
+    (41) expression -> . VARIABLE LBRACKET expression RBRACKET
+    (46) expression -> . ID LPAREN RPAREN
+    (47) expression -> . expression INCR
+
+    LBRACKET        shift and go to state 15
+    ID              shift and go to state 7
+    VARIABLE        shift and go to state 29
+    NUMBER          shift and go to state 17
+    FLOAT           shift and go to state 18
+    STRING          shift and go to state 16
+
+    expression                     shift and go to state 28
+
+state 12
+
+    (28) statement -> expression . SEMICOLON
+    (30) expression -> expression . PLUS expression
+    (31) expression -> expression . MINUS expression
+    (32) expression -> expression . TIMES expression
+    (33) expression -> expression . DIVIDE expression
+    (34) expression -> expression . MOD expression
+    (35) expression -> expression . CONCAT expression
+    (47) expression -> expression . INCR
+
+    SEMICOLON       shift and go to state 30
+    PLUS            shift and go to state 31
+    MINUS           shift and go to state 32
+    TIMES           shift and go to state 33
+    DIVIDE          shift and go to state 34
+    MOD             shift and go to state 35
+    CONCAT          shift and go to state 36
+    INCR            shift and go to state 37
+
+
+state 13
+
+    (44) statement -> assignment . SEMICOLON
+
+    SEMICOLON       shift and go to state 38
+
+
+state 14
+
+    (45) statement -> RETURN . expression SEMICOLON
+    (3) expression -> . LBRACKET expression_list RBRACKET
+    (17) expression -> . ID LPAREN array_pairs RPAREN
+    (29) expression -> . ID LPAREN STRING RPAREN
+    (30) expression -> . expression PLUS expression
+    (31) expression -> . expression MINUS expression
+    (32) expression -> . expression TIMES expression
+    (33) expression -> . expression DIVIDE expression
+    (34) expression -> . expression MOD expression
+    (35) expression -> . expression CONCAT expression
+    (36) expression -> . VARIABLE
+    (37) expression -> . NUMBER
+    (38) expression -> . FLOAT
+    (39) expression -> . STRING
+    (40) expression -> . ID LPAREN expression_list RPAREN
+    (41) expression -> . VARIABLE LBRACKET expression RBRACKET
+    (46) expression -> . ID LPAREN RPAREN
+    (47) expression -> . expression INCR
+
+    LBRACKET        shift and go to state 15
+    ID              shift and go to state 7
+    VARIABLE        shift and go to state 29
+    NUMBER          shift and go to state 17
+    FLOAT           shift and go to state 18
+    STRING          shift and go to state 16
+
+    expression                     shift and go to state 39
+
+state 15
+
+    (3) expression -> LBRACKET . expression_list RBRACKET
+    (1) expression_list -> . expression
+    (2) expression_list -> . expression_list COMMA expression
+    (3) expression -> . LBRACKET expression_list RBRACKET
+    (17) expression -> . ID LPAREN array_pairs RPAREN
+    (29) expression -> . ID LPAREN STRING RPAREN
+    (30) expression -> . expression PLUS expression
+    (31) expression -> . expression MINUS expression
+    (32) expression -> . expression TIMES expression
+    (33) expression -> . expression DIVIDE expression
+    (34) expression -> . expression MOD expression
+    (35) expression -> . expression CONCAT expression
+    (36) expression -> . VARIABLE
+    (37) expression -> . NUMBER
+    (38) expression -> . FLOAT
+    (39) expression -> . STRING
+    (40) expression -> . ID LPAREN expression_list RPAREN
+    (41) expression -> . VARIABLE LBRACKET expression RBRACKET
+    (46) expression -> . ID LPAREN RPAREN
+    (47) expression -> . expression INCR
+
+    LBRACKET        shift and go to state 15
+    ID              shift and go to state 7
+    VARIABLE        shift and go to state 29
+    NUMBER          shift and go to state 17
+    FLOAT           shift and go to state 18
+    STRING          shift and go to state 16
+
+    expression_list                shift and go to state 40
+    expression                     shift and go to state 41
+
+state 16
+
+    (39) expression -> STRING .
+
+    SEMICOLON       reduce using rule 39 (expression -> STRING .)
+    PLUS            reduce using rule 39 (expression -> STRING .)
+    MINUS           reduce using rule 39 (expression -> STRING .)
+    TIMES           reduce using rule 39 (expression -> STRING .)
+    DIVIDE          reduce using rule 39 (expression -> STRING .)
+    MOD             reduce using rule 39 (expression -> STRING .)
+    CONCAT          reduce using rule 39 (expression -> STRING .)
+    INCR            reduce using rule 39 (expression -> STRING .)
+    RBRACKET        reduce using rule 39 (expression -> STRING .)
+    COMMA           reduce using rule 39 (expression -> STRING .)
+    ANDAND          reduce using rule 39 (expression -> STRING .)
+    OROR            reduce using rule 39 (expression -> STRING .)
+    EQ              reduce using rule 39 (expression -> STRING .)
+    NEQ             reduce using rule 39 (expression -> STRING .)
+    LT              reduce using rule 39 (expression -> STRING .)
+    GT              reduce using rule 39 (expression -> STRING .)
+    LE              reduce using rule 39 (expression -> STRING .)
+    GE              reduce using rule 39 (expression -> STRING .)
+    RPAREN          reduce using rule 39 (expression -> STRING .)
+
+
+state 17
+
+    (37) expression -> NUMBER .
+
+    SEMICOLON       reduce using rule 37 (expression -> NUMBER .)
+    PLUS            reduce using rule 37 (expression -> NUMBER .)
+    MINUS           reduce using rule 37 (expression -> NUMBER .)
+    TIMES           reduce using rule 37 (expression -> NUMBER .)
+    DIVIDE          reduce using rule 37 (expression -> NUMBER .)
+    MOD             reduce using rule 37 (expression -> NUMBER .)
+    CONCAT          reduce using rule 37 (expression -> NUMBER .)
+    INCR            reduce using rule 37 (expression -> NUMBER .)
+    RBRACKET        reduce using rule 37 (expression -> NUMBER .)
+    COMMA           reduce using rule 37 (expression -> NUMBER .)
+    ANDAND          reduce using rule 37 (expression -> NUMBER .)
+    OROR            reduce using rule 37 (expression -> NUMBER .)
+    EQ              reduce using rule 37 (expression -> NUMBER .)
+    NEQ             reduce using rule 37 (expression -> NUMBER .)
+    LT              reduce using rule 37 (expression -> NUMBER .)
+    GT              reduce using rule 37 (expression -> NUMBER .)
+    LE              reduce using rule 37 (expression -> NUMBER .)
+    GE              reduce using rule 37 (expression -> NUMBER .)
+    RPAREN          reduce using rule 37 (expression -> NUMBER .)
+
+
+state 18
+
+    (38) expression -> FLOAT .
+
+    SEMICOLON       reduce using rule 38 (expression -> FLOAT .)
+    PLUS            reduce using rule 38 (expression -> FLOAT .)
+    MINUS           reduce using rule 38 (expression -> FLOAT .)
+    TIMES           reduce using rule 38 (expression -> FLOAT .)
+    DIVIDE          reduce using rule 38 (expression -> FLOAT .)
+    MOD             reduce using rule 38 (expression -> FLOAT .)
+    CONCAT          reduce using rule 38 (expression -> FLOAT .)
+    INCR            reduce using rule 38 (expression -> FLOAT .)
+    RBRACKET        reduce using rule 38 (expression -> FLOAT .)
+    COMMA           reduce using rule 38 (expression -> FLOAT .)
+    ANDAND          reduce using rule 38 (expression -> FLOAT .)
+    OROR            reduce using rule 38 (expression -> FLOAT .)
+    EQ              reduce using rule 38 (expression -> FLOAT .)
+    NEQ             reduce using rule 38 (expression -> FLOAT .)
+    LT              reduce using rule 38 (expression -> FLOAT .)
+    GT              reduce using rule 38 (expression -> FLOAT .)
+    LE              reduce using rule 38 (expression -> FLOAT .)
+    GE              reduce using rule 38 (expression -> FLOAT .)
+    RPAREN          reduce using rule 38 (expression -> FLOAT .)
+
+
+state 19
+
+    (52) program -> PHP_OPEN statement_list . PHP_CLOSE
+    (50) statement_list -> statement_list . statement
+    (12) statement -> . IF LPAREN condition RPAREN block ELSE block
+    (13) statement -> . FUNCTION ID LPAREN parameter_list RPAREN block
+    (20) statement -> . FOREACH LPAREN VARIABLE AS VARIABLE RPAREN block
+    (26) statement -> . CLASS ID LBRACE class_body RBRACE
+    (27) statement -> . ECHO expression SEMICOLON
+    (28) statement -> . expression SEMICOLON
+    (44) statement -> . assignment SEMICOLON
+    (45) statement -> . RETURN expression SEMICOLON
+    (3) expression -> . LBRACKET expression_list RBRACKET
+    (17) expression -> . ID LPAREN array_pairs RPAREN
+    (29) expression -> . ID LPAREN STRING RPAREN
+    (30) expression -> . expression PLUS expression
+    (31) expression -> . expression MINUS expression
+    (32) expression -> . expression TIMES expression
+    (33) expression -> . expression DIVIDE expression
+    (34) expression -> . expression MOD expression
+    (35) expression -> . expression CONCAT expression
+    (36) expression -> . VARIABLE
+    (37) expression -> . NUMBER
+    (38) expression -> . FLOAT
+    (39) expression -> . STRING
+    (40) expression -> . ID LPAREN expression_list RPAREN
+    (41) expression -> . VARIABLE LBRACKET expression RBRACKET
+    (46) expression -> . ID LPAREN RPAREN
+    (47) expression -> . expression INCR
+    (42) assignment -> . VARIABLE ASSIGN expression
+    (43) assignment -> . VARIABLE LBRACKET RBRACKET ASSIGN expression
+
+    PHP_CLOSE       shift and go to state 42
+    IF              shift and go to state 5
+    FUNCTION        shift and go to state 6
+    FOREACH         shift and go to state 8
+    CLASS           shift and go to state 10
+    ECHO            shift and go to state 11
+    RETURN          shift and go to state 14
+    LBRACKET        shift and go to state 15
+    ID              shift and go to state 7
+    VARIABLE        shift and go to state 9
+    NUMBER          shift and go to state 17
+    FLOAT           shift and go to state 18
+    STRING          shift and go to state 16
+
+    statement                      shift and go to state 20
+    expression                     shift and go to state 12
+    assignment                     shift and go to state 13
+
+state 20
+
+    (50) statement_list -> statement_list statement .
+
+    IF              reduce using rule 50 (statement_list -> statement_list statement .)
+    FUNCTION        reduce using rule 50 (statement_list -> statement_list statement .)
+    FOREACH         reduce using rule 50 (statement_list -> statement_list statement .)
+    CLASS           reduce using rule 50 (statement_list -> statement_list statement .)
+    ECHO            reduce using rule 50 (statement_list -> statement_list statement .)
+    RETURN          reduce using rule 50 (statement_list -> statement_list statement .)
+    LBRACKET        reduce using rule 50 (statement_list -> statement_list statement .)
+    ID              reduce using rule 50 (statement_list -> statement_list statement .)
+    VARIABLE        reduce using rule 50 (statement_list -> statement_list statement .)
+    NUMBER          reduce using rule 50 (statement_list -> statement_list statement .)
+    FLOAT           reduce using rule 50 (statement_list -> statement_list statement .)
+    STRING          reduce using rule 50 (statement_list -> statement_list statement .)
+    $end            reduce using rule 50 (statement_list -> statement_list statement .)
+    PHP_CLOSE       reduce using rule 50 (statement_list -> statement_list statement .)
+    RBRACE          reduce using rule 50 (statement_list -> statement_list statement .)
+
+
+state 21
+
+    (12) statement -> IF LPAREN . condition RPAREN block ELSE block
+    (4) condition -> . expression ANDAND expression
+    (5) condition -> . expression OROR expression
+    (6) condition -> . expression EQ expression
+    (7) condition -> . expression NEQ expression
+    (8) condition -> . expression LT expression
+    (9) condition -> . expression GT expression
+    (10) condition -> . expression LE expression
+    (11) condition -> . expression GE expression
+    (3) expression -> . LBRACKET expression_list RBRACKET
+    (17) expression -> . ID LPAREN array_pairs RPAREN
+    (29) expression -> . ID LPAREN STRING RPAREN
+    (30) expression -> . expression PLUS expression
+    (31) expression -> . expression MINUS expression
+    (32) expression -> . expression TIMES expression
+    (33) expression -> . expression DIVIDE expression
+    (34) expression -> . expression MOD expression
+    (35) expression -> . expression CONCAT expression
+    (36) expression -> . VARIABLE
+    (37) expression -> . NUMBER
+    (38) expression -> . FLOAT
+    (39) expression -> . STRING
+    (40) expression -> . ID LPAREN expression_list RPAREN
+    (41) expression -> . VARIABLE LBRACKET expression RBRACKET
+    (46) expression -> . ID LPAREN RPAREN
+    (47) expression -> . expression INCR
+
+    LBRACKET        shift and go to state 15
+    ID              shift and go to state 7
+    VARIABLE        shift and go to state 29
+    NUMBER          shift and go to state 17
+    FLOAT           shift and go to state 18
+    STRING          shift and go to state 16
+
+    condition                      shift and go to state 43
+    expression                     shift and go to state 44
+
+state 22
+
+    (13) statement -> FUNCTION ID . LPAREN parameter_list RPAREN block
+
+    LPAREN          shift and go to state 45
+
+
+state 23
+
+    (17) expression -> ID LPAREN . array_pairs RPAREN
+    (29) expression -> ID LPAREN . STRING RPAREN
+    (40) expression -> ID LPAREN . expression_list RPAREN
+    (46) expression -> ID LPAREN . RPAREN
+    (18) array_pairs -> . STRING DOUBLEARROW expression
+    (19) array_pairs -> . array_pairs COMMA STRING DOUBLEARROW expression
+    (1) expression_list -> . expression
+    (2) expression_list -> . expression_list COMMA expression
+    (3) expression -> . LBRACKET expression_list RBRACKET
+    (17) expression -> . ID LPAREN array_pairs RPAREN
+    (29) expression -> . ID LPAREN STRING RPAREN
+    (30) expression -> . expression PLUS expression
+    (31) expression -> . expression MINUS expression
+    (32) expression -> . expression TIMES expression
+    (33) expression -> . expression DIVIDE expression
+    (34) expression -> . expression MOD expression
+    (35) expression -> . expression CONCAT expression
+    (36) expression -> . VARIABLE
+    (37) expression -> . NUMBER
+    (38) expression -> . FLOAT
+    (39) expression -> . STRING
+    (40) expression -> . ID LPAREN expression_list RPAREN
+    (41) expression -> . VARIABLE LBRACKET expression RBRACKET
+    (46) expression -> . ID LPAREN RPAREN
+    (47) expression -> . expression INCR
+
+    STRING          shift and go to state 48
+    RPAREN          shift and go to state 47
+    LBRACKET        shift and go to state 15
+    ID              shift and go to state 7
+    VARIABLE        shift and go to state 29
+    NUMBER          shift and go to state 17
+    FLOAT           shift and go to state 18
+
+    array_pairs                    shift and go to state 46
+    expression_list                shift and go to state 49
+    expression                     shift and go to state 41
+
+state 24
+
+    (20) statement -> FOREACH LPAREN . VARIABLE AS VARIABLE RPAREN block
+
+    VARIABLE        shift and go to state 50
+
+
+state 25
+
+    (41) expression -> VARIABLE LBRACKET . expression RBRACKET
+    (43) assignment -> VARIABLE LBRACKET . RBRACKET ASSIGN expression
+    (3) expression -> . LBRACKET expression_list RBRACKET
+    (17) expression -> . ID LPAREN array_pairs RPAREN
+    (29) expression -> . ID LPAREN STRING RPAREN
+    (30) expression -> . expression PLUS expression
+    (31) expression -> . expression MINUS expression
+    (32) expression -> . expression TIMES expression
+    (33) expression -> . expression DIVIDE expression
+    (34) expression -> . expression MOD expression
+    (35) expression -> . expression CONCAT expression
+    (36) expression -> . VARIABLE
+    (37) expression -> . NUMBER
+    (38) expression -> . FLOAT
+    (39) expression -> . STRING
+    (40) expression -> . ID LPAREN expression_list RPAREN
+    (41) expression -> . VARIABLE LBRACKET expression RBRACKET
+    (46) expression -> . ID LPAREN RPAREN
+    (47) expression -> . expression INCR
+
+    RBRACKET        shift and go to state 52
+    LBRACKET        shift and go to state 15
+    ID              shift and go to state 7
+    VARIABLE        shift and go to state 29
+    NUMBER          shift and go to state 17
+    FLOAT           shift and go to state 18
+    STRING          shift and go to state 16
+
+    expression                     shift and go to state 51
+
+state 26
+
+    (42) assignment -> VARIABLE ASSIGN . expression
+    (3) expression -> . LBRACKET expression_list RBRACKET
+    (17) expression -> . ID LPAREN array_pairs RPAREN
+    (29) expression -> . ID LPAREN STRING RPAREN
+    (30) expression -> . expression PLUS expression
+    (31) expression -> . expression MINUS expression
+    (32) expression -> . expression TIMES expression
+    (33) expression -> . expression DIVIDE expression
+    (34) expression -> . expression MOD expression
+    (35) expression -> . expression CONCAT expression
+    (36) expression -> . VARIABLE
+    (37) expression -> . NUMBER
+    (38) expression -> . FLOAT
+    (39) expression -> . STRING
+    (40) expression -> . ID LPAREN expression_list RPAREN
+    (41) expression -> . VARIABLE LBRACKET expression RBRACKET
+    (46) expression -> . ID LPAREN RPAREN
+    (47) expression -> . expression INCR
+
+    LBRACKET        shift and go to state 15
+    ID              shift and go to state 7
+    VARIABLE        shift and go to state 29
+    NUMBER          shift and go to state 17
+    FLOAT           shift and go to state 18
+    STRING          shift and go to state 16
+
+    expression                     shift and go to state 53
+
+state 27
+
+    (26) statement -> CLASS ID . LBRACE class_body RBRACE
+
+    LBRACE          shift and go to state 54
+
+
+state 28
+
+    (27) statement -> ECHO expression . SEMICOLON
+    (30) expression -> expression . PLUS expression
+    (31) expression -> expression . MINUS expression
+    (32) expression -> expression . TIMES expression
+    (33) expression -> expression . DIVIDE expression
+    (34) expression -> expression . MOD expression
+    (35) expression -> expression . CONCAT expression
+    (47) expression -> expression . INCR
+
+    SEMICOLON       shift and go to state 55
+    PLUS            shift and go to state 31
+    MINUS           shift and go to state 32
+    TIMES           shift and go to state 33
+    DIVIDE          shift and go to state 34
+    MOD             shift and go to state 35
+    CONCAT          shift and go to state 36
+    INCR            shift and go to state 37
+
+
+state 29
+
+    (36) expression -> VARIABLE .
+    (41) expression -> VARIABLE . LBRACKET expression RBRACKET
+
+    SEMICOLON       reduce using rule 36 (expression -> VARIABLE .)
+    PLUS            reduce using rule 36 (expression -> VARIABLE .)
+    MINUS           reduce using rule 36 (expression -> VARIABLE .)
+    TIMES           reduce using rule 36 (expression -> VARIABLE .)
+    DIVIDE          reduce using rule 36 (expression -> VARIABLE .)
+    MOD             reduce using rule 36 (expression -> VARIABLE .)
+    CONCAT          reduce using rule 36 (expression -> VARIABLE .)
+    INCR            reduce using rule 36 (expression -> VARIABLE .)
+    RBRACKET        reduce using rule 36 (expression -> VARIABLE .)
+    COMMA           reduce using rule 36 (expression -> VARIABLE .)
+    ANDAND          reduce using rule 36 (expression -> VARIABLE .)
+    OROR            reduce using rule 36 (expression -> VARIABLE .)
+    EQ              reduce using rule 36 (expression -> VARIABLE .)
+    NEQ             reduce using rule 36 (expression -> VARIABLE .)
+    LT              reduce using rule 36 (expression -> VARIABLE .)
+    GT              reduce using rule 36 (expression -> VARIABLE .)
+    LE              reduce using rule 36 (expression -> VARIABLE .)
+    GE              reduce using rule 36 (expression -> VARIABLE .)
+    RPAREN          reduce using rule 36 (expression -> VARIABLE .)
+    LBRACKET        shift and go to state 56
+
+
+state 30
+
+    (28) statement -> expression SEMICOLON .
+
+    IF              reduce using rule 28 (statement -> expression SEMICOLON .)
+    FUNCTION        reduce using rule 28 (statement -> expression SEMICOLON .)
+    FOREACH         reduce using rule 28 (statement -> expression SEMICOLON .)
+    CLASS           reduce using rule 28 (statement -> expression SEMICOLON .)
+    ECHO            reduce using rule 28 (statement -> expression SEMICOLON .)
+    RETURN          reduce using rule 28 (statement -> expression SEMICOLON .)
+    LBRACKET        reduce using rule 28 (statement -> expression SEMICOLON .)
+    ID              reduce using rule 28 (statement -> expression SEMICOLON .)
+    VARIABLE        reduce using rule 28 (statement -> expression SEMICOLON .)
+    NUMBER          reduce using rule 28 (statement -> expression SEMICOLON .)
+    FLOAT           reduce using rule 28 (statement -> expression SEMICOLON .)
+    STRING          reduce using rule 28 (statement -> expression SEMICOLON .)
+    $end            reduce using rule 28 (statement -> expression SEMICOLON .)
+    PHP_CLOSE       reduce using rule 28 (statement -> expression SEMICOLON .)
+    RBRACE          reduce using rule 28 (statement -> expression SEMICOLON .)
+    STATIC          reduce using rule 28 (statement -> expression SEMICOLON .)
+
+
+state 31
+
+    (30) expression -> expression PLUS . expression
+    (3) expression -> . LBRACKET expression_list RBRACKET
+    (17) expression -> . ID LPAREN array_pairs RPAREN
+    (29) expression -> . ID LPAREN STRING RPAREN
+    (30) expression -> . expression PLUS expression
+    (31) expression -> . expression MINUS expression
+    (32) expression -> . expression TIMES expression
+    (33) expression -> . expression DIVIDE expression
+    (34) expression -> . expression MOD expression
+    (35) expression -> . expression CONCAT expression
+    (36) expression -> . VARIABLE
+    (37) expression -> . NUMBER
+    (38) expression -> . FLOAT
+    (39) expression -> . STRING
+    (40) expression -> . ID LPAREN expression_list RPAREN
+    (41) expression -> . VARIABLE LBRACKET expression RBRACKET
+    (46) expression -> . ID LPAREN RPAREN
+    (47) expression -> . expression INCR
+
+    LBRACKET        shift and go to state 15
+    ID              shift and go to state 7
+    VARIABLE        shift and go to state 29
+    NUMBER          shift and go to state 17
+    FLOAT           shift and go to state 18
+    STRING          shift and go to state 16
+
+    expression                     shift and go to state 57
+
+state 32
+
+    (31) expression -> expression MINUS . expression
+    (3) expression -> . LBRACKET expression_list RBRACKET
+    (17) expression -> . ID LPAREN array_pairs RPAREN
+    (29) expression -> . ID LPAREN STRING RPAREN
+    (30) expression -> . expression PLUS expression
+    (31) expression -> . expression MINUS expression
+    (32) expression -> . expression TIMES expression
+    (33) expression -> . expression DIVIDE expression
+    (34) expression -> . expression MOD expression
+    (35) expression -> . expression CONCAT expression
+    (36) expression -> . VARIABLE
+    (37) expression -> . NUMBER
+    (38) expression -> . FLOAT
+    (39) expression -> . STRING
+    (40) expression -> . ID LPAREN expression_list RPAREN
+    (41) expression -> . VARIABLE LBRACKET expression RBRACKET
+    (46) expression -> . ID LPAREN RPAREN
+    (47) expression -> . expression INCR
+
+    LBRACKET        shift and go to state 15
+    ID              shift and go to state 7
+    VARIABLE        shift and go to state 29
+    NUMBER          shift and go to state 17
+    FLOAT           shift and go to state 18
+    STRING          shift and go to state 16
+
+    expression                     shift and go to state 58
+
+state 33
+
+    (32) expression -> expression TIMES . expression
+    (3) expression -> . LBRACKET expression_list RBRACKET
+    (17) expression -> . ID LPAREN array_pairs RPAREN
+    (29) expression -> . ID LPAREN STRING RPAREN
+    (30) expression -> . expression PLUS expression
+    (31) expression -> . expression MINUS expression
+    (32) expression -> . expression TIMES expression
+    (33) expression -> . expression DIVIDE expression
+    (34) expression -> . expression MOD expression
+    (35) expression -> . expression CONCAT expression
+    (36) expression -> . VARIABLE
+    (37) expression -> . NUMBER
+    (38) expression -> . FLOAT
+    (39) expression -> . STRING
+    (40) expression -> . ID LPAREN expression_list RPAREN
+    (41) expression -> . VARIABLE LBRACKET expression RBRACKET
+    (46) expression -> . ID LPAREN RPAREN
+    (47) expression -> . expression INCR
+
+    LBRACKET        shift and go to state 15
+    ID              shift and go to state 7
+    VARIABLE        shift and go to state 29
+    NUMBER          shift and go to state 17
+    FLOAT           shift and go to state 18
+    STRING          shift and go to state 16
+
+    expression                     shift and go to state 59
+
+state 34
+
+    (33) expression -> expression DIVIDE . expression
+    (3) expression -> . LBRACKET expression_list RBRACKET
+    (17) expression -> . ID LPAREN array_pairs RPAREN
+    (29) expression -> . ID LPAREN STRING RPAREN
+    (30) expression -> . expression PLUS expression
+    (31) expression -> . expression MINUS expression
+    (32) expression -> . expression TIMES expression
+    (33) expression -> . expression DIVIDE expression
+    (34) expression -> . expression MOD expression
+    (35) expression -> . expression CONCAT expression
+    (36) expression -> . VARIABLE
+    (37) expression -> . NUMBER
+    (38) expression -> . FLOAT
+    (39) expression -> . STRING
+    (40) expression -> . ID LPAREN expression_list RPAREN
+    (41) expression -> . VARIABLE LBRACKET expression RBRACKET
+    (46) expression -> . ID LPAREN RPAREN
+    (47) expression -> . expression INCR
+
+    LBRACKET        shift and go to state 15
+    ID              shift and go to state 7
+    VARIABLE        shift and go to state 29
+    NUMBER          shift and go to state 17
+    FLOAT           shift and go to state 18
+    STRING          shift and go to state 16
+
+    expression                     shift and go to state 60
+
+state 35
+
+    (34) expression -> expression MOD . expression
+    (3) expression -> . LBRACKET expression_list RBRACKET
+    (17) expression -> . ID LPAREN array_pairs RPAREN
+    (29) expression -> . ID LPAREN STRING RPAREN
+    (30) expression -> . expression PLUS expression
+    (31) expression -> . expression MINUS expression
+    (32) expression -> . expression TIMES expression
+    (33) expression -> . expression DIVIDE expression
+    (34) expression -> . expression MOD expression
+    (35) expression -> . expression CONCAT expression
+    (36) expression -> . VARIABLE
+    (37) expression -> . NUMBER
+    (38) expression -> . FLOAT
+    (39) expression -> . STRING
+    (40) expression -> . ID LPAREN expression_list RPAREN
+    (41) expression -> . VARIABLE LBRACKET expression RBRACKET
+    (46) expression -> . ID LPAREN RPAREN
+    (47) expression -> . expression INCR
+
+    LBRACKET        shift and go to state 15
+    ID              shift and go to state 7
+    VARIABLE        shift and go to state 29
+    NUMBER          shift and go to state 17
+    FLOAT           shift and go to state 18
+    STRING          shift and go to state 16
+
+    expression                     shift and go to state 61
+
+state 36
+
+    (35) expression -> expression CONCAT . expression
+    (3) expression -> . LBRACKET expression_list RBRACKET
+    (17) expression -> . ID LPAREN array_pairs RPAREN
+    (29) expression -> . ID LPAREN STRING RPAREN
+    (30) expression -> . expression PLUS expression
+    (31) expression -> . expression MINUS expression
+    (32) expression -> . expression TIMES expression
+    (33) expression -> . expression DIVIDE expression
+    (34) expression -> . expression MOD expression
+    (35) expression -> . expression CONCAT expression
+    (36) expression -> . VARIABLE
+    (37) expression -> . NUMBER
+    (38) expression -> . FLOAT
+    (39) expression -> . STRING
+    (40) expression -> . ID LPAREN expression_list RPAREN
+    (41) expression -> . VARIABLE LBRACKET expression RBRACKET
+    (46) expression -> . ID LPAREN RPAREN
+    (47) expression -> . expression INCR
+
+    LBRACKET        shift and go to state 15
+    ID              shift and go to state 7
+    VARIABLE        shift and go to state 29
+    NUMBER          shift and go to state 17
+    FLOAT           shift and go to state 18
+    STRING          shift and go to state 16
+
+    expression                     shift and go to state 62
+
+state 37
+
+    (47) expression -> expression INCR .
+
+    SEMICOLON       reduce using rule 47 (expression -> expression INCR .)
+    PLUS            reduce using rule 47 (expression -> expression INCR .)
+    MINUS           reduce using rule 47 (expression -> expression INCR .)
+    TIMES           reduce using rule 47 (expression -> expression INCR .)
+    DIVIDE          reduce using rule 47 (expression -> expression INCR .)
+    MOD             reduce using rule 47 (expression -> expression INCR .)
+    CONCAT          reduce using rule 47 (expression -> expression INCR .)
+    INCR            reduce using rule 47 (expression -> expression INCR .)
+    RBRACKET        reduce using rule 47 (expression -> expression INCR .)
+    COMMA           reduce using rule 47 (expression -> expression INCR .)
+    ANDAND          reduce using rule 47 (expression -> expression INCR .)
+    OROR            reduce using rule 47 (expression -> expression INCR .)
+    EQ              reduce using rule 47 (expression -> expression INCR .)
+    NEQ             reduce using rule 47 (expression -> expression INCR .)
+    LT              reduce using rule 47 (expression -> expression INCR .)
+    GT              reduce using rule 47 (expression -> expression INCR .)
+    LE              reduce using rule 47 (expression -> expression INCR .)
+    GE              reduce using rule 47 (expression -> expression INCR .)
+    RPAREN          reduce using rule 47 (expression -> expression INCR .)
+
+
+state 38
+
+    (44) statement -> assignment SEMICOLON .
+
+    IF              reduce using rule 44 (statement -> assignment SEMICOLON .)
+    FUNCTION        reduce using rule 44 (statement -> assignment SEMICOLON .)
+    FOREACH         reduce using rule 44 (statement -> assignment SEMICOLON .)
+    CLASS           reduce using rule 44 (statement -> assignment SEMICOLON .)
+    ECHO            reduce using rule 44 (statement -> assignment SEMICOLON .)
+    RETURN          reduce using rule 44 (statement -> assignment SEMICOLON .)
+    LBRACKET        reduce using rule 44 (statement -> assignment SEMICOLON .)
+    ID              reduce using rule 44 (statement -> assignment SEMICOLON .)
+    VARIABLE        reduce using rule 44 (statement -> assignment SEMICOLON .)
+    NUMBER          reduce using rule 44 (statement -> assignment SEMICOLON .)
+    FLOAT           reduce using rule 44 (statement -> assignment SEMICOLON .)
+    STRING          reduce using rule 44 (statement -> assignment SEMICOLON .)
+    $end            reduce using rule 44 (statement -> assignment SEMICOLON .)
+    PHP_CLOSE       reduce using rule 44 (statement -> assignment SEMICOLON .)
+    RBRACE          reduce using rule 44 (statement -> assignment SEMICOLON .)
+    STATIC          reduce using rule 44 (statement -> assignment SEMICOLON .)
+
+
+state 39
+
+    (45) statement -> RETURN expression . SEMICOLON
+    (30) expression -> expression . PLUS expression
+    (31) expression -> expression . MINUS expression
+    (32) expression -> expression . TIMES expression
+    (33) expression -> expression . DIVIDE expression
+    (34) expression -> expression . MOD expression
+    (35) expression -> expression . CONCAT expression
+    (47) expression -> expression . INCR
+
+    SEMICOLON       shift and go to state 63
+    PLUS            shift and go to state 31
+    MINUS           shift and go to state 32
+    TIMES           shift and go to state 33
+    DIVIDE          shift and go to state 34
+    MOD             shift and go to state 35
+    CONCAT          shift and go to state 36
+    INCR            shift and go to state 37
+
+
+state 40
+
+    (3) expression -> LBRACKET expression_list . RBRACKET
+    (2) expression_list -> expression_list . COMMA expression
+
+    RBRACKET        shift and go to state 64
+    COMMA           shift and go to state 65
+
+
+state 41
+
+    (1) expression_list -> expression .
+    (30) expression -> expression . PLUS expression
+    (31) expression -> expression . MINUS expression
+    (32) expression -> expression . TIMES expression
+    (33) expression -> expression . DIVIDE expression
+    (34) expression -> expression . MOD expression
+    (35) expression -> expression . CONCAT expression
+    (47) expression -> expression . INCR
+
+    RBRACKET        reduce using rule 1 (expression_list -> expression .)
+    COMMA           reduce using rule 1 (expression_list -> expression .)
+    RPAREN          reduce using rule 1 (expression_list -> expression .)
+    PLUS            shift and go to state 31
+    MINUS           shift and go to state 32
+    TIMES           shift and go to state 33
+    DIVIDE          shift and go to state 34
+    MOD             shift and go to state 35
+    CONCAT          shift and go to state 36
+    INCR            shift and go to state 37
+
+
+state 42
+
+    (52) program -> PHP_OPEN statement_list PHP_CLOSE .
+
+    $end            reduce using rule 52 (program -> PHP_OPEN statement_list PHP_CLOSE .)
+
+
+state 43
+
+    (12) statement -> IF LPAREN condition . RPAREN block ELSE block
+
+    RPAREN          shift and go to state 66
+
+
+state 44
+
+    (4) condition -> expression . ANDAND expression
+    (5) condition -> expression . OROR expression
+    (6) condition -> expression . EQ expression
+    (7) condition -> expression . NEQ expression
+    (8) condition -> expression . LT expression
+    (9) condition -> expression . GT expression
+    (10) condition -> expression . LE expression
+    (11) condition -> expression . GE expression
+    (30) expression -> expression . PLUS expression
+    (31) expression -> expression . MINUS expression
+    (32) expression -> expression . TIMES expression
+    (33) expression -> expression . DIVIDE expression
+    (34) expression -> expression . MOD expression
+    (35) expression -> expression . CONCAT expression
+    (47) expression -> expression . INCR
+
+    ANDAND          shift and go to state 67
+    OROR            shift and go to state 68
+    EQ              shift and go to state 69
+    NEQ             shift and go to state 70
+    LT              shift and go to state 71
+    GT              shift and go to state 72
+    LE              shift and go to state 73
+    GE              shift and go to state 74
+    PLUS            shift and go to state 31
+    MINUS           shift and go to state 32
+    TIMES           shift and go to state 33
+    DIVIDE          shift and go to state 34
+    MOD             shift and go to state 35
+    CONCAT          shift and go to state 36
+    INCR            shift and go to state 37
+
+
+state 45
+
+    (13) statement -> FUNCTION ID LPAREN . parameter_list RPAREN block
+    (14) parameter_list -> . VARIABLE
+    (15) parameter_list -> . parameter_list COMMA VARIABLE
+    (16) parameter_list -> . empty
+    (51) empty -> .
+
+    VARIABLE        shift and go to state 76
+    RPAREN          reduce using rule 51 (empty -> .)
+    COMMA           reduce using rule 51 (empty -> .)
+
+    parameter_list                 shift and go to state 75
+    empty                          shift and go to state 77
+
+state 46
+
+    (17) expression -> ID LPAREN array_pairs . RPAREN
+    (19) array_pairs -> array_pairs . COMMA STRING DOUBLEARROW expression
+
+    RPAREN          shift and go to state 78
+    COMMA           shift and go to state 79
+
+
+state 47
+
+    (46) expression -> ID LPAREN RPAREN .
+
+    SEMICOLON       reduce using rule 46 (expression -> ID LPAREN RPAREN .)
+    PLUS            reduce using rule 46 (expression -> ID LPAREN RPAREN .)
+    MINUS           reduce using rule 46 (expression -> ID LPAREN RPAREN .)
+    TIMES           reduce using rule 46 (expression -> ID LPAREN RPAREN .)
+    DIVIDE          reduce using rule 46 (expression -> ID LPAREN RPAREN .)
+    MOD             reduce using rule 46 (expression -> ID LPAREN RPAREN .)
+    CONCAT          reduce using rule 46 (expression -> ID LPAREN RPAREN .)
+    INCR            reduce using rule 46 (expression -> ID LPAREN RPAREN .)
+    RBRACKET        reduce using rule 46 (expression -> ID LPAREN RPAREN .)
+    COMMA           reduce using rule 46 (expression -> ID LPAREN RPAREN .)
+    ANDAND          reduce using rule 46 (expression -> ID LPAREN RPAREN .)
+    OROR            reduce using rule 46 (expression -> ID LPAREN RPAREN .)
+    EQ              reduce using rule 46 (expression -> ID LPAREN RPAREN .)
+    NEQ             reduce using rule 46 (expression -> ID LPAREN RPAREN .)
+    LT              reduce using rule 46 (expression -> ID LPAREN RPAREN .)
+    GT              reduce using rule 46 (expression -> ID LPAREN RPAREN .)
+    LE              reduce using rule 46 (expression -> ID LPAREN RPAREN .)
+    GE              reduce using rule 46 (expression -> ID LPAREN RPAREN .)
+    RPAREN          reduce using rule 46 (expression -> ID LPAREN RPAREN .)
+
+
+state 48
+
+    (29) expression -> ID LPAREN STRING . RPAREN
+    (18) array_pairs -> STRING . DOUBLEARROW expression
+    (39) expression -> STRING .
+
+  ! shift/reduce conflict for RPAREN resolved as shift
+    RPAREN          shift and go to state 80
+    DOUBLEARROW     shift and go to state 81
+    PLUS            reduce using rule 39 (expression -> STRING .)
+    MINUS           reduce using rule 39 (expression -> STRING .)
+    TIMES           reduce using rule 39 (expression -> STRING .)
+    DIVIDE          reduce using rule 39 (expression -> STRING .)
+    MOD             reduce using rule 39 (expression -> STRING .)
+    CONCAT          reduce using rule 39 (expression -> STRING .)
+    INCR            reduce using rule 39 (expression -> STRING .)
+    COMMA           reduce using rule 39 (expression -> STRING .)
+
+  ! RPAREN          [ reduce using rule 39 (expression -> STRING .) ]
+
+
+state 49
+
+    (40) expression -> ID LPAREN expression_list . RPAREN
+    (2) expression_list -> expression_list . COMMA expression
+
+    RPAREN          shift and go to state 82
+    COMMA           shift and go to state 65
+
+
+state 50
+
+    (20) statement -> FOREACH LPAREN VARIABLE . AS VARIABLE RPAREN block
+
+    AS              shift and go to state 83
+
+
+state 51
+
+    (41) expression -> VARIABLE LBRACKET expression . RBRACKET
+    (30) expression -> expression . PLUS expression
+    (31) expression -> expression . MINUS expression
+    (32) expression -> expression . TIMES expression
+    (33) expression -> expression . DIVIDE expression
+    (34) expression -> expression . MOD expression
+    (35) expression -> expression . CONCAT expression
+    (47) expression -> expression . INCR
+
+    RBRACKET        shift and go to state 84
+    PLUS            shift and go to state 31
+    MINUS           shift and go to state 32
+    TIMES           shift and go to state 33
+    DIVIDE          shift and go to state 34
+    MOD             shift and go to state 35
+    CONCAT          shift and go to state 36
+    INCR            shift and go to state 37
+
+
+state 52
+
+    (43) assignment -> VARIABLE LBRACKET RBRACKET . ASSIGN expression
+
+    ASSIGN          shift and go to state 85
+
+
+state 53
+
+    (42) assignment -> VARIABLE ASSIGN expression .
+    (30) expression -> expression . PLUS expression
+    (31) expression -> expression . MINUS expression
+    (32) expression -> expression . TIMES expression
+    (33) expression -> expression . DIVIDE expression
+    (34) expression -> expression . MOD expression
+    (35) expression -> expression . CONCAT expression
+    (47) expression -> expression . INCR
+
+    SEMICOLON       reduce using rule 42 (assignment -> VARIABLE ASSIGN expression .)
+    PLUS            shift and go to state 31
+    MINUS           shift and go to state 32
+    TIMES           shift and go to state 33
+    DIVIDE          shift and go to state 34
+    MOD             shift and go to state 35
+    CONCAT          shift and go to state 36
+    INCR            shift and go to state 37
+
+
+state 54
+
+    (26) statement -> CLASS ID LBRACE . class_body RBRACE
+    (24) class_body -> . class_statement
+    (25) class_body -> . class_body class_statement
+    (22) class_statement -> . class_static_method
+    (23) class_statement -> . statement
+    (21) class_static_method -> . STATIC FUNCTION ID LPAREN RPAREN block
+    (12) statement -> . IF LPAREN condition RPAREN block ELSE block
+    (13) statement -> . FUNCTION ID LPAREN parameter_list RPAREN block
+    (20) statement -> . FOREACH LPAREN VARIABLE AS VARIABLE RPAREN block
+    (26) statement -> . CLASS ID LBRACE class_body RBRACE
+    (27) statement -> . ECHO expression SEMICOLON
+    (28) statement -> . expression SEMICOLON
+    (44) statement -> . assignment SEMICOLON
+    (45) statement -> . RETURN expression SEMICOLON
+    (3) expression -> . LBRACKET expression_list RBRACKET
+    (17) expression -> . ID LPAREN array_pairs RPAREN
+    (29) expression -> . ID LPAREN STRING RPAREN
+    (30) expression -> . expression PLUS expression
+    (31) expression -> . expression MINUS expression
+    (32) expression -> . expression TIMES expression
+    (33) expression -> . expression DIVIDE expression
+    (34) expression -> . expression MOD expression
+    (35) expression -> . expression CONCAT expression
+    (36) expression -> . VARIABLE
+    (37) expression -> . NUMBER
+    (38) expression -> . FLOAT
+    (39) expression -> . STRING
+    (40) expression -> . ID LPAREN expression_list RPAREN
+    (41) expression -> . VARIABLE LBRACKET expression RBRACKET
+    (46) expression -> . ID LPAREN RPAREN
+    (47) expression -> . expression INCR
+    (42) assignment -> . VARIABLE ASSIGN expression
+    (43) assignment -> . VARIABLE LBRACKET RBRACKET ASSIGN expression
+
+    STATIC          shift and go to state 90
+    IF              shift and go to state 5
+    FUNCTION        shift and go to state 6
+    FOREACH         shift and go to state 8
+    CLASS           shift and go to state 10
+    ECHO            shift and go to state 11
+    RETURN          shift and go to state 14
+    LBRACKET        shift and go to state 15
+    ID              shift and go to state 7
+    VARIABLE        shift and go to state 9
+    NUMBER          shift and go to state 17
+    FLOAT           shift and go to state 18
+    STRING          shift and go to state 16
+
+    class_body                     shift and go to state 86
+    class_statement                shift and go to state 87
+    class_static_method            shift and go to state 88
+    statement                      shift and go to state 89
+    expression                     shift and go to state 12
+    assignment                     shift and go to state 13
+
+state 55
+
+    (27) statement -> ECHO expression SEMICOLON .
+
+    IF              reduce using rule 27 (statement -> ECHO expression SEMICOLON .)
+    FUNCTION        reduce using rule 27 (statement -> ECHO expression SEMICOLON .)
+    FOREACH         reduce using rule 27 (statement -> ECHO expression SEMICOLON .)
+    CLASS           reduce using rule 27 (statement -> ECHO expression SEMICOLON .)
+    ECHO            reduce using rule 27 (statement -> ECHO expression SEMICOLON .)
+    RETURN          reduce using rule 27 (statement -> ECHO expression SEMICOLON .)
+    LBRACKET        reduce using rule 27 (statement -> ECHO expression SEMICOLON .)
+    ID              reduce using rule 27 (statement -> ECHO expression SEMICOLON .)
+    VARIABLE        reduce using rule 27 (statement -> ECHO expression SEMICOLON .)
+    NUMBER          reduce using rule 27 (statement -> ECHO expression SEMICOLON .)
+    FLOAT           reduce using rule 27 (statement -> ECHO expression SEMICOLON .)
+    STRING          reduce using rule 27 (statement -> ECHO expression SEMICOLON .)
+    $end            reduce using rule 27 (statement -> ECHO expression SEMICOLON .)
+    PHP_CLOSE       reduce using rule 27 (statement -> ECHO expression SEMICOLON .)
+    RBRACE          reduce using rule 27 (statement -> ECHO expression SEMICOLON .)
+    STATIC          reduce using rule 27 (statement -> ECHO expression SEMICOLON .)
+
+
+state 56
+
+    (41) expression -> VARIABLE LBRACKET . expression RBRACKET
+    (3) expression -> . LBRACKET expression_list RBRACKET
+    (17) expression -> . ID LPAREN array_pairs RPAREN
+    (29) expression -> . ID LPAREN STRING RPAREN
+    (30) expression -> . expression PLUS expression
+    (31) expression -> . expression MINUS expression
+    (32) expression -> . expression TIMES expression
+    (33) expression -> . expression DIVIDE expression
+    (34) expression -> . expression MOD expression
+    (35) expression -> . expression CONCAT expression
+    (36) expression -> . VARIABLE
+    (37) expression -> . NUMBER
+    (38) expression -> . FLOAT
+    (39) expression -> . STRING
+    (40) expression -> . ID LPAREN expression_list RPAREN
+    (41) expression -> . VARIABLE LBRACKET expression RBRACKET
+    (46) expression -> . ID LPAREN RPAREN
+    (47) expression -> . expression INCR
+
+    LBRACKET        shift and go to state 15
+    ID              shift and go to state 7
+    VARIABLE        shift and go to state 29
+    NUMBER          shift and go to state 17
+    FLOAT           shift and go to state 18
+    STRING          shift and go to state 16
+
+    expression                     shift and go to state 51
+
+state 57
+
+    (30) expression -> expression PLUS expression .
+    (30) expression -> expression . PLUS expression
+    (31) expression -> expression . MINUS expression
+    (32) expression -> expression . TIMES expression
+    (33) expression -> expression . DIVIDE expression
+    (34) expression -> expression . MOD expression
+    (35) expression -> expression . CONCAT expression
+    (47) expression -> expression . INCR
+
+  ! shift/reduce conflict for PLUS resolved as shift
+  ! shift/reduce conflict for MINUS resolved as shift
+  ! shift/reduce conflict for TIMES resolved as shift
+  ! shift/reduce conflict for DIVIDE resolved as shift
+  ! shift/reduce conflict for MOD resolved as shift
+  ! shift/reduce conflict for CONCAT resolved as shift
+  ! shift/reduce conflict for INCR resolved as shift
+    SEMICOLON       reduce using rule 30 (expression -> expression PLUS expression .)
+    RBRACKET        reduce using rule 30 (expression -> expression PLUS expression .)
+    COMMA           reduce using rule 30 (expression -> expression PLUS expression .)
+    ANDAND          reduce using rule 30 (expression -> expression PLUS expression .)
+    OROR            reduce using rule 30 (expression -> expression PLUS expression .)
+    EQ              reduce using rule 30 (expression -> expression PLUS expression .)
+    NEQ             reduce using rule 30 (expression -> expression PLUS expression .)
+    LT              reduce using rule 30 (expression -> expression PLUS expression .)
+    GT              reduce using rule 30 (expression -> expression PLUS expression .)
+    LE              reduce using rule 30 (expression -> expression PLUS expression .)
+    GE              reduce using rule 30 (expression -> expression PLUS expression .)
+    RPAREN          reduce using rule 30 (expression -> expression PLUS expression .)
+    PLUS            shift and go to state 31
+    MINUS           shift and go to state 32
+    TIMES           shift and go to state 33
+    DIVIDE          shift and go to state 34
+    MOD             shift and go to state 35
+    CONCAT          shift and go to state 36
+    INCR            shift and go to state 37
+
+  ! PLUS            [ reduce using rule 30 (expression -> expression PLUS expression .) ]
+  ! MINUS           [ reduce using rule 30 (expression -> expression PLUS expression .) ]
+  ! TIMES           [ reduce using rule 30 (expression -> expression PLUS expression .) ]
+  ! DIVIDE          [ reduce using rule 30 (expression -> expression PLUS expression .) ]
+  ! MOD             [ reduce using rule 30 (expression -> expression PLUS expression .) ]
+  ! CONCAT          [ reduce using rule 30 (expression -> expression PLUS expression .) ]
+  ! INCR            [ reduce using rule 30 (expression -> expression PLUS expression .) ]
+
+
+state 58
+
+    (31) expression -> expression MINUS expression .
+    (30) expression -> expression . PLUS expression
+    (31) expression -> expression . MINUS expression
+    (32) expression -> expression . TIMES expression
+    (33) expression -> expression . DIVIDE expression
+    (34) expression -> expression . MOD expression
+    (35) expression -> expression . CONCAT expression
+    (47) expression -> expression . INCR
+
+  ! shift/reduce conflict for PLUS resolved as shift
+  ! shift/reduce conflict for MINUS resolved as shift
+  ! shift/reduce conflict for TIMES resolved as shift
+  ! shift/reduce conflict for DIVIDE resolved as shift
+  ! shift/reduce conflict for MOD resolved as shift
+  ! shift/reduce conflict for CONCAT resolved as shift
+  ! shift/reduce conflict for INCR resolved as shift
+    SEMICOLON       reduce using rule 31 (expression -> expression MINUS expression .)
+    RBRACKET        reduce using rule 31 (expression -> expression MINUS expression .)
+    COMMA           reduce using rule 31 (expression -> expression MINUS expression .)
+    ANDAND          reduce using rule 31 (expression -> expression MINUS expression .)
+    OROR            reduce using rule 31 (expression -> expression MINUS expression .)
+    EQ              reduce using rule 31 (expression -> expression MINUS expression .)
+    NEQ             reduce using rule 31 (expression -> expression MINUS expression .)
+    LT              reduce using rule 31 (expression -> expression MINUS expression .)
+    GT              reduce using rule 31 (expression -> expression MINUS expression .)
+    LE              reduce using rule 31 (expression -> expression MINUS expression .)
+    GE              reduce using rule 31 (expression -> expression MINUS expression .)
+    RPAREN          reduce using rule 31 (expression -> expression MINUS expression .)
+    PLUS            shift and go to state 31
+    MINUS           shift and go to state 32
+    TIMES           shift and go to state 33
+    DIVIDE          shift and go to state 34
+    MOD             shift and go to state 35
+    CONCAT          shift and go to state 36
+    INCR            shift and go to state 37
+
+  ! PLUS            [ reduce using rule 31 (expression -> expression MINUS expression .) ]
+  ! MINUS           [ reduce using rule 31 (expression -> expression MINUS expression .) ]
+  ! TIMES           [ reduce using rule 31 (expression -> expression MINUS expression .) ]
+  ! DIVIDE          [ reduce using rule 31 (expression -> expression MINUS expression .) ]
+  ! MOD             [ reduce using rule 31 (expression -> expression MINUS expression .) ]
+  ! CONCAT          [ reduce using rule 31 (expression -> expression MINUS expression .) ]
+  ! INCR            [ reduce using rule 31 (expression -> expression MINUS expression .) ]
+
+
+state 59
+
+    (32) expression -> expression TIMES expression .
+    (30) expression -> expression . PLUS expression
+    (31) expression -> expression . MINUS expression
+    (32) expression -> expression . TIMES expression
+    (33) expression -> expression . DIVIDE expression
+    (34) expression -> expression . MOD expression
+    (35) expression -> expression . CONCAT expression
+    (47) expression -> expression . INCR
+
+  ! shift/reduce conflict for PLUS resolved as shift
+  ! shift/reduce conflict for MINUS resolved as shift
+  ! shift/reduce conflict for TIMES resolved as shift
+  ! shift/reduce conflict for DIVIDE resolved as shift
+  ! shift/reduce conflict for MOD resolved as shift
+  ! shift/reduce conflict for CONCAT resolved as shift
+  ! shift/reduce conflict for INCR resolved as shift
+    SEMICOLON       reduce using rule 32 (expression -> expression TIMES expression .)
+    RBRACKET        reduce using rule 32 (expression -> expression TIMES expression .)
+    COMMA           reduce using rule 32 (expression -> expression TIMES expression .)
+    ANDAND          reduce using rule 32 (expression -> expression TIMES expression .)
+    OROR            reduce using rule 32 (expression -> expression TIMES expression .)
+    EQ              reduce using rule 32 (expression -> expression TIMES expression .)
+    NEQ             reduce using rule 32 (expression -> expression TIMES expression .)
+    LT              reduce using rule 32 (expression -> expression TIMES expression .)
+    GT              reduce using rule 32 (expression -> expression TIMES expression .)
+    LE              reduce using rule 32 (expression -> expression TIMES expression .)
+    GE              reduce using rule 32 (expression -> expression TIMES expression .)
+    RPAREN          reduce using rule 32 (expression -> expression TIMES expression .)
+    PLUS            shift and go to state 31
+    MINUS           shift and go to state 32
+    TIMES           shift and go to state 33
+    DIVIDE          shift and go to state 34
+    MOD             shift and go to state 35
+    CONCAT          shift and go to state 36
+    INCR            shift and go to state 37
+
+  ! PLUS            [ reduce using rule 32 (expression -> expression TIMES expression .) ]
+  ! MINUS           [ reduce using rule 32 (expression -> expression TIMES expression .) ]
+  ! TIMES           [ reduce using rule 32 (expression -> expression TIMES expression .) ]
+  ! DIVIDE          [ reduce using rule 32 (expression -> expression TIMES expression .) ]
+  ! MOD             [ reduce using rule 32 (expression -> expression TIMES expression .) ]
+  ! CONCAT          [ reduce using rule 32 (expression -> expression TIMES expression .) ]
+  ! INCR            [ reduce using rule 32 (expression -> expression TIMES expression .) ]
+
+
+state 60
+
+    (33) expression -> expression DIVIDE expression .
+    (30) expression -> expression . PLUS expression
+    (31) expression -> expression . MINUS expression
+    (32) expression -> expression . TIMES expression
+    (33) expression -> expression . DIVIDE expression
+    (34) expression -> expression . MOD expression
+    (35) expression -> expression . CONCAT expression
+    (47) expression -> expression . INCR
+
+  ! shift/reduce conflict for PLUS resolved as shift
+  ! shift/reduce conflict for MINUS resolved as shift
+  ! shift/reduce conflict for TIMES resolved as shift
+  ! shift/reduce conflict for DIVIDE resolved as shift
+  ! shift/reduce conflict for MOD resolved as shift
+  ! shift/reduce conflict for CONCAT resolved as shift
+  ! shift/reduce conflict for INCR resolved as shift
+    SEMICOLON       reduce using rule 33 (expression -> expression DIVIDE expression .)
+    RBRACKET        reduce using rule 33 (expression -> expression DIVIDE expression .)
+    COMMA           reduce using rule 33 (expression -> expression DIVIDE expression .)
+    ANDAND          reduce using rule 33 (expression -> expression DIVIDE expression .)
+    OROR            reduce using rule 33 (expression -> expression DIVIDE expression .)
+    EQ              reduce using rule 33 (expression -> expression DIVIDE expression .)
+    NEQ             reduce using rule 33 (expression -> expression DIVIDE expression .)
+    LT              reduce using rule 33 (expression -> expression DIVIDE expression .)
+    GT              reduce using rule 33 (expression -> expression DIVIDE expression .)
+    LE              reduce using rule 33 (expression -> expression DIVIDE expression .)
+    GE              reduce using rule 33 (expression -> expression DIVIDE expression .)
+    RPAREN          reduce using rule 33 (expression -> expression DIVIDE expression .)
+    PLUS            shift and go to state 31
+    MINUS           shift and go to state 32
+    TIMES           shift and go to state 33
+    DIVIDE          shift and go to state 34
+    MOD             shift and go to state 35
+    CONCAT          shift and go to state 36
+    INCR            shift and go to state 37
+
+  ! PLUS            [ reduce using rule 33 (expression -> expression DIVIDE expression .) ]
+  ! MINUS           [ reduce using rule 33 (expression -> expression DIVIDE expression .) ]
+  ! TIMES           [ reduce using rule 33 (expression -> expression DIVIDE expression .) ]
+  ! DIVIDE          [ reduce using rule 33 (expression -> expression DIVIDE expression .) ]
+  ! MOD             [ reduce using rule 33 (expression -> expression DIVIDE expression .) ]
+  ! CONCAT          [ reduce using rule 33 (expression -> expression DIVIDE expression .) ]
+  ! INCR            [ reduce using rule 33 (expression -> expression DIVIDE expression .) ]
+
+
+state 61
+
+    (34) expression -> expression MOD expression .
+    (30) expression -> expression . PLUS expression
+    (31) expression -> expression . MINUS expression
+    (32) expression -> expression . TIMES expression
+    (33) expression -> expression . DIVIDE expression
+    (34) expression -> expression . MOD expression
+    (35) expression -> expression . CONCAT expression
+    (47) expression -> expression . INCR
+
+  ! shift/reduce conflict for PLUS resolved as shift
+  ! shift/reduce conflict for MINUS resolved as shift
+  ! shift/reduce conflict for TIMES resolved as shift
+  ! shift/reduce conflict for DIVIDE resolved as shift
+  ! shift/reduce conflict for MOD resolved as shift
+  ! shift/reduce conflict for CONCAT resolved as shift
+  ! shift/reduce conflict for INCR resolved as shift
+    SEMICOLON       reduce using rule 34 (expression -> expression MOD expression .)
+    RBRACKET        reduce using rule 34 (expression -> expression MOD expression .)
+    COMMA           reduce using rule 34 (expression -> expression MOD expression .)
+    ANDAND          reduce using rule 34 (expression -> expression MOD expression .)
+    OROR            reduce using rule 34 (expression -> expression MOD expression .)
+    EQ              reduce using rule 34 (expression -> expression MOD expression .)
+    NEQ             reduce using rule 34 (expression -> expression MOD expression .)
+    LT              reduce using rule 34 (expression -> expression MOD expression .)
+    GT              reduce using rule 34 (expression -> expression MOD expression .)
+    LE              reduce using rule 34 (expression -> expression MOD expression .)
+    GE              reduce using rule 34 (expression -> expression MOD expression .)
+    RPAREN          reduce using rule 34 (expression -> expression MOD expression .)
+    PLUS            shift and go to state 31
+    MINUS           shift and go to state 32
+    TIMES           shift and go to state 33
+    DIVIDE          shift and go to state 34
+    MOD             shift and go to state 35
+    CONCAT          shift and go to state 36
+    INCR            shift and go to state 37
+
+  ! PLUS            [ reduce using rule 34 (expression -> expression MOD expression .) ]
+  ! MINUS           [ reduce using rule 34 (expression -> expression MOD expression .) ]
+  ! TIMES           [ reduce using rule 34 (expression -> expression MOD expression .) ]
+  ! DIVIDE          [ reduce using rule 34 (expression -> expression MOD expression .) ]
+  ! MOD             [ reduce using rule 34 (expression -> expression MOD expression .) ]
+  ! CONCAT          [ reduce using rule 34 (expression -> expression MOD expression .) ]
+  ! INCR            [ reduce using rule 34 (expression -> expression MOD expression .) ]
+
+
+state 62
+
+    (35) expression -> expression CONCAT expression .
+    (30) expression -> expression . PLUS expression
+    (31) expression -> expression . MINUS expression
+    (32) expression -> expression . TIMES expression
+    (33) expression -> expression . DIVIDE expression
+    (34) expression -> expression . MOD expression
+    (35) expression -> expression . CONCAT expression
+    (47) expression -> expression . INCR
+
+  ! shift/reduce conflict for PLUS resolved as shift
+  ! shift/reduce conflict for MINUS resolved as shift
+  ! shift/reduce conflict for TIMES resolved as shift
+  ! shift/reduce conflict for DIVIDE resolved as shift
+  ! shift/reduce conflict for MOD resolved as shift
+  ! shift/reduce conflict for CONCAT resolved as shift
+  ! shift/reduce conflict for INCR resolved as shift
+    SEMICOLON       reduce using rule 35 (expression -> expression CONCAT expression .)
+    RBRACKET        reduce using rule 35 (expression -> expression CONCAT expression .)
+    COMMA           reduce using rule 35 (expression -> expression CONCAT expression .)
+    ANDAND          reduce using rule 35 (expression -> expression CONCAT expression .)
+    OROR            reduce using rule 35 (expression -> expression CONCAT expression .)
+    EQ              reduce using rule 35 (expression -> expression CONCAT expression .)
+    NEQ             reduce using rule 35 (expression -> expression CONCAT expression .)
+    LT              reduce using rule 35 (expression -> expression CONCAT expression .)
+    GT              reduce using rule 35 (expression -> expression CONCAT expression .)
+    LE              reduce using rule 35 (expression -> expression CONCAT expression .)
+    GE              reduce using rule 35 (expression -> expression CONCAT expression .)
+    RPAREN          reduce using rule 35 (expression -> expression CONCAT expression .)
+    PLUS            shift and go to state 31
+    MINUS           shift and go to state 32
+    TIMES           shift and go to state 33
+    DIVIDE          shift and go to state 34
+    MOD             shift and go to state 35
+    CONCAT          shift and go to state 36
+    INCR            shift and go to state 37
+
+  ! PLUS            [ reduce using rule 35 (expression -> expression CONCAT expression .) ]
+  ! MINUS           [ reduce using rule 35 (expression -> expression CONCAT expression .) ]
+  ! TIMES           [ reduce using rule 35 (expression -> expression CONCAT expression .) ]
+  ! DIVIDE          [ reduce using rule 35 (expression -> expression CONCAT expression .) ]
+  ! MOD             [ reduce using rule 35 (expression -> expression CONCAT expression .) ]
+  ! CONCAT          [ reduce using rule 35 (expression -> expression CONCAT expression .) ]
+  ! INCR            [ reduce using rule 35 (expression -> expression CONCAT expression .) ]
+
+
+state 63
+
+    (45) statement -> RETURN expression SEMICOLON .
+
+    IF              reduce using rule 45 (statement -> RETURN expression SEMICOLON .)
+    FUNCTION        reduce using rule 45 (statement -> RETURN expression SEMICOLON .)
+    FOREACH         reduce using rule 45 (statement -> RETURN expression SEMICOLON .)
+    CLASS           reduce using rule 45 (statement -> RETURN expression SEMICOLON .)
+    ECHO            reduce using rule 45 (statement -> RETURN expression SEMICOLON .)
+    RETURN          reduce using rule 45 (statement -> RETURN expression SEMICOLON .)
+    LBRACKET        reduce using rule 45 (statement -> RETURN expression SEMICOLON .)
+    ID              reduce using rule 45 (statement -> RETURN expression SEMICOLON .)
+    VARIABLE        reduce using rule 45 (statement -> RETURN expression SEMICOLON .)
+    NUMBER          reduce using rule 45 (statement -> RETURN expression SEMICOLON .)
+    FLOAT           reduce using rule 45 (statement -> RETURN expression SEMICOLON .)
+    STRING          reduce using rule 45 (statement -> RETURN expression SEMICOLON .)
+    $end            reduce using rule 45 (statement -> RETURN expression SEMICOLON .)
+    PHP_CLOSE       reduce using rule 45 (statement -> RETURN expression SEMICOLON .)
+    RBRACE          reduce using rule 45 (statement -> RETURN expression SEMICOLON .)
+    STATIC          reduce using rule 45 (statement -> RETURN expression SEMICOLON .)
+
+
+state 64
+
+    (3) expression -> LBRACKET expression_list RBRACKET .
+
+    SEMICOLON       reduce using rule 3 (expression -> LBRACKET expression_list RBRACKET .)
+    PLUS            reduce using rule 3 (expression -> LBRACKET expression_list RBRACKET .)
+    MINUS           reduce using rule 3 (expression -> LBRACKET expression_list RBRACKET .)
+    TIMES           reduce using rule 3 (expression -> LBRACKET expression_list RBRACKET .)
+    DIVIDE          reduce using rule 3 (expression -> LBRACKET expression_list RBRACKET .)
+    MOD             reduce using rule 3 (expression -> LBRACKET expression_list RBRACKET .)
+    CONCAT          reduce using rule 3 (expression -> LBRACKET expression_list RBRACKET .)
+    INCR            reduce using rule 3 (expression -> LBRACKET expression_list RBRACKET .)
+    RBRACKET        reduce using rule 3 (expression -> LBRACKET expression_list RBRACKET .)
+    COMMA           reduce using rule 3 (expression -> LBRACKET expression_list RBRACKET .)
+    ANDAND          reduce using rule 3 (expression -> LBRACKET expression_list RBRACKET .)
+    OROR            reduce using rule 3 (expression -> LBRACKET expression_list RBRACKET .)
+    EQ              reduce using rule 3 (expression -> LBRACKET expression_list RBRACKET .)
+    NEQ             reduce using rule 3 (expression -> LBRACKET expression_list RBRACKET .)
+    LT              reduce using rule 3 (expression -> LBRACKET expression_list RBRACKET .)
+    GT              reduce using rule 3 (expression -> LBRACKET expression_list RBRACKET .)
+    LE              reduce using rule 3 (expression -> LBRACKET expression_list RBRACKET .)
+    GE              reduce using rule 3 (expression -> LBRACKET expression_list RBRACKET .)
+    RPAREN          reduce using rule 3 (expression -> LBRACKET expression_list RBRACKET .)
+
+
+state 65
+
+    (2) expression_list -> expression_list COMMA . expression
+    (3) expression -> . LBRACKET expression_list RBRACKET
+    (17) expression -> . ID LPAREN array_pairs RPAREN
+    (29) expression -> . ID LPAREN STRING RPAREN
+    (30) expression -> . expression PLUS expression
+    (31) expression -> . expression MINUS expression
+    (32) expression -> . expression TIMES expression
+    (33) expression -> . expression DIVIDE expression
+    (34) expression -> . expression MOD expression
+    (35) expression -> . expression CONCAT expression
+    (36) expression -> . VARIABLE
+    (37) expression -> . NUMBER
+    (38) expression -> . FLOAT
+    (39) expression -> . STRING
+    (40) expression -> . ID LPAREN expression_list RPAREN
+    (41) expression -> . VARIABLE LBRACKET expression RBRACKET
+    (46) expression -> . ID LPAREN RPAREN
+    (47) expression -> . expression INCR
+
+    LBRACKET        shift and go to state 15
+    ID              shift and go to state 7
+    VARIABLE        shift and go to state 29
+    NUMBER          shift and go to state 17
+    FLOAT           shift and go to state 18
+    STRING          shift and go to state 16
+
+    expression                     shift and go to state 91
+
+state 66
+
+    (12) statement -> IF LPAREN condition RPAREN . block ELSE block
+    (48) block -> . LBRACE statement_list RBRACE
+
+    LBRACE          shift and go to state 93
+
+    block                          shift and go to state 92
+
+state 67
+
+    (4) condition -> expression ANDAND . expression
+    (3) expression -> . LBRACKET expression_list RBRACKET
+    (17) expression -> . ID LPAREN array_pairs RPAREN
+    (29) expression -> . ID LPAREN STRING RPAREN
+    (30) expression -> . expression PLUS expression
+    (31) expression -> . expression MINUS expression
+    (32) expression -> . expression TIMES expression
+    (33) expression -> . expression DIVIDE expression
+    (34) expression -> . expression MOD expression
+    (35) expression -> . expression CONCAT expression
+    (36) expression -> . VARIABLE
+    (37) expression -> . NUMBER
+    (38) expression -> . FLOAT
+    (39) expression -> . STRING
+    (40) expression -> . ID LPAREN expression_list RPAREN
+    (41) expression -> . VARIABLE LBRACKET expression RBRACKET
+    (46) expression -> . ID LPAREN RPAREN
+    (47) expression -> . expression INCR
+
+    LBRACKET        shift and go to state 15
+    ID              shift and go to state 7
+    VARIABLE        shift and go to state 29
+    NUMBER          shift and go to state 17
+    FLOAT           shift and go to state 18
+    STRING          shift and go to state 16
+
+    expression                     shift and go to state 94
+
+state 68
+
+    (5) condition -> expression OROR . expression
+    (3) expression -> . LBRACKET expression_list RBRACKET
+    (17) expression -> . ID LPAREN array_pairs RPAREN
+    (29) expression -> . ID LPAREN STRING RPAREN
+    (30) expression -> . expression PLUS expression
+    (31) expression -> . expression MINUS expression
+    (32) expression -> . expression TIMES expression
+    (33) expression -> . expression DIVIDE expression
+    (34) expression -> . expression MOD expression
+    (35) expression -> . expression CONCAT expression
+    (36) expression -> . VARIABLE
+    (37) expression -> . NUMBER
+    (38) expression -> . FLOAT
+    (39) expression -> . STRING
+    (40) expression -> . ID LPAREN expression_list RPAREN
+    (41) expression -> . VARIABLE LBRACKET expression RBRACKET
+    (46) expression -> . ID LPAREN RPAREN
+    (47) expression -> . expression INCR
+
+    LBRACKET        shift and go to state 15
+    ID              shift and go to state 7
+    VARIABLE        shift and go to state 29
+    NUMBER          shift and go to state 17
+    FLOAT           shift and go to state 18
+    STRING          shift and go to state 16
+
+    expression                     shift and go to state 95
+
+state 69
+
+    (6) condition -> expression EQ . expression
+    (3) expression -> . LBRACKET expression_list RBRACKET
+    (17) expression -> . ID LPAREN array_pairs RPAREN
+    (29) expression -> . ID LPAREN STRING RPAREN
+    (30) expression -> . expression PLUS expression
+    (31) expression -> . expression MINUS expression
+    (32) expression -> . expression TIMES expression
+    (33) expression -> . expression DIVIDE expression
+    (34) expression -> . expression MOD expression
+    (35) expression -> . expression CONCAT expression
+    (36) expression -> . VARIABLE
+    (37) expression -> . NUMBER
+    (38) expression -> . FLOAT
+    (39) expression -> . STRING
+    (40) expression -> . ID LPAREN expression_list RPAREN
+    (41) expression -> . VARIABLE LBRACKET expression RBRACKET
+    (46) expression -> . ID LPAREN RPAREN
+    (47) expression -> . expression INCR
+
+    LBRACKET        shift and go to state 15
+    ID              shift and go to state 7
+    VARIABLE        shift and go to state 29
+    NUMBER          shift and go to state 17
+    FLOAT           shift and go to state 18
+    STRING          shift and go to state 16
+
+    expression                     shift and go to state 96
+
+state 70
+
+    (7) condition -> expression NEQ . expression
+    (3) expression -> . LBRACKET expression_list RBRACKET
+    (17) expression -> . ID LPAREN array_pairs RPAREN
+    (29) expression -> . ID LPAREN STRING RPAREN
+    (30) expression -> . expression PLUS expression
+    (31) expression -> . expression MINUS expression
+    (32) expression -> . expression TIMES expression
+    (33) expression -> . expression DIVIDE expression
+    (34) expression -> . expression MOD expression
+    (35) expression -> . expression CONCAT expression
+    (36) expression -> . VARIABLE
+    (37) expression -> . NUMBER
+    (38) expression -> . FLOAT
+    (39) expression -> . STRING
+    (40) expression -> . ID LPAREN expression_list RPAREN
+    (41) expression -> . VARIABLE LBRACKET expression RBRACKET
+    (46) expression -> . ID LPAREN RPAREN
+    (47) expression -> . expression INCR
+
+    LBRACKET        shift and go to state 15
+    ID              shift and go to state 7
+    VARIABLE        shift and go to state 29
+    NUMBER          shift and go to state 17
+    FLOAT           shift and go to state 18
+    STRING          shift and go to state 16
+
+    expression                     shift and go to state 97
+
+state 71
+
+    (8) condition -> expression LT . expression
+    (3) expression -> . LBRACKET expression_list RBRACKET
+    (17) expression -> . ID LPAREN array_pairs RPAREN
+    (29) expression -> . ID LPAREN STRING RPAREN
+    (30) expression -> . expression PLUS expression
+    (31) expression -> . expression MINUS expression
+    (32) expression -> . expression TIMES expression
+    (33) expression -> . expression DIVIDE expression
+    (34) expression -> . expression MOD expression
+    (35) expression -> . expression CONCAT expression
+    (36) expression -> . VARIABLE
+    (37) expression -> . NUMBER
+    (38) expression -> . FLOAT
+    (39) expression -> . STRING
+    (40) expression -> . ID LPAREN expression_list RPAREN
+    (41) expression -> . VARIABLE LBRACKET expression RBRACKET
+    (46) expression -> . ID LPAREN RPAREN
+    (47) expression -> . expression INCR
+
+    LBRACKET        shift and go to state 15
+    ID              shift and go to state 7
+    VARIABLE        shift and go to state 29
+    NUMBER          shift and go to state 17
+    FLOAT           shift and go to state 18
+    STRING          shift and go to state 16
+
+    expression                     shift and go to state 98
+
+state 72
+
+    (9) condition -> expression GT . expression
+    (3) expression -> . LBRACKET expression_list RBRACKET
+    (17) expression -> . ID LPAREN array_pairs RPAREN
+    (29) expression -> . ID LPAREN STRING RPAREN
+    (30) expression -> . expression PLUS expression
+    (31) expression -> . expression MINUS expression
+    (32) expression -> . expression TIMES expression
+    (33) expression -> . expression DIVIDE expression
+    (34) expression -> . expression MOD expression
+    (35) expression -> . expression CONCAT expression
+    (36) expression -> . VARIABLE
+    (37) expression -> . NUMBER
+    (38) expression -> . FLOAT
+    (39) expression -> . STRING
+    (40) expression -> . ID LPAREN expression_list RPAREN
+    (41) expression -> . VARIABLE LBRACKET expression RBRACKET
+    (46) expression -> . ID LPAREN RPAREN
+    (47) expression -> . expression INCR
+
+    LBRACKET        shift and go to state 15
+    ID              shift and go to state 7
+    VARIABLE        shift and go to state 29
+    NUMBER          shift and go to state 17
+    FLOAT           shift and go to state 18
+    STRING          shift and go to state 16
+
+    expression                     shift and go to state 99
+
+state 73
+
+    (10) condition -> expression LE . expression
+    (3) expression -> . LBRACKET expression_list RBRACKET
+    (17) expression -> . ID LPAREN array_pairs RPAREN
+    (29) expression -> . ID LPAREN STRING RPAREN
+    (30) expression -> . expression PLUS expression
+    (31) expression -> . expression MINUS expression
+    (32) expression -> . expression TIMES expression
+    (33) expression -> . expression DIVIDE expression
+    (34) expression -> . expression MOD expression
+    (35) expression -> . expression CONCAT expression
+    (36) expression -> . VARIABLE
+    (37) expression -> . NUMBER
+    (38) expression -> . FLOAT
+    (39) expression -> . STRING
+    (40) expression -> . ID LPAREN expression_list RPAREN
+    (41) expression -> . VARIABLE LBRACKET expression RBRACKET
+    (46) expression -> . ID LPAREN RPAREN
+    (47) expression -> . expression INCR
+
+    LBRACKET        shift and go to state 15
+    ID              shift and go to state 7
+    VARIABLE        shift and go to state 29
+    NUMBER          shift and go to state 17
+    FLOAT           shift and go to state 18
+    STRING          shift and go to state 16
+
+    expression                     shift and go to state 100
+
+state 74
+
+    (11) condition -> expression GE . expression
+    (3) expression -> . LBRACKET expression_list RBRACKET
+    (17) expression -> . ID LPAREN array_pairs RPAREN
+    (29) expression -> . ID LPAREN STRING RPAREN
+    (30) expression -> . expression PLUS expression
+    (31) expression -> . expression MINUS expression
+    (32) expression -> . expression TIMES expression
+    (33) expression -> . expression DIVIDE expression
+    (34) expression -> . expression MOD expression
+    (35) expression -> . expression CONCAT expression
+    (36) expression -> . VARIABLE
+    (37) expression -> . NUMBER
+    (38) expression -> . FLOAT
+    (39) expression -> . STRING
+    (40) expression -> . ID LPAREN expression_list RPAREN
+    (41) expression -> . VARIABLE LBRACKET expression RBRACKET
+    (46) expression -> . ID LPAREN RPAREN
+    (47) expression -> . expression INCR
+
+    LBRACKET        shift and go to state 15
+    ID              shift and go to state 7
+    VARIABLE        shift and go to state 29
+    NUMBER          shift and go to state 17
+    FLOAT           shift and go to state 18
+    STRING          shift and go to state 16
+
+    expression                     shift and go to state 101
+
+state 75
+
+    (13) statement -> FUNCTION ID LPAREN parameter_list . RPAREN block
+    (15) parameter_list -> parameter_list . COMMA VARIABLE
+
+    RPAREN          shift and go to state 102
+    COMMA           shift and go to state 103
+
+
+state 76
+
+    (14) parameter_list -> VARIABLE .
+
+    RPAREN          reduce using rule 14 (parameter_list -> VARIABLE .)
+    COMMA           reduce using rule 14 (parameter_list -> VARIABLE .)
+
+
+state 77
+
+    (16) parameter_list -> empty .
+
+    RPAREN          reduce using rule 16 (parameter_list -> empty .)
+    COMMA           reduce using rule 16 (parameter_list -> empty .)
+
+
+state 78
+
+    (17) expression -> ID LPAREN array_pairs RPAREN .
+
+    SEMICOLON       reduce using rule 17 (expression -> ID LPAREN array_pairs RPAREN .)
+    PLUS            reduce using rule 17 (expression -> ID LPAREN array_pairs RPAREN .)
+    MINUS           reduce using rule 17 (expression -> ID LPAREN array_pairs RPAREN .)
+    TIMES           reduce using rule 17 (expression -> ID LPAREN array_pairs RPAREN .)
+    DIVIDE          reduce using rule 17 (expression -> ID LPAREN array_pairs RPAREN .)
+    MOD             reduce using rule 17 (expression -> ID LPAREN array_pairs RPAREN .)
+    CONCAT          reduce using rule 17 (expression -> ID LPAREN array_pairs RPAREN .)
+    INCR            reduce using rule 17 (expression -> ID LPAREN array_pairs RPAREN .)
+    RBRACKET        reduce using rule 17 (expression -> ID LPAREN array_pairs RPAREN .)
+    COMMA           reduce using rule 17 (expression -> ID LPAREN array_pairs RPAREN .)
+    ANDAND          reduce using rule 17 (expression -> ID LPAREN array_pairs RPAREN .)
+    OROR            reduce using rule 17 (expression -> ID LPAREN array_pairs RPAREN .)
+    EQ              reduce using rule 17 (expression -> ID LPAREN array_pairs RPAREN .)
+    NEQ             reduce using rule 17 (expression -> ID LPAREN array_pairs RPAREN .)
+    LT              reduce using rule 17 (expression -> ID LPAREN array_pairs RPAREN .)
+    GT              reduce using rule 17 (expression -> ID LPAREN array_pairs RPAREN .)
+    LE              reduce using rule 17 (expression -> ID LPAREN array_pairs RPAREN .)
+    GE              reduce using rule 17 (expression -> ID LPAREN array_pairs RPAREN .)
+    RPAREN          reduce using rule 17 (expression -> ID LPAREN array_pairs RPAREN .)
+
+
+state 79
+
+    (19) array_pairs -> array_pairs COMMA . STRING DOUBLEARROW expression
+
+    STRING          shift and go to state 104
+
+
+state 80
+
+    (29) expression -> ID LPAREN STRING RPAREN .
+
+    SEMICOLON       reduce using rule 29 (expression -> ID LPAREN STRING RPAREN .)
+    PLUS            reduce using rule 29 (expression -> ID LPAREN STRING RPAREN .)
+    MINUS           reduce using rule 29 (expression -> ID LPAREN STRING RPAREN .)
+    TIMES           reduce using rule 29 (expression -> ID LPAREN STRING RPAREN .)
+    DIVIDE          reduce using rule 29 (expression -> ID LPAREN STRING RPAREN .)
+    MOD             reduce using rule 29 (expression -> ID LPAREN STRING RPAREN .)
+    CONCAT          reduce using rule 29 (expression -> ID LPAREN STRING RPAREN .)
+    INCR            reduce using rule 29 (expression -> ID LPAREN STRING RPAREN .)
+    RBRACKET        reduce using rule 29 (expression -> ID LPAREN STRING RPAREN .)
+    COMMA           reduce using rule 29 (expression -> ID LPAREN STRING RPAREN .)
+    ANDAND          reduce using rule 29 (expression -> ID LPAREN STRING RPAREN .)
+    OROR            reduce using rule 29 (expression -> ID LPAREN STRING RPAREN .)
+    EQ              reduce using rule 29 (expression -> ID LPAREN STRING RPAREN .)
+    NEQ             reduce using rule 29 (expression -> ID LPAREN STRING RPAREN .)
+    LT              reduce using rule 29 (expression -> ID LPAREN STRING RPAREN .)
+    GT              reduce using rule 29 (expression -> ID LPAREN STRING RPAREN .)
+    LE              reduce using rule 29 (expression -> ID LPAREN STRING RPAREN .)
+    GE              reduce using rule 29 (expression -> ID LPAREN STRING RPAREN .)
+    RPAREN          reduce using rule 29 (expression -> ID LPAREN STRING RPAREN .)
+
+
+state 81
+
+    (18) array_pairs -> STRING DOUBLEARROW . expression
+    (3) expression -> . LBRACKET expression_list RBRACKET
+    (17) expression -> . ID LPAREN array_pairs RPAREN
+    (29) expression -> . ID LPAREN STRING RPAREN
+    (30) expression -> . expression PLUS expression
+    (31) expression -> . expression MINUS expression
+    (32) expression -> . expression TIMES expression
+    (33) expression -> . expression DIVIDE expression
+    (34) expression -> . expression MOD expression
+    (35) expression -> . expression CONCAT expression
+    (36) expression -> . VARIABLE
+    (37) expression -> . NUMBER
+    (38) expression -> . FLOAT
+    (39) expression -> . STRING
+    (40) expression -> . ID LPAREN expression_list RPAREN
+    (41) expression -> . VARIABLE LBRACKET expression RBRACKET
+    (46) expression -> . ID LPAREN RPAREN
+    (47) expression -> . expression INCR
+
+    LBRACKET        shift and go to state 15
+    ID              shift and go to state 7
+    VARIABLE        shift and go to state 29
+    NUMBER          shift and go to state 17
+    FLOAT           shift and go to state 18
+    STRING          shift and go to state 16
+
+    expression                     shift and go to state 105
+
+state 82
+
+    (40) expression -> ID LPAREN expression_list RPAREN .
+
+    SEMICOLON       reduce using rule 40 (expression -> ID LPAREN expression_list RPAREN .)
+    PLUS            reduce using rule 40 (expression -> ID LPAREN expression_list RPAREN .)
+    MINUS           reduce using rule 40 (expression -> ID LPAREN expression_list RPAREN .)
+    TIMES           reduce using rule 40 (expression -> ID LPAREN expression_list RPAREN .)
+    DIVIDE          reduce using rule 40 (expression -> ID LPAREN expression_list RPAREN .)
+    MOD             reduce using rule 40 (expression -> ID LPAREN expression_list RPAREN .)
+    CONCAT          reduce using rule 40 (expression -> ID LPAREN expression_list RPAREN .)
+    INCR            reduce using rule 40 (expression -> ID LPAREN expression_list RPAREN .)
+    RBRACKET        reduce using rule 40 (expression -> ID LPAREN expression_list RPAREN .)
+    COMMA           reduce using rule 40 (expression -> ID LPAREN expression_list RPAREN .)
+    ANDAND          reduce using rule 40 (expression -> ID LPAREN expression_list RPAREN .)
+    OROR            reduce using rule 40 (expression -> ID LPAREN expression_list RPAREN .)
+    EQ              reduce using rule 40 (expression -> ID LPAREN expression_list RPAREN .)
+    NEQ             reduce using rule 40 (expression -> ID LPAREN expression_list RPAREN .)
+    LT              reduce using rule 40 (expression -> ID LPAREN expression_list RPAREN .)
+    GT              reduce using rule 40 (expression -> ID LPAREN expression_list RPAREN .)
+    LE              reduce using rule 40 (expression -> ID LPAREN expression_list RPAREN .)
+    GE              reduce using rule 40 (expression -> ID LPAREN expression_list RPAREN .)
+    RPAREN          reduce using rule 40 (expression -> ID LPAREN expression_list RPAREN .)
+
+
+state 83
+
+    (20) statement -> FOREACH LPAREN VARIABLE AS . VARIABLE RPAREN block
+
+    VARIABLE        shift and go to state 106
+
+
+state 84
+
+    (41) expression -> VARIABLE LBRACKET expression RBRACKET .
+
+    SEMICOLON       reduce using rule 41 (expression -> VARIABLE LBRACKET expression RBRACKET .)
+    PLUS            reduce using rule 41 (expression -> VARIABLE LBRACKET expression RBRACKET .)
+    MINUS           reduce using rule 41 (expression -> VARIABLE LBRACKET expression RBRACKET .)
+    TIMES           reduce using rule 41 (expression -> VARIABLE LBRACKET expression RBRACKET .)
+    DIVIDE          reduce using rule 41 (expression -> VARIABLE LBRACKET expression RBRACKET .)
+    MOD             reduce using rule 41 (expression -> VARIABLE LBRACKET expression RBRACKET .)
+    CONCAT          reduce using rule 41 (expression -> VARIABLE LBRACKET expression RBRACKET .)
+    INCR            reduce using rule 41 (expression -> VARIABLE LBRACKET expression RBRACKET .)
+    RBRACKET        reduce using rule 41 (expression -> VARIABLE LBRACKET expression RBRACKET .)
+    COMMA           reduce using rule 41 (expression -> VARIABLE LBRACKET expression RBRACKET .)
+    ANDAND          reduce using rule 41 (expression -> VARIABLE LBRACKET expression RBRACKET .)
+    OROR            reduce using rule 41 (expression -> VARIABLE LBRACKET expression RBRACKET .)
+    EQ              reduce using rule 41 (expression -> VARIABLE LBRACKET expression RBRACKET .)
+    NEQ             reduce using rule 41 (expression -> VARIABLE LBRACKET expression RBRACKET .)
+    LT              reduce using rule 41 (expression -> VARIABLE LBRACKET expression RBRACKET .)
+    GT              reduce using rule 41 (expression -> VARIABLE LBRACKET expression RBRACKET .)
+    LE              reduce using rule 41 (expression -> VARIABLE LBRACKET expression RBRACKET .)
+    GE              reduce using rule 41 (expression -> VARIABLE LBRACKET expression RBRACKET .)
+    RPAREN          reduce using rule 41 (expression -> VARIABLE LBRACKET expression RBRACKET .)
+
+
+state 85
+
+    (43) assignment -> VARIABLE LBRACKET RBRACKET ASSIGN . expression
+    (3) expression -> . LBRACKET expression_list RBRACKET
+    (17) expression -> . ID LPAREN array_pairs RPAREN
+    (29) expression -> . ID LPAREN STRING RPAREN
+    (30) expression -> . expression PLUS expression
+    (31) expression -> . expression MINUS expression
+    (32) expression -> . expression TIMES expression
+    (33) expression -> . expression DIVIDE expression
+    (34) expression -> . expression MOD expression
+    (35) expression -> . expression CONCAT expression
+    (36) expression -> . VARIABLE
+    (37) expression -> . NUMBER
+    (38) expression -> . FLOAT
+    (39) expression -> . STRING
+    (40) expression -> . ID LPAREN expression_list RPAREN
+    (41) expression -> . VARIABLE LBRACKET expression RBRACKET
+    (46) expression -> . ID LPAREN RPAREN
+    (47) expression -> . expression INCR
+
+    LBRACKET        shift and go to state 15
+    ID              shift and go to state 7
+    VARIABLE        shift and go to state 29
+    NUMBER          shift and go to state 17
+    FLOAT           shift and go to state 18
+    STRING          shift and go to state 16
+
+    expression                     shift and go to state 107
+
+state 86
+
+    (26) statement -> CLASS ID LBRACE class_body . RBRACE
+    (25) class_body -> class_body . class_statement
+    (22) class_statement -> . class_static_method
+    (23) class_statement -> . statement
+    (21) class_static_method -> . STATIC FUNCTION ID LPAREN RPAREN block
+    (12) statement -> . IF LPAREN condition RPAREN block ELSE block
+    (13) statement -> . FUNCTION ID LPAREN parameter_list RPAREN block
+    (20) statement -> . FOREACH LPAREN VARIABLE AS VARIABLE RPAREN block
+    (26) statement -> . CLASS ID LBRACE class_body RBRACE
+    (27) statement -> . ECHO expression SEMICOLON
+    (28) statement -> . expression SEMICOLON
+    (44) statement -> . assignment SEMICOLON
+    (45) statement -> . RETURN expression SEMICOLON
+    (3) expression -> . LBRACKET expression_list RBRACKET
+    (17) expression -> . ID LPAREN array_pairs RPAREN
+    (29) expression -> . ID LPAREN STRING RPAREN
+    (30) expression -> . expression PLUS expression
+    (31) expression -> . expression MINUS expression
+    (32) expression -> . expression TIMES expression
+    (33) expression -> . expression DIVIDE expression
+    (34) expression -> . expression MOD expression
+    (35) expression -> . expression CONCAT expression
+    (36) expression -> . VARIABLE
+    (37) expression -> . NUMBER
+    (38) expression -> . FLOAT
+    (39) expression -> . STRING
+    (40) expression -> . ID LPAREN expression_list RPAREN
+    (41) expression -> . VARIABLE LBRACKET expression RBRACKET
+    (46) expression -> . ID LPAREN RPAREN
+    (47) expression -> . expression INCR
+    (42) assignment -> . VARIABLE ASSIGN expression
+    (43) assignment -> . VARIABLE LBRACKET RBRACKET ASSIGN expression
+
+    RBRACE          shift and go to state 108
+    STATIC          shift and go to state 90
+    IF              shift and go to state 5
+    FUNCTION        shift and go to state 6
+    FOREACH         shift and go to state 8
+    CLASS           shift and go to state 10
+    ECHO            shift and go to state 11
+    RETURN          shift and go to state 14
+    LBRACKET        shift and go to state 15
+    ID              shift and go to state 7
+    VARIABLE        shift and go to state 9
+    NUMBER          shift and go to state 17
+    FLOAT           shift and go to state 18
+    STRING          shift and go to state 16
+
+    class_statement                shift and go to state 109
+    class_static_method            shift and go to state 88
+    statement                      shift and go to state 89
+    expression                     shift and go to state 12
+    assignment                     shift and go to state 13
+
+state 87
+
+    (24) class_body -> class_statement .
+
+    RBRACE          reduce using rule 24 (class_body -> class_statement .)
+    STATIC          reduce using rule 24 (class_body -> class_statement .)
+    IF              reduce using rule 24 (class_body -> class_statement .)
+    FUNCTION        reduce using rule 24 (class_body -> class_statement .)
+    FOREACH         reduce using rule 24 (class_body -> class_statement .)
+    CLASS           reduce using rule 24 (class_body -> class_statement .)
+    ECHO            reduce using rule 24 (class_body -> class_statement .)
+    RETURN          reduce using rule 24 (class_body -> class_statement .)
+    LBRACKET        reduce using rule 24 (class_body -> class_statement .)
+    ID              reduce using rule 24 (class_body -> class_statement .)
+    VARIABLE        reduce using rule 24 (class_body -> class_statement .)
+    NUMBER          reduce using rule 24 (class_body -> class_statement .)
+    FLOAT           reduce using rule 24 (class_body -> class_statement .)
+    STRING          reduce using rule 24 (class_body -> class_statement .)
+
+
+state 88
+
+    (22) class_statement -> class_static_method .
+
+    RBRACE          reduce using rule 22 (class_statement -> class_static_method .)
+    STATIC          reduce using rule 22 (class_statement -> class_static_method .)
+    IF              reduce using rule 22 (class_statement -> class_static_method .)
+    FUNCTION        reduce using rule 22 (class_statement -> class_static_method .)
+    FOREACH         reduce using rule 22 (class_statement -> class_static_method .)
+    CLASS           reduce using rule 22 (class_statement -> class_static_method .)
+    ECHO            reduce using rule 22 (class_statement -> class_static_method .)
+    RETURN          reduce using rule 22 (class_statement -> class_static_method .)
+    LBRACKET        reduce using rule 22 (class_statement -> class_static_method .)
+    ID              reduce using rule 22 (class_statement -> class_static_method .)
+    VARIABLE        reduce using rule 22 (class_statement -> class_static_method .)
+    NUMBER          reduce using rule 22 (class_statement -> class_static_method .)
+    FLOAT           reduce using rule 22 (class_statement -> class_static_method .)
+    STRING          reduce using rule 22 (class_statement -> class_static_method .)
+
+
+state 89
+
+    (23) class_statement -> statement .
+
+    RBRACE          reduce using rule 23 (class_statement -> statement .)
+    STATIC          reduce using rule 23 (class_statement -> statement .)
+    IF              reduce using rule 23 (class_statement -> statement .)
+    FUNCTION        reduce using rule 23 (class_statement -> statement .)
+    FOREACH         reduce using rule 23 (class_statement -> statement .)
+    CLASS           reduce using rule 23 (class_statement -> statement .)
+    ECHO            reduce using rule 23 (class_statement -> statement .)
+    RETURN          reduce using rule 23 (class_statement -> statement .)
+    LBRACKET        reduce using rule 23 (class_statement -> statement .)
+    ID              reduce using rule 23 (class_statement -> statement .)
+    VARIABLE        reduce using rule 23 (class_statement -> statement .)
+    NUMBER          reduce using rule 23 (class_statement -> statement .)
+    FLOAT           reduce using rule 23 (class_statement -> statement .)
+    STRING          reduce using rule 23 (class_statement -> statement .)
+
+
+state 90
+
+    (21) class_static_method -> STATIC . FUNCTION ID LPAREN RPAREN block
+
+    FUNCTION        shift and go to state 110
+
+
+state 91
+
+    (2) expression_list -> expression_list COMMA expression .
+    (30) expression -> expression . PLUS expression
+    (31) expression -> expression . MINUS expression
+    (32) expression -> expression . TIMES expression
+    (33) expression -> expression . DIVIDE expression
+    (34) expression -> expression . MOD expression
+    (35) expression -> expression . CONCAT expression
+    (47) expression -> expression . INCR
+
+    RBRACKET        reduce using rule 2 (expression_list -> expression_list COMMA expression .)
+    COMMA           reduce using rule 2 (expression_list -> expression_list COMMA expression .)
+    RPAREN          reduce using rule 2 (expression_list -> expression_list COMMA expression .)
+    PLUS            shift and go to state 31
+    MINUS           shift and go to state 32
+    TIMES           shift and go to state 33
+    DIVIDE          shift and go to state 34
+    MOD             shift and go to state 35
+    CONCAT          shift and go to state 36
+    INCR            shift and go to state 37
+
+
+state 92
+
+    (12) statement -> IF LPAREN condition RPAREN block . ELSE block
+
+    ELSE            shift and go to state 111
+
+
+state 93
+
+    (48) block -> LBRACE . statement_list RBRACE
+    (49) statement_list -> . statement
+    (50) statement_list -> . statement_list statement
+    (12) statement -> . IF LPAREN condition RPAREN block ELSE block
+    (13) statement -> . FUNCTION ID LPAREN parameter_list RPAREN block
+    (20) statement -> . FOREACH LPAREN VARIABLE AS VARIABLE RPAREN block
+    (26) statement -> . CLASS ID LBRACE class_body RBRACE
+    (27) statement -> . ECHO expression SEMICOLON
+    (28) statement -> . expression SEMICOLON
+    (44) statement -> . assignment SEMICOLON
+    (45) statement -> . RETURN expression SEMICOLON
+    (3) expression -> . LBRACKET expression_list RBRACKET
+    (17) expression -> . ID LPAREN array_pairs RPAREN
+    (29) expression -> . ID LPAREN STRING RPAREN
+    (30) expression -> . expression PLUS expression
+    (31) expression -> . expression MINUS expression
+    (32) expression -> . expression TIMES expression
+    (33) expression -> . expression DIVIDE expression
+    (34) expression -> . expression MOD expression
+    (35) expression -> . expression CONCAT expression
+    (36) expression -> . VARIABLE
+    (37) expression -> . NUMBER
+    (38) expression -> . FLOAT
+    (39) expression -> . STRING
+    (40) expression -> . ID LPAREN expression_list RPAREN
+    (41) expression -> . VARIABLE LBRACKET expression RBRACKET
+    (46) expression -> . ID LPAREN RPAREN
+    (47) expression -> . expression INCR
+    (42) assignment -> . VARIABLE ASSIGN expression
+    (43) assignment -> . VARIABLE LBRACKET RBRACKET ASSIGN expression
+
+    IF              shift and go to state 5
+    FUNCTION        shift and go to state 6
+    FOREACH         shift and go to state 8
+    CLASS           shift and go to state 10
+    ECHO            shift and go to state 11
+    RETURN          shift and go to state 14
+    LBRACKET        shift and go to state 15
+    ID              shift and go to state 7
+    VARIABLE        shift and go to state 9
+    NUMBER          shift and go to state 17
+    FLOAT           shift and go to state 18
+    STRING          shift and go to state 16
+
+    statement_list                 shift and go to state 112
+    statement                      shift and go to state 4
+    expression                     shift and go to state 12
+    assignment                     shift and go to state 13
+
+state 94
+
+    (4) condition -> expression ANDAND expression .
+    (30) expression -> expression . PLUS expression
+    (31) expression -> expression . MINUS expression
+    (32) expression -> expression . TIMES expression
+    (33) expression -> expression . DIVIDE expression
+    (34) expression -> expression . MOD expression
+    (35) expression -> expression . CONCAT expression
+    (47) expression -> expression . INCR
+
+    RPAREN          reduce using rule 4 (condition -> expression ANDAND expression .)
+    PLUS            shift and go to state 31
+    MINUS           shift and go to state 32
+    TIMES           shift and go to state 33
+    DIVIDE          shift and go to state 34
+    MOD             shift and go to state 35
+    CONCAT          shift and go to state 36
+    INCR            shift and go to state 37
+
+
+state 95
+
+    (5) condition -> expression OROR expression .
+    (30) expression -> expression . PLUS expression
+    (31) expression -> expression . MINUS expression
+    (32) expression -> expression . TIMES expression
+    (33) expression -> expression . DIVIDE expression
+    (34) expression -> expression . MOD expression
+    (35) expression -> expression . CONCAT expression
+    (47) expression -> expression . INCR
+
+    RPAREN          reduce using rule 5 (condition -> expression OROR expression .)
+    PLUS            shift and go to state 31
+    MINUS           shift and go to state 32
+    TIMES           shift and go to state 33
+    DIVIDE          shift and go to state 34
+    MOD             shift and go to state 35
+    CONCAT          shift and go to state 36
+    INCR            shift and go to state 37
+
+
+state 96
+
+    (6) condition -> expression EQ expression .
+    (30) expression -> expression . PLUS expression
+    (31) expression -> expression . MINUS expression
+    (32) expression -> expression . TIMES expression
+    (33) expression -> expression . DIVIDE expression
+    (34) expression -> expression . MOD expression
+    (35) expression -> expression . CONCAT expression
+    (47) expression -> expression . INCR
+
+    RPAREN          reduce using rule 6 (condition -> expression EQ expression .)
+    PLUS            shift and go to state 31
+    MINUS           shift and go to state 32
+    TIMES           shift and go to state 33
+    DIVIDE          shift and go to state 34
+    MOD             shift and go to state 35
+    CONCAT          shift and go to state 36
+    INCR            shift and go to state 37
+
+
+state 97
+
+    (7) condition -> expression NEQ expression .
+    (30) expression -> expression . PLUS expression
+    (31) expression -> expression . MINUS expression
+    (32) expression -> expression . TIMES expression
+    (33) expression -> expression . DIVIDE expression
+    (34) expression -> expression . MOD expression
+    (35) expression -> expression . CONCAT expression
+    (47) expression -> expression . INCR
+
+    RPAREN          reduce using rule 7 (condition -> expression NEQ expression .)
+    PLUS            shift and go to state 31
+    MINUS           shift and go to state 32
+    TIMES           shift and go to state 33
+    DIVIDE          shift and go to state 34
+    MOD             shift and go to state 35
+    CONCAT          shift and go to state 36
+    INCR            shift and go to state 37
+
+
+state 98
+
+    (8) condition -> expression LT expression .
+    (30) expression -> expression . PLUS expression
+    (31) expression -> expression . MINUS expression
+    (32) expression -> expression . TIMES expression
+    (33) expression -> expression . DIVIDE expression
+    (34) expression -> expression . MOD expression
+    (35) expression -> expression . CONCAT expression
+    (47) expression -> expression . INCR
+
+    RPAREN          reduce using rule 8 (condition -> expression LT expression .)
+    PLUS            shift and go to state 31
+    MINUS           shift and go to state 32
+    TIMES           shift and go to state 33
+    DIVIDE          shift and go to state 34
+    MOD             shift and go to state 35
+    CONCAT          shift and go to state 36
+    INCR            shift and go to state 37
+
+
+state 99
+
+    (9) condition -> expression GT expression .
+    (30) expression -> expression . PLUS expression
+    (31) expression -> expression . MINUS expression
+    (32) expression -> expression . TIMES expression
+    (33) expression -> expression . DIVIDE expression
+    (34) expression -> expression . MOD expression
+    (35) expression -> expression . CONCAT expression
+    (47) expression -> expression . INCR
+
+    RPAREN          reduce using rule 9 (condition -> expression GT expression .)
+    PLUS            shift and go to state 31
+    MINUS           shift and go to state 32
+    TIMES           shift and go to state 33
+    DIVIDE          shift and go to state 34
+    MOD             shift and go to state 35
+    CONCAT          shift and go to state 36
+    INCR            shift and go to state 37
+
+
+state 100
+
+    (10) condition -> expression LE expression .
+    (30) expression -> expression . PLUS expression
+    (31) expression -> expression . MINUS expression
+    (32) expression -> expression . TIMES expression
+    (33) expression -> expression . DIVIDE expression
+    (34) expression -> expression . MOD expression
+    (35) expression -> expression . CONCAT expression
+    (47) expression -> expression . INCR
+
+    RPAREN          reduce using rule 10 (condition -> expression LE expression .)
+    PLUS            shift and go to state 31
+    MINUS           shift and go to state 32
+    TIMES           shift and go to state 33
+    DIVIDE          shift and go to state 34
+    MOD             shift and go to state 35
+    CONCAT          shift and go to state 36
+    INCR            shift and go to state 37
+
+
+state 101
+
+    (11) condition -> expression GE expression .
+    (30) expression -> expression . PLUS expression
+    (31) expression -> expression . MINUS expression
+    (32) expression -> expression . TIMES expression
+    (33) expression -> expression . DIVIDE expression
+    (34) expression -> expression . MOD expression
+    (35) expression -> expression . CONCAT expression
+    (47) expression -> expression . INCR
+
+    RPAREN          reduce using rule 11 (condition -> expression GE expression .)
+    PLUS            shift and go to state 31
+    MINUS           shift and go to state 32
+    TIMES           shift and go to state 33
+    DIVIDE          shift and go to state 34
+    MOD             shift and go to state 35
+    CONCAT          shift and go to state 36
+    INCR            shift and go to state 37
+
+
+state 102
+
+    (13) statement -> FUNCTION ID LPAREN parameter_list RPAREN . block
+    (48) block -> . LBRACE statement_list RBRACE
+
+    LBRACE          shift and go to state 93
+
+    block                          shift and go to state 113
+
+state 103
+
+    (15) parameter_list -> parameter_list COMMA . VARIABLE
+
+    VARIABLE        shift and go to state 114
+
+
+state 104
+
+    (19) array_pairs -> array_pairs COMMA STRING . DOUBLEARROW expression
+
+    DOUBLEARROW     shift and go to state 115
+
+
+state 105
+
+    (18) array_pairs -> STRING DOUBLEARROW expression .
+    (30) expression -> expression . PLUS expression
+    (31) expression -> expression . MINUS expression
+    (32) expression -> expression . TIMES expression
+    (33) expression -> expression . DIVIDE expression
+    (34) expression -> expression . MOD expression
+    (35) expression -> expression . CONCAT expression
+    (47) expression -> expression . INCR
+
+    RPAREN          reduce using rule 18 (array_pairs -> STRING DOUBLEARROW expression .)
+    COMMA           reduce using rule 18 (array_pairs -> STRING DOUBLEARROW expression .)
+    PLUS            shift and go to state 31
+    MINUS           shift and go to state 32
+    TIMES           shift and go to state 33
+    DIVIDE          shift and go to state 34
+    MOD             shift and go to state 35
+    CONCAT          shift and go to state 36
+    INCR            shift and go to state 37
+
+
+state 106
+
+    (20) statement -> FOREACH LPAREN VARIABLE AS VARIABLE . RPAREN block
+
+    RPAREN          shift and go to state 116
+
+
+state 107
+
+    (43) assignment -> VARIABLE LBRACKET RBRACKET ASSIGN expression .
+    (30) expression -> expression . PLUS expression
+    (31) expression -> expression . MINUS expression
+    (32) expression -> expression . TIMES expression
+    (33) expression -> expression . DIVIDE expression
+    (34) expression -> expression . MOD expression
+    (35) expression -> expression . CONCAT expression
+    (47) expression -> expression . INCR
+
+    SEMICOLON       reduce using rule 43 (assignment -> VARIABLE LBRACKET RBRACKET ASSIGN expression .)
+    PLUS            shift and go to state 31
+    MINUS           shift and go to state 32
+    TIMES           shift and go to state 33
+    DIVIDE          shift and go to state 34
+    MOD             shift and go to state 35
+    CONCAT          shift and go to state 36
+    INCR            shift and go to state 37
+
+
+state 108
+
+    (26) statement -> CLASS ID LBRACE class_body RBRACE .
+
+    IF              reduce using rule 26 (statement -> CLASS ID LBRACE class_body RBRACE .)
+    FUNCTION        reduce using rule 26 (statement -> CLASS ID LBRACE class_body RBRACE .)
+    FOREACH         reduce using rule 26 (statement -> CLASS ID LBRACE class_body RBRACE .)
+    CLASS           reduce using rule 26 (statement -> CLASS ID LBRACE class_body RBRACE .)
+    ECHO            reduce using rule 26 (statement -> CLASS ID LBRACE class_body RBRACE .)
+    RETURN          reduce using rule 26 (statement -> CLASS ID LBRACE class_body RBRACE .)
+    LBRACKET        reduce using rule 26 (statement -> CLASS ID LBRACE class_body RBRACE .)
+    ID              reduce using rule 26 (statement -> CLASS ID LBRACE class_body RBRACE .)
+    VARIABLE        reduce using rule 26 (statement -> CLASS ID LBRACE class_body RBRACE .)
+    NUMBER          reduce using rule 26 (statement -> CLASS ID LBRACE class_body RBRACE .)
+    FLOAT           reduce using rule 26 (statement -> CLASS ID LBRACE class_body RBRACE .)
+    STRING          reduce using rule 26 (statement -> CLASS ID LBRACE class_body RBRACE .)
+    $end            reduce using rule 26 (statement -> CLASS ID LBRACE class_body RBRACE .)
+    PHP_CLOSE       reduce using rule 26 (statement -> CLASS ID LBRACE class_body RBRACE .)
+    RBRACE          reduce using rule 26 (statement -> CLASS ID LBRACE class_body RBRACE .)
+    STATIC          reduce using rule 26 (statement -> CLASS ID LBRACE class_body RBRACE .)
+
+
+state 109
+
+    (25) class_body -> class_body class_statement .
+
+    RBRACE          reduce using rule 25 (class_body -> class_body class_statement .)
+    STATIC          reduce using rule 25 (class_body -> class_body class_statement .)
+    IF              reduce using rule 25 (class_body -> class_body class_statement .)
+    FUNCTION        reduce using rule 25 (class_body -> class_body class_statement .)
+    FOREACH         reduce using rule 25 (class_body -> class_body class_statement .)
+    CLASS           reduce using rule 25 (class_body -> class_body class_statement .)
+    ECHO            reduce using rule 25 (class_body -> class_body class_statement .)
+    RETURN          reduce using rule 25 (class_body -> class_body class_statement .)
+    LBRACKET        reduce using rule 25 (class_body -> class_body class_statement .)
+    ID              reduce using rule 25 (class_body -> class_body class_statement .)
+    VARIABLE        reduce using rule 25 (class_body -> class_body class_statement .)
+    NUMBER          reduce using rule 25 (class_body -> class_body class_statement .)
+    FLOAT           reduce using rule 25 (class_body -> class_body class_statement .)
+    STRING          reduce using rule 25 (class_body -> class_body class_statement .)
+
+
+state 110
+
+    (21) class_static_method -> STATIC FUNCTION . ID LPAREN RPAREN block
+
+    ID              shift and go to state 117
+
+
+state 111
+
+    (12) statement -> IF LPAREN condition RPAREN block ELSE . block
+    (48) block -> . LBRACE statement_list RBRACE
+
+    LBRACE          shift and go to state 93
+
+    block                          shift and go to state 118
+
+state 112
+
+    (48) block -> LBRACE statement_list . RBRACE
+    (50) statement_list -> statement_list . statement
+    (12) statement -> . IF LPAREN condition RPAREN block ELSE block
+    (13) statement -> . FUNCTION ID LPAREN parameter_list RPAREN block
+    (20) statement -> . FOREACH LPAREN VARIABLE AS VARIABLE RPAREN block
+    (26) statement -> . CLASS ID LBRACE class_body RBRACE
+    (27) statement -> . ECHO expression SEMICOLON
+    (28) statement -> . expression SEMICOLON
+    (44) statement -> . assignment SEMICOLON
+    (45) statement -> . RETURN expression SEMICOLON
+    (3) expression -> . LBRACKET expression_list RBRACKET
+    (17) expression -> . ID LPAREN array_pairs RPAREN
+    (29) expression -> . ID LPAREN STRING RPAREN
+    (30) expression -> . expression PLUS expression
+    (31) expression -> . expression MINUS expression
+    (32) expression -> . expression TIMES expression
+    (33) expression -> . expression DIVIDE expression
+    (34) expression -> . expression MOD expression
+    (35) expression -> . expression CONCAT expression
+    (36) expression -> . VARIABLE
+    (37) expression -> . NUMBER
+    (38) expression -> . FLOAT
+    (39) expression -> . STRING
+    (40) expression -> . ID LPAREN expression_list RPAREN
+    (41) expression -> . VARIABLE LBRACKET expression RBRACKET
+    (46) expression -> . ID LPAREN RPAREN
+    (47) expression -> . expression INCR
+    (42) assignment -> . VARIABLE ASSIGN expression
+    (43) assignment -> . VARIABLE LBRACKET RBRACKET ASSIGN expression
+
+    RBRACE          shift and go to state 119
+    IF              shift and go to state 5
+    FUNCTION        shift and go to state 6
+    FOREACH         shift and go to state 8
+    CLASS           shift and go to state 10
+    ECHO            shift and go to state 11
+    RETURN          shift and go to state 14
+    LBRACKET        shift and go to state 15
+    ID              shift and go to state 7
+    VARIABLE        shift and go to state 9
+    NUMBER          shift and go to state 17
+    FLOAT           shift and go to state 18
+    STRING          shift and go to state 16
+
+    statement                      shift and go to state 20
+    expression                     shift and go to state 12
+    assignment                     shift and go to state 13
+
+state 113
+
+    (13) statement -> FUNCTION ID LPAREN parameter_list RPAREN block .
+
+    IF              reduce using rule 13 (statement -> FUNCTION ID LPAREN parameter_list RPAREN block .)
+    FUNCTION        reduce using rule 13 (statement -> FUNCTION ID LPAREN parameter_list RPAREN block .)
+    FOREACH         reduce using rule 13 (statement -> FUNCTION ID LPAREN parameter_list RPAREN block .)
+    CLASS           reduce using rule 13 (statement -> FUNCTION ID LPAREN parameter_list RPAREN block .)
+    ECHO            reduce using rule 13 (statement -> FUNCTION ID LPAREN parameter_list RPAREN block .)
+    RETURN          reduce using rule 13 (statement -> FUNCTION ID LPAREN parameter_list RPAREN block .)
+    LBRACKET        reduce using rule 13 (statement -> FUNCTION ID LPAREN parameter_list RPAREN block .)
+    ID              reduce using rule 13 (statement -> FUNCTION ID LPAREN parameter_list RPAREN block .)
+    VARIABLE        reduce using rule 13 (statement -> FUNCTION ID LPAREN parameter_list RPAREN block .)
+    NUMBER          reduce using rule 13 (statement -> FUNCTION ID LPAREN parameter_list RPAREN block .)
+    FLOAT           reduce using rule 13 (statement -> FUNCTION ID LPAREN parameter_list RPAREN block .)
+    STRING          reduce using rule 13 (statement -> FUNCTION ID LPAREN parameter_list RPAREN block .)
+    $end            reduce using rule 13 (statement -> FUNCTION ID LPAREN parameter_list RPAREN block .)
+    PHP_CLOSE       reduce using rule 13 (statement -> FUNCTION ID LPAREN parameter_list RPAREN block .)
+    RBRACE          reduce using rule 13 (statement -> FUNCTION ID LPAREN parameter_list RPAREN block .)
+    STATIC          reduce using rule 13 (statement -> FUNCTION ID LPAREN parameter_list RPAREN block .)
+
+
+state 114
+
+    (15) parameter_list -> parameter_list COMMA VARIABLE .
+
+    RPAREN          reduce using rule 15 (parameter_list -> parameter_list COMMA VARIABLE .)
+    COMMA           reduce using rule 15 (parameter_list -> parameter_list COMMA VARIABLE .)
+
+
+state 115
+
+    (19) array_pairs -> array_pairs COMMA STRING DOUBLEARROW . expression
+    (3) expression -> . LBRACKET expression_list RBRACKET
+    (17) expression -> . ID LPAREN array_pairs RPAREN
+    (29) expression -> . ID LPAREN STRING RPAREN
+    (30) expression -> . expression PLUS expression
+    (31) expression -> . expression MINUS expression
+    (32) expression -> . expression TIMES expression
+    (33) expression -> . expression DIVIDE expression
+    (34) expression -> . expression MOD expression
+    (35) expression -> . expression CONCAT expression
+    (36) expression -> . VARIABLE
+    (37) expression -> . NUMBER
+    (38) expression -> . FLOAT
+    (39) expression -> . STRING
+    (40) expression -> . ID LPAREN expression_list RPAREN
+    (41) expression -> . VARIABLE LBRACKET expression RBRACKET
+    (46) expression -> . ID LPAREN RPAREN
+    (47) expression -> . expression INCR
+
+    LBRACKET        shift and go to state 15
+    ID              shift and go to state 7
+    VARIABLE        shift and go to state 29
+    NUMBER          shift and go to state 17
+    FLOAT           shift and go to state 18
+    STRING          shift and go to state 16
+
+    expression                     shift and go to state 120
+
+state 116
+
+    (20) statement -> FOREACH LPAREN VARIABLE AS VARIABLE RPAREN . block
+    (48) block -> . LBRACE statement_list RBRACE
+
+    LBRACE          shift and go to state 93
+
+    block                          shift and go to state 121
+
+state 117
+
+    (21) class_static_method -> STATIC FUNCTION ID . LPAREN RPAREN block
+
+    LPAREN          shift and go to state 122
+
+
+state 118
+
+    (12) statement -> IF LPAREN condition RPAREN block ELSE block .
+
+    IF              reduce using rule 12 (statement -> IF LPAREN condition RPAREN block ELSE block .)
+    FUNCTION        reduce using rule 12 (statement -> IF LPAREN condition RPAREN block ELSE block .)
+    FOREACH         reduce using rule 12 (statement -> IF LPAREN condition RPAREN block ELSE block .)
+    CLASS           reduce using rule 12 (statement -> IF LPAREN condition RPAREN block ELSE block .)
+    ECHO            reduce using rule 12 (statement -> IF LPAREN condition RPAREN block ELSE block .)
+    RETURN          reduce using rule 12 (statement -> IF LPAREN condition RPAREN block ELSE block .)
+    LBRACKET        reduce using rule 12 (statement -> IF LPAREN condition RPAREN block ELSE block .)
+    ID              reduce using rule 12 (statement -> IF LPAREN condition RPAREN block ELSE block .)
+    VARIABLE        reduce using rule 12 (statement -> IF LPAREN condition RPAREN block ELSE block .)
+    NUMBER          reduce using rule 12 (statement -> IF LPAREN condition RPAREN block ELSE block .)
+    FLOAT           reduce using rule 12 (statement -> IF LPAREN condition RPAREN block ELSE block .)
+    STRING          reduce using rule 12 (statement -> IF LPAREN condition RPAREN block ELSE block .)
+    $end            reduce using rule 12 (statement -> IF LPAREN condition RPAREN block ELSE block .)
+    PHP_CLOSE       reduce using rule 12 (statement -> IF LPAREN condition RPAREN block ELSE block .)
+    RBRACE          reduce using rule 12 (statement -> IF LPAREN condition RPAREN block ELSE block .)
+    STATIC          reduce using rule 12 (statement -> IF LPAREN condition RPAREN block ELSE block .)
+
+
+state 119
+
+    (48) block -> LBRACE statement_list RBRACE .
+
+    ELSE            reduce using rule 48 (block -> LBRACE statement_list RBRACE .)
+    IF              reduce using rule 48 (block -> LBRACE statement_list RBRACE .)
+    FUNCTION        reduce using rule 48 (block -> LBRACE statement_list RBRACE .)
+    FOREACH         reduce using rule 48 (block -> LBRACE statement_list RBRACE .)
+    CLASS           reduce using rule 48 (block -> LBRACE statement_list RBRACE .)
+    ECHO            reduce using rule 48 (block -> LBRACE statement_list RBRACE .)
+    RETURN          reduce using rule 48 (block -> LBRACE statement_list RBRACE .)
+    LBRACKET        reduce using rule 48 (block -> LBRACE statement_list RBRACE .)
+    ID              reduce using rule 48 (block -> LBRACE statement_list RBRACE .)
+    VARIABLE        reduce using rule 48 (block -> LBRACE statement_list RBRACE .)
+    NUMBER          reduce using rule 48 (block -> LBRACE statement_list RBRACE .)
+    FLOAT           reduce using rule 48 (block -> LBRACE statement_list RBRACE .)
+    STRING          reduce using rule 48 (block -> LBRACE statement_list RBRACE .)
+    $end            reduce using rule 48 (block -> LBRACE statement_list RBRACE .)
+    PHP_CLOSE       reduce using rule 48 (block -> LBRACE statement_list RBRACE .)
+    RBRACE          reduce using rule 48 (block -> LBRACE statement_list RBRACE .)
+    STATIC          reduce using rule 48 (block -> LBRACE statement_list RBRACE .)
+
+
+state 120
+
+    (19) array_pairs -> array_pairs COMMA STRING DOUBLEARROW expression .
+    (30) expression -> expression . PLUS expression
+    (31) expression -> expression . MINUS expression
+    (32) expression -> expression . TIMES expression
+    (33) expression -> expression . DIVIDE expression
+    (34) expression -> expression . MOD expression
+    (35) expression -> expression . CONCAT expression
+    (47) expression -> expression . INCR
+
+    RPAREN          reduce using rule 19 (array_pairs -> array_pairs COMMA STRING DOUBLEARROW expression .)
+    COMMA           reduce using rule 19 (array_pairs -> array_pairs COMMA STRING DOUBLEARROW expression .)
+    PLUS            shift and go to state 31
+    MINUS           shift and go to state 32
+    TIMES           shift and go to state 33
+    DIVIDE          shift and go to state 34
+    MOD             shift and go to state 35
+    CONCAT          shift and go to state 36
+    INCR            shift and go to state 37
+
+
+state 121
+
+    (20) statement -> FOREACH LPAREN VARIABLE AS VARIABLE RPAREN block .
+
+    IF              reduce using rule 20 (statement -> FOREACH LPAREN VARIABLE AS VARIABLE RPAREN block .)
+    FUNCTION        reduce using rule 20 (statement -> FOREACH LPAREN VARIABLE AS VARIABLE RPAREN block .)
+    FOREACH         reduce using rule 20 (statement -> FOREACH LPAREN VARIABLE AS VARIABLE RPAREN block .)
+    CLASS           reduce using rule 20 (statement -> FOREACH LPAREN VARIABLE AS VARIABLE RPAREN block .)
+    ECHO            reduce using rule 20 (statement -> FOREACH LPAREN VARIABLE AS VARIABLE RPAREN block .)
+    RETURN          reduce using rule 20 (statement -> FOREACH LPAREN VARIABLE AS VARIABLE RPAREN block .)
+    LBRACKET        reduce using rule 20 (statement -> FOREACH LPAREN VARIABLE AS VARIABLE RPAREN block .)
+    ID              reduce using rule 20 (statement -> FOREACH LPAREN VARIABLE AS VARIABLE RPAREN block .)
+    VARIABLE        reduce using rule 20 (statement -> FOREACH LPAREN VARIABLE AS VARIABLE RPAREN block .)
+    NUMBER          reduce using rule 20 (statement -> FOREACH LPAREN VARIABLE AS VARIABLE RPAREN block .)
+    FLOAT           reduce using rule 20 (statement -> FOREACH LPAREN VARIABLE AS VARIABLE RPAREN block .)
+    STRING          reduce using rule 20 (statement -> FOREACH LPAREN VARIABLE AS VARIABLE RPAREN block .)
+    $end            reduce using rule 20 (statement -> FOREACH LPAREN VARIABLE AS VARIABLE RPAREN block .)
+    PHP_CLOSE       reduce using rule 20 (statement -> FOREACH LPAREN VARIABLE AS VARIABLE RPAREN block .)
+    RBRACE          reduce using rule 20 (statement -> FOREACH LPAREN VARIABLE AS VARIABLE RPAREN block .)
+    STATIC          reduce using rule 20 (statement -> FOREACH LPAREN VARIABLE AS VARIABLE RPAREN block .)
+
+
+state 122
+
+    (21) class_static_method -> STATIC FUNCTION ID LPAREN . RPAREN block
+
+    RPAREN          shift and go to state 123
+
+
+state 123
+
+    (21) class_static_method -> STATIC FUNCTION ID LPAREN RPAREN . block
+    (48) block -> . LBRACE statement_list RBRACE
+
+    LBRACE          shift and go to state 93
+
+    block                          shift and go to state 124
+
+state 124
+
+    (21) class_static_method -> STATIC FUNCTION ID LPAREN RPAREN block .
+
+    RBRACE          reduce using rule 21 (class_static_method -> STATIC FUNCTION ID LPAREN RPAREN block .)
+    STATIC          reduce using rule 21 (class_static_method -> STATIC FUNCTION ID LPAREN RPAREN block .)
+    IF              reduce using rule 21 (class_static_method -> STATIC FUNCTION ID LPAREN RPAREN block .)
+    FUNCTION        reduce using rule 21 (class_static_method -> STATIC FUNCTION ID LPAREN RPAREN block .)
+    FOREACH         reduce using rule 21 (class_static_method -> STATIC FUNCTION ID LPAREN RPAREN block .)
+    CLASS           reduce using rule 21 (class_static_method -> STATIC FUNCTION ID LPAREN RPAREN block .)
+    ECHO            reduce using rule 21 (class_static_method -> STATIC FUNCTION ID LPAREN RPAREN block .)
+    RETURN          reduce using rule 21 (class_static_method -> STATIC FUNCTION ID LPAREN RPAREN block .)
+    LBRACKET        reduce using rule 21 (class_static_method -> STATIC FUNCTION ID LPAREN RPAREN block .)
+    ID              reduce using rule 21 (class_static_method -> STATIC FUNCTION ID LPAREN RPAREN block .)
+    VARIABLE        reduce using rule 21 (class_static_method -> STATIC FUNCTION ID LPAREN RPAREN block .)
+    NUMBER          reduce using rule 21 (class_static_method -> STATIC FUNCTION ID LPAREN RPAREN block .)
+    FLOAT           reduce using rule 21 (class_static_method -> STATIC FUNCTION ID LPAREN RPAREN block .)
+    STRING          reduce using rule 21 (class_static_method -> STATIC FUNCTION ID LPAREN RPAREN block .)
+
+WARNING: 
+WARNING: Conflicts:
+WARNING: 
+WARNING: shift/reduce conflict for RPAREN in state 48 resolved as shift
+WARNING: shift/reduce conflict for PLUS in state 57 resolved as shift
+WARNING: shift/reduce conflict for MINUS in state 57 resolved as shift
+WARNING: shift/reduce conflict for TIMES in state 57 resolved as shift
+WARNING: shift/reduce conflict for DIVIDE in state 57 resolved as shift
+WARNING: shift/reduce conflict for MOD in state 57 resolved as shift
+WARNING: shift/reduce conflict for CONCAT in state 57 resolved as shift
+WARNING: shift/reduce conflict for INCR in state 57 resolved as shift
+WARNING: shift/reduce conflict for PLUS in state 58 resolved as shift
+WARNING: shift/reduce conflict for MINUS in state 58 resolved as shift
+WARNING: shift/reduce conflict for TIMES in state 58 resolved as shift
+WARNING: shift/reduce conflict for DIVIDE in state 58 resolved as shift
+WARNING: shift/reduce conflict for MOD in state 58 resolved as shift
+WARNING: shift/reduce conflict for CONCAT in state 58 resolved as shift
+WARNING: shift/reduce conflict for INCR in state 58 resolved as shift
+WARNING: shift/reduce conflict for PLUS in state 59 resolved as shift
+WARNING: shift/reduce conflict for MINUS in state 59 resolved as shift
+WARNING: shift/reduce conflict for TIMES in state 59 resolved as shift
+WARNING: shift/reduce conflict for DIVIDE in state 59 resolved as shift
+WARNING: shift/reduce conflict for MOD in state 59 resolved as shift
+WARNING: shift/reduce conflict for CONCAT in state 59 resolved as shift
+WARNING: shift/reduce conflict for INCR in state 59 resolved as shift
+WARNING: shift/reduce conflict for PLUS in state 60 resolved as shift
+WARNING: shift/reduce conflict for MINUS in state 60 resolved as shift
+WARNING: shift/reduce conflict for TIMES in state 60 resolved as shift
+WARNING: shift/reduce conflict for DIVIDE in state 60 resolved as shift
+WARNING: shift/reduce conflict for MOD in state 60 resolved as shift
+WARNING: shift/reduce conflict for CONCAT in state 60 resolved as shift
+WARNING: shift/reduce conflict for INCR in state 60 resolved as shift
+WARNING: shift/reduce conflict for PLUS in state 61 resolved as shift
+WARNING: shift/reduce conflict for MINUS in state 61 resolved as shift
+WARNING: shift/reduce conflict for TIMES in state 61 resolved as shift
+WARNING: shift/reduce conflict for DIVIDE in state 61 resolved as shift
+WARNING: shift/reduce conflict for MOD in state 61 resolved as shift
+WARNING: shift/reduce conflict for CONCAT in state 61 resolved as shift
+WARNING: shift/reduce conflict for INCR in state 61 resolved as shift
+WARNING: shift/reduce conflict for PLUS in state 62 resolved as shift
+WARNING: shift/reduce conflict for MINUS in state 62 resolved as shift
+WARNING: shift/reduce conflict for TIMES in state 62 resolved as shift
+WARNING: shift/reduce conflict for DIVIDE in state 62 resolved as shift
+WARNING: shift/reduce conflict for MOD in state 62 resolved as shift
+WARNING: shift/reduce conflict for CONCAT in state 62 resolved as shift
+WARNING: shift/reduce conflict for INCR in state 62 resolved as shift
