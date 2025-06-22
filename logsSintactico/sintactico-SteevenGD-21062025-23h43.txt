@@ -1,0 +1,4 @@
+Análisis sintáctico de algoritmos2_2.php (usuario: SteevenGD):
+
+Resultado del árbol sintáctico:
+('program', [('function_def', 'saludar', ['$nombre'], ('block', [('if_else', ('condition', ('expression', '$nombre'), '!=', ('expression', '""')), ('block', [('echo', ('expression', ('expression', '"Hola, "'), '.', ('expression', '$nombre')))]), ('block', [('echo', ('expression', '"Nombre vacío"'))]))])), ('function_def', 'miFuncion', ['$parametro1', '$parametro2'], ('block', [('assign', '$resultado', ('expression', ('expression', '$parametro1'), '+', ('expression', '$parametro2'))), ('return', ('expression', '$resultado'))])), ('assign', '$_valor1', ('expression', 10)), ('assign', '$_valor2', ('expression', 5)), ('assign', '$_resultadoFinal', ('expression', 'miFuncion', '(', [('expression', '$valor1'), ('expression', '$valor2')], ')')), ('echo', ('expression', '$_resultadoFinal'))])

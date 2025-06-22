@@ -2,9 +2,7 @@ import ply.lex as lex
 import os
 from datetime import datetime
 
-# ----------------------
-#  (Joseph Miranda) Palabras reservadas y Operadores
-# ----------------------
+# Palabras reservadas
 reserved = {
     'if': 'IF', 'else': 'ELSE', 'elseif': 'ELSEIF', 'while': 'WHILE',
     'for': 'FOR', 'foreach': 'FOREACH', 'echo': 'ECHO', 'function': 'FUNCTION',
@@ -12,11 +10,24 @@ reserved = {
     'interface': 'INTERFACE', 'public': 'PUBLIC', 'protected': 'PROTECTED',
     'private': 'PRIVATE', 'static': 'STATIC', 'try': 'TRY', 'catch': 'CATCH',
     'finally': 'FINALLY', 'throw': 'THROW', 'new': 'NEW', 'null': 'NULL',
-    'true': 'TRUE', 'false': 'FALSE', 'and': 'AND', 'or': 'OR', 
-    'define': 'DEFINE', 'as':'AS'
+    'true': 'TRUE', 'false': 'FALSE', 'and': 'AND', 'or': 'OR',
+    'define': 'DEFINE', 'as': 'AS'
 }
 
-# Operadores
+# Tokens
+tokens = [
+    'PLUS', 'MINUS', 'TIMES', 'DIVIDE', 'MOD',
+    'ASSIGN', 'PLUSEQ', 'MINUSEQ', 'TIMESEQ', 'DIVEQ', 'MODEQ',
+    'EQ', 'EEQ', 'NEQ', 'NNEQ', 'LT', 'GT', 'LE', 'GE',
+    'ANDAND', 'OROR', 'NOT',
+    'INCR', 'DECR',
+    'SEMICOLON', 'LBRACE', 'RBRACE', 'LPAREN', 'RPAREN',
+    'LBRACKET', 'RBRACKET', 'COMMA', 'COLON',
+    'ID', 'NUMBER', 'FLOAT', 'STRING',
+    'PHP_OPEN', 'PHP_CLOSE', 'CONCAT', 'DOUBLEARROW', 'VARIABLE'
+] + list(reserved.values())
+
+# Expresiones regulares simples
 t_PLUS    = r'\+'
 t_MINUS   = r'-'
 t_TIMES   = r'\*'
@@ -48,7 +59,7 @@ t_NOT    = r'!'
 t_INCR = r'\+\+'
 t_DECR = r'--'
 
-# Delimitadores
+
 t_SEMICOLON  = r';'
 t_LBRACE     = r'\{'
 t_RBRACE     = r'\}'
@@ -57,26 +68,10 @@ t_RPAREN     = r'\)'
 t_LBRACKET   = r'\['
 t_RBRACKET   = r'\]'
 t_COMMA      = r','
-t_COLON     = r':'
-t_CONCAT = r'\.'
+t_COLON      = r':'
+t_CONCAT     = r'\.'
 
-# Lista completa de tokens
-tokens = [
-    'PLUS', 'MINUS', 'TIMES', 'DIVIDE', 'MOD',
-    'ASSIGN', 'PLUSEQ', 'MINUSEQ', 'TIMESEQ', 'DIVEQ', 'MODEQ',
-    'EQ', 'EEQ', 'NEQ', 'NNEQ', 'LT', 'GT', 'LE', 'GE',
-    'ANDAND', 'OROR', 'NOT',
-    'INCR', 'DECR',
-    'SEMICOLON', 'LBRACE', 'RBRACE', 'LPAREN', 'RPAREN',
-    'LBRACKET', 'RBRACKET', 'COMMA', 'COLON',
-    'ID', 'NUMBER', 'FLOAT', 'STRING',
-    'PHP_OPEN', 'PHP_CLOSE', 'CONCAT', 'DOUBLEARROW','VARIABLE'
-] + list(reserved.values())
-
-# ----------------------
-# Expresiones Regulares
-# ----------------------
-
+# Tokens con funciones
 def t_STRING(t):
     r'(\"([^\\\n]|(\\.))*?\")|(\'([^\\\n]|(\\.))*?\')'
     return t
@@ -116,7 +111,7 @@ def t_PHP_CLOSE(t):
     return t
 
 def t_COMMENT(t):
-    r'(//.*|\#.*)'
+    r'(//.*|\#.*|/\*[\s\S]*?\*/)'
     pass
 
 
@@ -138,23 +133,19 @@ def t_error(t):
 # ----------------------
 lexer = lex.lex()
 
-# Prueba: analizar archivo PHP y guardar log
-nombre_archivo = "algoritmo1.php"
-usuario = "JohnUllaguari"
-
+# --- CONFIGURACIÓN PARA PRUEBA
+nombre_archivo = "algoritmos2_2.php"
+usuario = "steevenGD"
 ruta_archivo = os.path.join("algoritmos", nombre_archivo)
+
 carpeta_logs = "logs"
 os.makedirs(carpeta_logs, exist_ok=True)
+fecha_hora = datetime.now().strftime("%d%m%Y-%Hh%M")
+ruta_log = os.path.join(carpeta_logs, f"lexico-{usuario}-{fecha_hora}.txt")
 
-fecha_hora = datetime.now().strftime("%d-%m-%Y-%Hh%M")
-nombre_log = f"lexico-{usuario}-{fecha_hora}.txt"
-ruta_log = os.path.join(carpeta_logs, nombre_log)
-
-# Análisis léxico y guardado en log
 with open(ruta_archivo, 'r', encoding='utf-8') as archivo:
     data = archivo.read()
     lexer.input(data)
-
     with open(ruta_log, 'w', encoding='utf-8') as log:
         log.write(f"Tokens de {nombre_archivo} (usuario: {usuario}):\n\n")
         try:
