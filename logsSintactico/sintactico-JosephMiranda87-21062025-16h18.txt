@@ -1,0 +1,4 @@
+Análisis sintáctico de algoritmo1.php (usuario: JosephMiranda87):
+
+✔ Resultado del árbol sintáctico:
+('program', [('assign', '$valores', ('array', [('expression', 10), ('expression', 20), ('expression', 30)])), ('if_else', ('condition', ('expression', ('array_access', '$valores', ('expression', 1))), '==', ('expression', 20)), ('block', [('print', ('expression', '"El segundo valor es 20"'))]), ('block', [('print', ('expression', '"Condición no cumplida"'))]))])
