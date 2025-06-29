@@ -1,0 +1,34 @@
+Tokens de algoritmo1_3.php (usuario: JosephMiranda87):
+
+PHP_OPEN (<?php) - línea 1
+VARIABLE ($numero) - línea 2
+ASSIGN (=) - línea 2
+NUMBER (10) - línea 2
+SEMICOLON (;) - línea 2
+VARIABLE ($otro) - línea 3
+ASSIGN (=) - línea 3
+NUMBER (20) - línea 3
+SEMICOLON (;) - línea 3
+IF (if) - línea 5
+LPAREN (() - línea 5
+VARIABLE ($numero) - línea 5
+GT (>) - línea 5
+VARIABLE ($otro) - línea 5
+RPAREN ()) - línea 5
+LBRACE ({) - línea 5
+ECHO (echo) - línea 6
+STRING ("OK") - línea 6
+SEMICOLON (;) - línea 6
+RBRACE (}) - línea 7
+IF (if) - línea 9
+LPAREN (() - línea 9
+VARIABLE ($numero) - línea 9
+GT (>) - línea 9
+STRING ("texto") - línea 9
+RPAREN ()) - línea 9
+LBRACE ({) - línea 9
+ECHO (echo) - línea 10
+STRING ("Comparación extraña") - línea 10
+SEMICOLON (;) - línea 10
+RBRACE (}) - línea 11
+PHP_CLOSE (?>) - línea 12

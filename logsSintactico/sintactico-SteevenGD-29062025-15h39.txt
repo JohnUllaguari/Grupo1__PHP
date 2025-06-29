@@ -1,0 +1,3 @@
+Análisis sintáctico de algoritmos2_2.php (usuario: SteevenGD):
+
+No se generó árbol sintáctico.

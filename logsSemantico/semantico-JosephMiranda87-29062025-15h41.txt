@@ -1,0 +1,4 @@
+Errores semánticos en algoritmo1_3.php:
+
+Asignación incompatible: $texto (string) = number
+Comparación incompatible: number vs string

@@ -1,0 +1,4 @@
+Análisis sintáctico de algoritmo1_3.php (usuario: JosephMiranda87):
+
+Resultado del árbol sintáctico:
+('program', [('assign', '$numero', ('expression', ('expression', 5), '+', ('expression', 10))), ('assign', '$texto', ('expression', ('expression', 5), '+', ('expression', 7.8))), ('assign', '$resultado', ('expression', ('expression', '"Hola"'), '+', ('expression', 5))), ('echo', ('expression', '$numero')), ('echo', ('expression', '$texto')), ('echo', ('expression', '$resultado'))])

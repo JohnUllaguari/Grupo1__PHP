@@ -36,6 +36,10 @@ def p_if_else(p):
     'statement : IF LPAREN condition RPAREN block ELSE block'
     p[0] = ('if_else', p[3], p[5], p[7])
 
+def p_if(p):
+    'statement : IF LPAREN condition RPAREN block'
+    p[0] = ('if', p[3], p[5])
+
 # Tipo de funcion
 
 def p_function_def(p):
@@ -213,9 +217,8 @@ parser = yacc.yacc()
 
 
 # Pruebas
-nombre_archivo = "algoritmos2_2.php"  # archivo PHP a analizar
-# nombre_archivo = "Lenguajes de Programacion\Grupo1__PHP\algoritmos\algoritmos2_1.php"
-usuario = "SteevenGD"          # cambia por tu usuario Git
+nombre_archivo = "algoritmo1_3.php"  # archivo PHP a analizar
+usuario = "JosephMiranda87"          # cambia por tu usuario Git
 ruta_archivo = os.path.join("algoritmos", nombre_archivo)
 
 # Crear carpeta logs si no existe
