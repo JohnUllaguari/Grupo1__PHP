@@ -6,7 +6,6 @@ from datetime import datetime
 symbol_table = {}
 semantic_errors = []
 
-
 # Joseph Miranda
 # OPERACIONES VALIDAS
 #ASIGNACIONES COMPATIBLES
@@ -107,26 +106,28 @@ def check_class_non_empty(node):
         if not body:
             semantic_errors.append(f"La clase '{class_name}' está vacía. Debe tener al menos un método o atributo.")
 
-
 def analizar(ast):
     if not ast or ast[0] != 'program':
-        raise Exception("AST inválido o vacío")
+        semantic_errors.append("AST inválido o vacío")
+        return  # No interrumpir, solo registrar el error y salir
 
     for stmt in ast[1]:
-        if stmt[0] == 'assign':
-            infer_type(stmt)
-        elif stmt[0] == 'condition':
-            infer_type(stmt)
-        elif stmt[0] in ['if', 'if_else']:
-            _, cond, *blocks = stmt
-            infer_type(cond)
-        
-        # Aplicar nuevas reglas semánticas
-        check_return_usage(stmt)
-        check_loop_control(stmt)
-        # John Ullaguari
-        check_readline_assignment(stmt)
-        check_class_non_empty(stmt)
+        try:
+            if stmt[0] == 'assign':
+                infer_type(stmt)
+            elif stmt[0] == 'condition':
+                infer_type(stmt)
+            elif stmt[0] in ['if', 'if_else']:
+                _, cond, *blocks = stmt
+                infer_type(cond)
+            
+            # Aplicar reglas semánticas
+            check_return_usage(stmt)
+            check_loop_control(stmt)
+            check_readline_assignment(stmt)
+            check_class_non_empty(stmt)
+        except Exception as e:
+            semantic_errors.append(f"Error en análisis semántico: {str(e)}")
 
 # Variables con tipos explícitos
 symbol_table['$texto'] = 'string'
@@ -143,8 +144,15 @@ ruta_archivo = os.path.join("algoritmos", nombre_archivo)
 
 with open(ruta_archivo, 'r', encoding='utf-8') as f:
     data = f.read()
+
+try:
     ast = parser.parse(data)
-    analizar(ast)
+    if ast is None:
+        print("❌ Error sintáctico: No se generó árbol sintáctico.")
+    else:
+        analizar(ast)
+except Exception as e:
+    print(f"❌ Error en el parser: {e}")
 
 with open(ruta_log, 'w', encoding='utf-8') as log:
     log.write(f"Errores semánticos en {nombre_archivo}:\n\n")
@@ -154,4 +162,4 @@ with open(ruta_log, 'w', encoding='utf-8') as log:
     else:
         log.write("Sin errores semánticos.\n")
 
-print(f"✅ Análisis semántico completado. Log guardado en: logsSemantico\\semantico-{usuario}-{fecha_hora}.txt")
+print(f"✅ Análisis semántico completado. Log guardado en: {ruta_log}")

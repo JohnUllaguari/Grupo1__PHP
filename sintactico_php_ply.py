@@ -235,7 +235,7 @@ parser = yacc.yacc()
 
 # Pruebas
 nombre_archivo = "algoritmo_sema.php"  # archivo PHP a analizar
-usuario = "JohnUllaguari"          # cambia por tu usuario Git
+usuario = "JohnUllaguari"               # cambia por tu usuario Git
 ruta_archivo = os.path.join("algoritmos", nombre_archivo)
 
 # Crear carpeta logs si no existe
@@ -246,7 +246,6 @@ fecha_hora = datetime.now().strftime("%d%m%Y-%Hh%M")
 nombre_log = f"sintactico-{usuario}-{fecha_hora}.txt"
 ruta_log = os.path.join(carpeta_logs, nombre_log)
 
-# Leer y analizar archivo
 with open(ruta_archivo, 'r', encoding='utf-8') as archivo:
     data = archivo.read()
     with open(ruta_log, 'w', encoding='utf-8') as log:
@@ -260,5 +259,6 @@ with open(ruta_archivo, 'r', encoding='utf-8') as archivo:
                 log.write("No se generó árbol sintáctico.\n")
         except Exception as e:
             log.write(f"[SYNTACTIC ERROR]: {e}\n")
+            print(f"❌ Error en el parser: {e}")
 
 print(f"✅ Análisis sintáctico completado. Log guardado en: {ruta_log}")
