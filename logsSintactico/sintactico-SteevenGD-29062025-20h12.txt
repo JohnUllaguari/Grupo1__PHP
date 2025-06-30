@@ -1,0 +1,4 @@
+Análisis sintáctico de algoritmos2_3.php (usuario: SteevenGD):
+
+Resultado del árbol sintáctico:
+('program', [('assign', '$variable_valida', ('expression', 123)), ('if', ('condition', ('expression', '$variable_valida'), '>', ('expression', 100)), ('block', [('echo', ('expression', '"Es mayor"'))]))])

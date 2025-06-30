@@ -1,0 +1,3 @@
+Errores semánticos en algoritmos2_3.php:
+
+Sin errores semánticos.

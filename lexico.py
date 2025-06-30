@@ -134,8 +134,8 @@ def t_error(t):
 lexer = lex.lex()
 
 # --- CONFIGURACIÓN PARA PRUEBA
-nombre_archivo = "algoritmo1_3.php"
-usuario = "JosephMiranda87"
+nombre_archivo = "algoritmo2_3.php"
+usuario = "SteevenGD"
 
 ruta_archivo = os.path.join("algoritmos", nombre_archivo)
 carpeta_logs = "logs"
@@ -158,4 +158,4 @@ with open(ruta_archivo, 'r', encoding='utf-8') as archivo:
         except Exception as e:
             log.write(f"[LEX ERROR]: {e}\n")
 
-print(f" Análisis léxico completado. Log guardado en: {ruta_log}")
+print(f"✅ Análisis léxico completado. Log guardado en: {ruta_log}")

@@ -1,0 +1,19 @@
+Tokens de algoritmos2_3.php (usuario: steevenGD):
+
+PHP_OPEN (<?php) - línea 1
+VARIABLE ($variable_valida) - línea 3
+ASSIGN (=) - línea 3
+NUMBER (123) - línea 3
+SEMICOLON (;) - línea 3
+IF (if) - línea 4
+LPAREN (() - línea 4
+VARIABLE ($variable_valida) - línea 4
+GT (>) - línea 4
+NUMBER (100) - línea 4
+RPAREN ()) - línea 4
+LBRACE ({) - línea 4
+ECHO (echo) - línea 5
+STRING ("Es mayor") - línea 5
+SEMICOLON (;) - línea 5
+RBRACE (}) - línea 6
+PHP_CLOSE (?>) - línea 7

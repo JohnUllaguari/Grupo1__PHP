@@ -181,9 +181,26 @@ def p_program(p):
 
 def p_error(p):
     if p:
-        print(f"[SYNTACTIC ERROR] Unexpected token '{p.value}' at line {p.lineno}")
+        # Error específico con token inesperado
+        error_msg = f"[ERROR SINTÁCTICO] Línea {p.lineno}: Token inesperado '{p.value}'"
+        
+        # Sugerencia basada en el token
+        if p.type in ['IF', 'ELSE', 'WHILE', 'FOR']:
+            error_msg += f" - ¿Falta un paréntesis después de '{p.value}'?"
+        elif p.type == 'SEMICOLON':
+            error_msg += " - ¿Falta un punto y coma (;) antes de esta línea?"
+        elif p.type in ['LBRACE', 'RBRACE']:
+            error_msg += " - ¿Falta o sobra una llave ({})?"
+        elif p.type in ['LPAREN', 'RPAREN']:
+            error_msg += " - ¿Falta o sobra un paréntesis?"
+        
+        print(error_msg)
+        
+        # Recuperación: saltar hasta el siguiente punto y coma
+        parser.errok()
+        return parser.token()
     else:
-        print("[SYNTACTIC ERROR] Unexpected end of input")
+        print("[ERROR SINTÁCTICO] Fin de archivo inesperado")
 
 # ============================== #
 # === Aportes de Steeven Gómez === #
@@ -217,8 +234,8 @@ parser = yacc.yacc()
 
 
 # Pruebas
-nombre_archivo = "algoritmo1_3.php"  # archivo PHP a analizar
-usuario = "JosephMiranda87"          # cambia por tu usuario Git
+nombre_archivo = "algoritmos2_3.php"  # archivo PHP a analizar
+usuario = "SteevenGD"          # cambia por tu usuario Git
 ruta_archivo = os.path.join("algoritmos", nombre_archivo)
 
 # Crear carpeta logs si no existe
@@ -244,4 +261,4 @@ with open(ruta_archivo, 'r', encoding='utf-8') as archivo:
         except Exception as e:
             log.write(f"[SYNTACTIC ERROR]: {e}\n")
 
-print(f"Análisis sintáctico completado. Log guardado en: {ruta_log}")
+print(f"✅ Análisis sintáctico completado. Log guardado en: {ruta_log}")

@@ -75,6 +75,20 @@ def infer_type(node):
 
     return 'unknown'
 
+
+# STEEVEN GÓMEZ
+# VERIFICAR RETURN
+# VALIDAR BREAK Y CONTINUE
+def check_return_usage(node):
+    if isinstance(node, tuple) and node[0] == 'return':
+        if 'function' not in [n[0] for n in node[1:-1]]:  # Buscar contexto de función
+            semantic_errors.append("Return usado fuera de contexto de función")
+
+def check_loop_control(node):
+    if isinstance(node, tuple) and node[0] in ('break', 'continue'):
+        if 'while' not in [n[0] for n in node[1:-1]] and 'for' not in [n[0] for n in node[1:-1]]:
+            semantic_errors.append(f"{node[0]} usado fuera de bucle")
+
 def analizar(ast):
     if not ast or ast[0] != 'program':
         raise Exception("AST inválido o vacío")
@@ -87,20 +101,25 @@ def analizar(ast):
         elif stmt[0] in ['if', 'if_else']:
             _, cond, *blocks = stmt
             infer_type(cond)
+        
+        # Aplicar nuevas reglas semánticas
+        check_return_usage(stmt)
+        check_loop_control(stmt)
 
 # Variables con tipos explícitos
 symbol_table['$texto'] = 'string'
 symbol_table['$numero'] = 'number'
 symbol_table['$otro'] = 'number'
 
-nombre_archivo = "algoritmo1_3.php"
-usuario = "JosephMiranda87"
+nombre_archivo = "algoritmos2_3.php"
+usuario = "SteevenGD"
 carpeta_logs = "logsSemantico"
 os.makedirs(carpeta_logs, exist_ok=True)
 fecha_hora = datetime.now().strftime("%d%m%Y-%Hh%M")
 ruta_log = os.path.join(carpeta_logs, f"semantico-{usuario}-{fecha_hora}.txt")
+ruta_archivo = os.path.join("algoritmos", nombre_archivo)
 
-with open(f"algoritmos/{nombre_archivo}", 'r', encoding='utf-8') as f:
+with open(ruta_archivo, 'r', encoding='utf-8') as f:
     data = f.read()
     ast = parser.parse(data)
     analizar(ast)
@@ -113,4 +132,4 @@ with open(ruta_log, 'w', encoding='utf-8') as log:
     else:
         log.write("Sin errores semánticos.\n")
 
-print(f"Log generado: {ruta_log}")
+print(f"✅ Análisis semántico completado. Log guardado en: logsSemantico\\semantico-{usuario}-{fecha_hora}.txt")
