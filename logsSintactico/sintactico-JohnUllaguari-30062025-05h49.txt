@@ -1,0 +1,4 @@
+Análisis sintáctico de algoritmo_sema.php (usuario: JohnUllaguari):
+
+Resultado del árbol sintáctico:
+('program', [('assign', '$notas', ('array_assoc', 'array', [('"mate"', ('expression', 9)), ('"lengua"', ('expression', 8))])), ('foreach', '$notas', '$nota', ('block', [('echo', ('expression', '$nota'))])), ('class_def', 'Persona', [('static_method', 'saludar', ('block', [('echo', ('expression', '"Hola"'))]))]), ('assign', '$nombre', ('input_readline', '"Ingrese su nombre: "')), ('echo', ('expression', '$nombre'))])

@@ -1,0 +1,3 @@
+Errores semánticos en algoritmo_sema.php:
+
+Sin errores semánticos.

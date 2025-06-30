@@ -89,6 +89,25 @@ def check_loop_control(node):
         if 'while' not in [n[0] for n in node[1:-1]] and 'for' not in [n[0] for n in node[1:-1]]:
             semantic_errors.append(f"{node[0]} usado fuera de bucle")
 
+# ----------------------------------------------
+# Reglas semánticas de John Ullaguari
+# ----------------------------------------------
+
+# 1. Validar que readline() solo se use dentro de una asignación
+def check_readline_assignment(node):
+    if isinstance(node, tuple) and node[0] == 'stmt_expr':
+        expr = node[1]
+        if isinstance(expr, tuple) and expr[0] == 'input_readline':
+            semantic_errors.append("Uso inválido de readline(): debe asignarse a una variable.")
+
+# 2. Validar que las clases no estén vacías (deben tener métodos o atributos)
+def check_class_non_empty(node):
+    if isinstance(node, tuple) and node[0] == 'class_def':
+        _, class_name, body = node
+        if not body:
+            semantic_errors.append(f"La clase '{class_name}' está vacía. Debe tener al menos un método o atributo.")
+
+
 def analizar(ast):
     if not ast or ast[0] != 'program':
         raise Exception("AST inválido o vacío")
@@ -105,14 +124,17 @@ def analizar(ast):
         # Aplicar nuevas reglas semánticas
         check_return_usage(stmt)
         check_loop_control(stmt)
+        # John Ullaguari
+        check_readline_assignment(stmt)
+        check_class_non_empty(stmt)
 
 # Variables con tipos explícitos
 symbol_table['$texto'] = 'string'
 symbol_table['$numero'] = 'number'
 symbol_table['$otro'] = 'number'
 
-nombre_archivo = "algoritmos2_3.php"
-usuario = "SteevenGD"
+nombre_archivo = "algoritmo_sema.php"
+usuario = "JohnUllaguari"
 carpeta_logs = "logsSemantico"
 os.makedirs(carpeta_logs, exist_ok=True)
 fecha_hora = datetime.now().strftime("%d%m%Y-%Hh%M")

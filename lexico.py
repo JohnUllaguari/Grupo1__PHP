@@ -134,8 +134,8 @@ def t_error(t):
 lexer = lex.lex()
 
 # --- CONFIGURACIÓN PARA PRUEBA
-nombre_archivo = "algoritmo2_3.php"
-usuario = "SteevenGD"
+nombre_archivo = "algoritmo_sema.php"
+usuario = "JohnUllaguari"
 
 ruta_archivo = os.path.join("algoritmos", nombre_archivo)
 carpeta_logs = "logs"

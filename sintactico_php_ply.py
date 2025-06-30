@@ -234,8 +234,8 @@ parser = yacc.yacc()
 
 
 # Pruebas
-nombre_archivo = "algoritmos2_3.php"  # archivo PHP a analizar
-usuario = "SteevenGD"          # cambia por tu usuario Git
+nombre_archivo = "algoritmo_sema.php"  # archivo PHP a analizar
+usuario = "JohnUllaguari"          # cambia por tu usuario Git
 ruta_archivo = os.path.join("algoritmos", nombre_archivo)
 
 # Crear carpeta logs si no existe

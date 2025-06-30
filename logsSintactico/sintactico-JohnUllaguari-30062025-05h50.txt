@@ -1,0 +1,5 @@
+Análisis sintáctico de algoritmo_sema.php (usuario: JohnUllaguari):
+
+No se generó árbol sintáctico.
+
+*** cuando hay un error semantico no se genera el log sintactico_php_ply ni logsSemantico***

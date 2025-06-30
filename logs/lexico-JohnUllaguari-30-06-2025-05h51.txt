@@ -1,0 +1,37 @@
+Tokens de algoritmo_sema.php (usuario: JohnUllaguari):
+
+PHP_OPEN (<?php) - línea 1
+ID (readline) - línea 4
+LPAREN (() - línea 4
+STRING ("Ingrese su nombre: ") - línea 4
+RPAREN ()) - línea 4
+SEMICOLON (;) - línea 4
+VARIABLE ($nombre) - línea 7
+ASSIGN (=) - línea 7
+ID (readline) - línea 7
+LPAREN (() - línea 7
+STRING ("Ingrese su nombre: ") - línea 7
+RPAREN ()) - línea 7
+SEMICOLON (;) - línea 7
+ECHO (echo) - línea 8
+VARIABLE ($nombre) - línea 8
+SEMICOLON (;) - línea 8
+CLASS (class) - línea 11
+ID (Vacia) - línea 11
+LBRACE ({) - línea 11
+RBRACE (}) - línea 12
+CLASS (class) - línea 15
+ID (Persona) - línea 15
+LBRACE ({) - línea 15
+STATIC (static) - línea 16
+FUNCTION (function) - línea 16
+ID (saludar) - línea 16
+LPAREN (() - línea 16
+RPAREN ()) - línea 16
+LBRACE ({) - línea 16
+ECHO (echo) - línea 17
+STRING ("Hola") - línea 17
+SEMICOLON (;) - línea 17
+RBRACE (}) - línea 18
+RBRACE (}) - línea 19
+PHP_CLOSE (?>) - línea 21
