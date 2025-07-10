@@ -18,7 +18,8 @@ def p_expression_list(p):
         p[0] = p[1] + [p[3]]
 
 def p_array_literal(p):
-    'expression : LBRACKET expression_list RBRACKET'
+    '''expression : LBRACKET expression_list RBRACKET
+                       | ARRAY LPAREN expression_list RPAREN'''
     p[0] = ('array', p[2])
 
 # Estructura de control: if-else
@@ -184,7 +185,7 @@ def p_program(p):
 def p_error(p):
     if p:
         # Error específico con token inesperado
-        error_msg = f"[ERROR SINTÁCTICO] Línea {p.lineno}: Token inesperado '{p.value}'"
+        error_msg = f"[ERROR SINTÁCTICO] Token inesperado '{p.value}'"
         
         # Sugerencia basada en el token
         if p.type in ['IF', 'ELSE', 'WHILE', 'FOR']:
@@ -235,7 +236,7 @@ def p_anonymous_function(p):
 def p_error(p):
     if p:
         error_msg = (
-            f"[ERROR SINTÁCTICO] Línea {p.lineno} → "
+            f"[ERROR SINTÁCTICO] → "
             f"Token inesperado: '{p.value}'\n"
         )
         # Sugerencias contextuales

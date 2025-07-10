@@ -12,7 +12,7 @@ reserved = {
     'private': 'PRIVATE', 'static': 'STATIC', 'try': 'TRY', 'catch': 'CATCH',
     'finally': 'FINALLY', 'throw': 'THROW', 'new': 'NEW', 'null': 'NULL',
     'true': 'TRUE', 'false': 'FALSE', 'and': 'AND', 'or': 'OR',
-    'define': 'DEFINE', 'as': 'AS'
+    'define': 'DEFINE', 'as': 'AS', 'array': 'ARRAY'
 }
 
 # Tokens
