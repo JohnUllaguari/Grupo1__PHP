@@ -2,6 +2,8 @@ import ply.yacc as yacc
 from lexico import tokens
 import os
 from datetime import datetime
+import sys
+import pprint
 
 start = 'program'
 
@@ -229,22 +231,51 @@ def p_anonymous_function(p):
     'expression : FUNCTION LPAREN parameter_list RPAREN block'
     p[0] = ('anonymous_function', p[3], p[5])
 
+
+def p_error(p):
+    if p:
+        error_msg = (
+            f"[ERROR SINTÁCTICO] Línea {p.lineno} → "
+            f"Token inesperado: '{p.value}'\n"
+        )
+        # Sugerencias contextuales
+        if p.type in ['IF', 'ELSE', 'WHILE', 'FOR']:
+            error_msg += f"  Sugerencia: ¿Falta un paréntesis después de '{p.value}'?\n"
+        elif p.type == 'SEMICOLON':
+            error_msg += "  Sugerencia: ¿Falta un punto y coma ';'?\n"
+        elif p.type in ['LBRACE', 'RBRACE']:
+            error_msg += "  Sugerencia: ¿Llave mal balanceada?\n"
+        print(error_msg.strip())
+        with open(ruta_log, 'a', encoding='utf-8') as log:
+            log.write(error_msg)
+        parser.errok()
+        return parser.token()
+    else:
+        msg = "[ERROR SINTÁCTICO] Fin de archivo inesperado\n"
+        print(msg.strip())
+        with open(ruta_log, 'a', encoding='utf-8') as log:
+            log.write(msg)
+
+
 # Crear parser
 parser = yacc.yacc()
 
 
 # Pruebas
-nombre_archivo = "algoritmo_sema.php"  # archivo PHP a analizar
-usuario = "JohnUllaguari"               # cambia por tu usuario Git
-ruta_archivo = os.path.join("algoritmos", nombre_archivo)
+if len(sys.argv) >= 3:
+    nombre_archivo = sys.argv[1]
+    usuario = sys.argv[2]
+else:
+    nombre_archivo = "algoritmos/algoritmo1_3.php"
+    usuario = "JosephMiranda87"
 
-# Crear carpeta logs si no existe
+ruta_archivo = nombre_archivo
 carpeta_logs = "logsSintactico"
 os.makedirs(carpeta_logs, exist_ok=True)
-
 fecha_hora = datetime.now().strftime("%d%m%Y-%Hh%M")
-nombre_log = f"sintactico-{usuario}-{fecha_hora}.txt"
-ruta_log = os.path.join(carpeta_logs, nombre_log)
+ruta_log = os.path.join(carpeta_logs, f"sintactico-{usuario}-{fecha_hora}.txt")
+
+pp = pprint.PrettyPrinter(indent=2)
 
 with open(ruta_archivo, 'r', encoding='utf-8') as archivo:
     data = archivo.read()
@@ -253,12 +284,13 @@ with open(ruta_archivo, 'r', encoding='utf-8') as archivo:
         try:
             result = parser.parse(data)
             if result:
-                log.write("Resultado del árbol sintáctico:\n")
-                log.write(str(result))
+                log.write("Árbol sintáctico generado correctamente.\n")
+                log.write("\n")
+                log.write(pp.pformat(result))
             else:
                 log.write("No se generó árbol sintáctico.\n")
         except Exception as e:
-            log.write(f"[SYNTACTIC ERROR]: {e}\n")
-            print(f"❌ Error en el parser: {e}")
+            log.write(f"[ERROR]: {e}\n")
+            print(f"Error en el parser: {e}")
 
-print(f"✅ Análisis sintáctico completado. Log guardado en: {ruta_log}")
+print(f"Análisis sintáctico completado. Log guardado en: {ruta_log}")

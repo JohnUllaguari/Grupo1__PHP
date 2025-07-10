@@ -1,0 +1,23 @@
+Análisis semántico de entrada_usuario_temp.php (usuario: JosephMiranda87):
+
+✅ Árbol sintáctico generado:
+
+( 'program',
+  [ ('assign', '$texto', ('expression', '"Hola mundo"')),
+    ('assign', '$texto', ('expression', '"Otro texto"')),
+    ( 'assign',
+      '$texto',
+      ('expression', ('expression', 5), '+', ('expression', 7.8))),
+    ('assign', '$numero', ('expression', 10)),
+    ('assign', '$otro', ('expression', 20)),
+    ( 'if',
+      ('condition', ('expression', '$numero'), '>', ('expression', '$otro')),
+      ('block', [('echo', ('expression', '"OK"'))])),
+    ( 'if',
+      ('condition', ('expression', '$numero'), '>', ('expression', '"texto"')),
+      ('block', [('echo', ('expression', '"Comparación rara"'))]))])
+
+Errores semánticos encontrados:
+
+Asignación incompatible: $texto (string) = number. Expresión: ('expression', ('expression', 5), '+', ('expression', 7.8))
+Comparación incompatible: number vs string. Expresión: ('expression', '$numero') > ('expression', '"texto"')

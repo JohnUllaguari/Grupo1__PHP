@@ -1,6 +1,7 @@
 import ply.lex as lex
 import os
 from datetime import datetime
+import sys
 
 # Palabras reservadas
 reserved = {
@@ -133,11 +134,14 @@ def t_error(t):
 # ----------------------
 lexer = lex.lex()
 
-# --- CONFIGURACIÓN PARA PRUEBA
-nombre_archivo = "algoritmo_sema.php"
-usuario = "JohnUllaguari"
+if len(sys.argv) >= 3:
+    nombre_archivo = sys.argv[1]
+    usuario = sys.argv[2]
+else:
+    nombre_archivo = "algoritmos/algoritmo1_3.php"
+    usuario = "JosephMiranda87"
 
-ruta_archivo = os.path.join("algoritmos", nombre_archivo)
+ruta_archivo = nombre_archivo
 carpeta_logs = "logs"
 os.makedirs(carpeta_logs, exist_ok=True)
 
@@ -145,9 +149,11 @@ fecha_hora = datetime.now().strftime("%d-%m-%Y-%Hh%M")
 nombre_log = f"lexico-{usuario}-{fecha_hora}.txt"
 ruta_log = os.path.join(carpeta_logs, nombre_log)
 
-# Análisis léxico y guardado en log
 with open(ruta_archivo, 'r', encoding='utf-8') as archivo:
     data = archivo.read()
+
+    lexer.lineno = 1
+
     lexer.input(data)
 
     with open(ruta_log, 'w', encoding='utf-8') as log:
@@ -158,4 +164,4 @@ with open(ruta_archivo, 'r', encoding='utf-8') as archivo:
         except Exception as e:
             log.write(f"[LEX ERROR]: {e}\n")
 
-print(f"✅ Análisis léxico completado. Log guardado en: {ruta_log}")
+print(f"Análisis léxico completado. Log guardado en: {ruta_log}")

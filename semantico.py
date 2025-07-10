@@ -1,6 +1,8 @@
 from sintactico_php_ply import parser
 import os
 from datetime import datetime
+import sys
+import pprint
 
 # Tabla de símbolos para tipos conocidos
 symbol_table = {}
@@ -10,23 +12,45 @@ semantic_errors = []
 # OPERACIONES VALIDAS
 #ASIGNACIONES COMPATIBLES
 
+def format_expression(node):
+    if isinstance(node, tuple):
+        if node[0] == 'expression':
+            if len(node) >= 5:
+                # Binaria con operador
+                left = format_expression(node[1])
+                op = node[2]
+                right = format_expression(node[3])
+                return f"({left} {op} {right})"
+            elif len(node) == 3:
+                # Literal simple
+                return str(node[1])
+            else:
+                return str(node)
+        else:
+            return str(node)
+    else:
+        return str(node)
+
+
+
 def infer_type(node):
     """Inferir tipos para asignaciones y comparaciones"""
     if isinstance(node, tuple):
         nodetype = node[0]
 
         if nodetype == 'assign':
-            _, var, expr = node
+            _, var, expr, *_ = node  # Usa _ para ignorar lineno
             expr_type = infer_type(expr)
 
             if var in symbol_table:
                 var_type = symbol_table[var]
                 if var_type != expr_type:
+                    expr_str = format_expression(expr)
                     semantic_errors.append(
-                        f"Asignación incompatible: {var} ({var_type}) = {expr_type}"
+                        f"Asignación incompatible: {var} ({var_type}) = {expr_type}. Expresión: {expr_str}"
                     )
             else:
-                symbol_table[var] = expr_type  # primer uso define tipo
+                symbol_table[var] = expr_type
             return expr_type
 
         elif nodetype == 'expression':
@@ -51,14 +75,15 @@ def infer_type(node):
                 _, val = node
                 return infer_type(val)
 
+
         elif nodetype == 'condition':
-            _, left, _, right = node
+            _, left, op, right, *_ = node
             left_type = infer_type(left)
             right_type = infer_type(right)
-
             if left_type != right_type:
+                expr_str = f"{format_expression(left)} {op} {format_expression(right)}"
                 semantic_errors.append(
-                    f"Comparación incompatible: {left_type} vs {right_type}"
+                    f"Comparación incompatible: {left_type} vs {right_type}. Expresión: {expr_str}"
                 )
             return 'boolean'
 
@@ -73,6 +98,10 @@ def infer_type(node):
             return 'id'
 
     return 'unknown'
+
+symbol_table['$texto'] = 'string'
+symbol_table['$numero'] = 'number'
+symbol_table['$otro'] = 'number'
 
 
 # STEEVEN GÓMEZ
@@ -129,37 +158,49 @@ def analizar(ast):
         except Exception as e:
             semantic_errors.append(f"Error en análisis semántico: {str(e)}")
 
-# Variables con tipos explícitos
-symbol_table['$texto'] = 'string'
-symbol_table['$numero'] = 'number'
-symbol_table['$otro'] = 'number'
+if len(sys.argv) >= 3:
+    nombre_archivo = sys.argv[1]
+    usuario = sys.argv[2]
+else:
+    nombre_archivo = "algoritmos/algoritmo1_3.php"
+    usuario = "JosephMiranda87"
 
-nombre_archivo = "algoritmo_sema.php"
-usuario = "JohnUllaguari"
+ruta_archivo = nombre_archivo
+
+# === Configurar log ===
 carpeta_logs = "logsSemantico"
 os.makedirs(carpeta_logs, exist_ok=True)
 fecha_hora = datetime.now().strftime("%d%m%Y-%Hh%M")
 ruta_log = os.path.join(carpeta_logs, f"semantico-{usuario}-{fecha_hora}.txt")
-ruta_archivo = os.path.join("algoritmos", nombre_archivo)
 
+pp = pprint.PrettyPrinter(indent=2)
+
+# === Ejecutar análisis ===
 with open(ruta_archivo, 'r', encoding='utf-8') as f:
     data = f.read()
 
 try:
     ast = parser.parse(data)
     if ast is None:
-        print("❌ Error sintáctico: No se generó árbol sintáctico.")
+        print(" Error sintáctico: No se generó árbol sintáctico.")
+        semantic_errors.append("Error sintáctico: No se generó árbol sintáctico.")
     else:
         analizar(ast)
 except Exception as e:
-    print(f"❌ Error en el parser: {e}")
+    semantic_errors.append(f"Error en el parser: {e}")
 
+# === Guardar log ===
 with open(ruta_log, 'w', encoding='utf-8') as log:
-    log.write(f"Errores semánticos en {nombre_archivo}:\n\n")
+    log.write(f"Análisis semántico de {nombre_archivo} (usuario: {usuario}):\n\n")
+    log.write("Árbol sintáctico generado:\n\n")
+    log.write(pp.pformat(ast))
+    log.write("\n\n")
+
+    log.write("Errores semánticos encontrados:\n\n")
     if semantic_errors:
         for err in semantic_errors:
-            log.write(err + "\n")
+            log.write(f"{err}\n")
     else:
         log.write("Sin errores semánticos.\n")
 
-print(f"✅ Análisis semántico completado. Log guardado en: {ruta_log}")
+print(f"Análisis semántico completado. Log guardado en: {ruta_log}")
