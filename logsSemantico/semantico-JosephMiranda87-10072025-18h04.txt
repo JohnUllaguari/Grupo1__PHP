@@ -1,0 +1,57 @@
+Análisis semántico de entrada_usuario_temp.php (usuario: JosephMiranda87):
+
+Árbol sintáctico generado:
+
+( 'program',
+  [ ('assign', '$texto', ('expression', '"Hola mundo"')),
+    ('assign', '$texto', ('expression', '"Otro texto"')),
+    ( 'assign',
+      '$texto',
+      ('expression', ('expression', 5), '+', ('expression', 7.8))),
+    ('assign', '$numero', ('expression', 10)),
+    ('assign', '$otro', ('expression', 20)),
+    ( 'if',
+      ('condition', ('expression', '$numero'), '>', ('expression', '$otro')),
+      ('block', [('echo', ('expression', '"OK"'))])),
+    ( 'if',
+      ('condition', ('expression', '$numero'), '>', ('expression', '"texto"')),
+      ('block', [('echo', ('expression', '"Comparación rara"'))])),
+    ('assign', '$numeros', ('array', '(')),
+    ('assign', '$palabras', ('array', '(')),
+    ( 'if_else',
+      ( 'condition',
+        ('expression', '$numeros', '[', ('expression', 0), ']'),
+        '>',
+        ('expression', 0)),
+      ('block', [('echo', ('expression', '"Primer número es positivo"'))]),
+      ('block', [('echo', ('expression', '"Primer número no es positivo"'))])),
+    ( 'function_def',
+      'saludar',
+      ['$nombre'],
+      ( 'block',
+        [ ( 'return',
+            ( 'expression',
+              ('expression', '"Hola, "'),
+              '.',
+              ('expression', '$nombre')))])),
+    ('echo', ('func_call', 'saludar', ['"Joseph"'])),
+    ( 'assign',
+      '$suma',
+      ('expression', ('expression', 5), '+', ('expression', 3))),
+    ( 'assign',
+      '$suma_error',
+      ('expression', ('expression', 5), '+', ('expression', '"texto"'))),
+    ('assign', '$mensaje', ('expression', '"Hola mundo"')),
+    ('assign', '$mensaje', ('expression', 5)),
+    ( 'assign',
+      '$resultado_error',
+      ('expression', ('expression', '$numeros'), '+', ('expression', 5)))])
+
+Errores semánticos encontrados:
+
+Asignación incompatible: $texto (string) = number. Expresión: ('expression', ('expression', 5), '+', ('expression', 7.8))
+Comparación incompatible: number vs string. Expresión: ('expression', '$numero') > ('expression', '"texto"')
+Comparación incompatible: unknown vs number. Expresión: ($numeros [ ('expression', 0)) > ('expression', 0)
+Operación inválida: + entre number y string
+Asignación incompatible: $mensaje (string) = number. Expresión: ('expression', 5)
+Operación inválida: + entre unknown y number
